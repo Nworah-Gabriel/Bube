@@ -80,7 +80,7 @@
       <div class="mil-menu-frame">
         <!-- frame clone -->
         <div class="mil-frame-top">
-          <a href="dashboard.html" class="mil-logo">Admin</a>
+          <a href="{% url 'home-view' %}" class="mil-logo">Admin</a>
           <div class="mil-menu-btn">
             <span></span>
           </div>
@@ -93,30 +93,30 @@
                 <nav class="mil-main-menu" id="swupMenu">
                   <ul>
                     <li class="mil-has-children">
-                      <a href="">Project Dashboard</a>
+                      <a href="{% url 'home-view' %}">Project Dashboard</a>
                       <ul>
                         <li>
                           <a href="{% url 'create-project' %}">New Projects</a>
                         </li>
                         <li>
-                          <a href="project-dashboard.html">Project List</a>
+                          <a href="{% url 'home-view' %}">Project List</a>
                         </li>
                       </ul>
                     </li>
                     <li class="mil-has-children">
                       <a href="">Research</a>
                       <ul>
-                        <li><a href="research-create.html">New Research</a></li>
-                        <li><a href="research-list.html">Research Works</a></li>
+                        <li><a href="{% url 'create-research' %}">New Research</a></li>
+                        <li><a href="{% url 'research-list' %}">Research Works</a></li>
                       </ul>
                     </li>
                     <li class="mil-has-children">
                       <a href="">Certifications</a>
                       <ul>
                         <li>
-                          <a href="cert-upload.html">New Certification</a>
+                          <a href="{% url 'upload-certificate' %}">New Certification</a>
                         </li>
-                        <li><a href="cert-list.html">Certifications</a></li>
+                        <li><a href="{% url 'cert-list' %}">Certifications</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -223,7 +223,7 @@
       <!-- frame -->
       <div class="mil-frame">
         <div class="mil-frame-top">
-          <a href="dashboard.html" class="mil-logo">Admin</a>
+          <a href="{% url 'home-view' %}" class="mil-logo">Admin</a>
           <div class="mil-menu-btn">
             <span></span>
           </div>
