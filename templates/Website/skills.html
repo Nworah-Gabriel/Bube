@@ -1,0 +1,104 @@
+{% load static %} {% include 'Website/__header.html' %}
+
+                <!-- banner -->
+                <div class="mil-dark-bg">
+                    <div class="mil-inner-banner">
+                        <div class="mi-invert-fix">
+                            <div class="mil-banner-content mil-up">
+                                <div class="mil-animation-frame">
+                                    <div class="mil-animation mil-position-4 mil-scale" data-value-1="6" data-value-2="1.4"></div>
+                                </div>
+                                <div class="container">
+                                    <ul class="mil-breadcrumbs mil-light mil-mb-60">
+                                        <li><a href="index.html">Homepage</a></li>
+                                        <li><a href="{% url 'skills' %}">Skills</a></li>
+                                    </ul>
+                                    <h1 class="mil-muted mil-mb-60">Skills <span class="mil-thin">& Tools</span></h1>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- banner end -->
+
+                    <!-- services -->
+                    <section id="services">
+                        <div class="mi-invert-fix">
+                            <div class="container mil-p-120-60">
+                                <div class="row">
+                                    <div class="col-lg-5">
+
+                                        <div class="mil-lines-place mil-light"></div>
+
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-6">
+                                                <a href="{% url 'skills' %}" class="mil-service-card-lg mil-more mil-accent-cursor mil-offset">
+                                                    <h4 class="mil-muted mil-up mil-mb-30">Manufacturing and <br>Process Optimization</h4>
+                                                    
+                                                    <ul class="mil-service-list mil-light mil-mb-30">
+                                                        <li class="mil-up">Lean Six Sigma</li>
+                                                        <li class="mil-up">DMAIC</li>
+                                                        <li class="mil-up">VSM</li>
+                                                        <li class="mil-up">5S</li>
+                                                        <li class="mil-up">A3</li>
+                                                        <li class="mil-up">OEE</li>
+                                                        <li class="mil-up">RCA</li>
+                                                        <li class="mil-up">CNC Programming</li>
+                                                    </ul>
+                                                    
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <a href="{% url 'skills' %}" class="mil-service-card-lg mil-more mil-accent-cursor">
+                                                    <h4 class="mil-muted mil-up mil-mb-30">Design Engineering</h4>
+                                                    
+                                                    <ul class="mil-service-list mil-light mil-mb-30">
+                                                        <li class="mil-up">SolidWorks</li>
+                                                        <li class="mil-up">AutoCAD</li>
+                                                        <li class="mil-up">GD&T</li>
+                                                        <li class="mil-up">FEA</li>
+                                                    </ul>
+                                                    
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <a href="{% url 'skills' %}" class="mil-service-card-lg mil-more mil-accent-cursor mil-offset">
+                                                    <h4 class="mil-muted mil-up mil-mb-30">Data Analytics <br>& Visualization</h4>
+                                                    
+                                                    <ul class="mil-service-list mil-light mil-mb-30">
+                                                        <li class="mil-up">Excel (Advanced)</li>
+                                                        <li class="mil-up">Power BI</li>
+                                                        <li class="mil-up">SQL</li>
+                                                        <li class="mil-up">Python</li>
+                                                        <li class="mil-up">Minitab</li>
+                                                        <li class="mil-up">MS Projects</li>
+                                                        <li class="mil-up">SPC</li>
+                                                    </ul>
+                                                    
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <a href="{% url 'skills' %}" class="mil-service-card-lg mil-more mil-accent-cursor">
+                                                    <h4 class="mil-muted mil-up mil-mb-30">Industry 4.0 </h4>
+                                                    
+                                                    <ul class="mil-service-list mil-light mil-mb-30">
+                                                        <li class="mil-up">Digital Workflows</li>
+                                                        <li class="mil-up">Automation Concepts</li>
+                                                        <li class="mil-up">Simulation</li>
+                                                        
+                                                    </ul>
+                                                    
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- services end -->
+
+          {% include 'Website/__footer.html' %}

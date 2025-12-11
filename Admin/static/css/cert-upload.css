@@ -1,0 +1,36 @@
+.adm-cert-upload-container {
+    padding: 2rem;
+    font-family: Arial;
+}
+
+.adm-cert-upload-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+#admcCertInput {
+    width: 100%;
+}
+
+#admcCertUploadBtn,
+#admCertUploadBtn {
+    background: #ff9800;
+    color: white;
+    padding: 0.8rem 1.4rem;
+    margin-top: 1.4rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+#admcCertUploadBtn:hover,
+#admCertUploadBtn:hover {
+    opacity: 0.8;
+}

@@ -1,0 +1,81 @@
+{% load static %}
+{% include 'Admin/__header.html' %}
+<!-- banner -->
+          <div class="mil-inner-banner">
+            <div class="mil-banner-content mil-up">
+              <div class="mil-animation-frame">
+                <div
+                  class="mil-animation mil-position-4 mil-dark mil-scale"
+                  data-value-1="6"
+                  data-value-2="1.4"
+                ></div>
+              </div>
+              <div class="container">
+                <ul class="mil-breadcrumbs mil-mb-60">
+                  <li><a href="project-dashboard.html">Admin</a></li>
+                  <li><a href="">Projects</a></li>
+                  
+                </ul>
+                <div class="new-project-btn">
+                <h1 class="mil-mb-60">
+                  Admin <span class="mil-thin">Dashboard</span>
+                </h1>
+                <a href="{% url 'create-project' %}" class="mil-button mil-arrow-place"
+                    ><span>Create Project</span></a
+                </div>
+                <!-- <a
+                  href="#project"
+                  class="mil-link mil-dark mil-arrow-place mil-down-arrow"
+                >
+                  <span>Read more</span>
+                </a> -->
+              </div>
+            </div>
+          </div>
+          <!-- banner end -->
+
+          <!-- project -->
+          <section class="mil-p-90-0">
+            <div class="container mil-p-0-120" id="project">
+              <div class="tabs">
+    <button id="tab-published" class="tab-btn active">Published Projects</button>
+    <button id="tab-draft" class="tab-btn">Draft Projects</button>
+</div>
+
+<div id="projects-container" class="projects-grid"></div>
+            </div>
+          </section>
+          <!-- project end -->
+
+          <!-- call to action -->
+          <section class="mil-soft-bg">
+            <div class="container mil-p-120-120">
+              <div class="row">
+                <div class="col-lg-10">
+                  <span
+                    class="mil-suptitle mil-suptitle-right mil-suptitle-dark mil-up"
+                    >Looking to make your mark? We'll help you turn <br />
+                    your project into a success story.</span
+                  >
+                </div>
+              </div>
+              <div class="mil-center">
+                <h2 class="mil-up mil-mb-60">
+                  Ready to bring your
+                  <span class="mil-thin">ideas to</span> life? <br />
+                  We're <span class="mil-thin">here to help</span>
+                </h2>
+                <div class="mil-up">
+                  <a href="contact.html" class="mil-button mil-arrow-place"
+                    ><span>Contact us</span></a
+                  >
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- call to action end -->
+
+          
+          <!-- hidden elements end -->
+
+          {% include 'Admin/__footer.html' %}

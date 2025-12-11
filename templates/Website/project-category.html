@@ -1,0 +1,125 @@
+{% load static %} {% include 'Website/__header.html' %}
+          <!-- banner -->
+          <div class="mil-dark-bg">
+            <div class="mil-inner-banner">
+              <div class="mi-invert-fix">
+                <div class="mil-banner-content mil-up">
+                  <div class="mil-animation-frame">
+                    <div
+                      class="mil-animation mil-position-4 mil-scale"
+                      data-value-1="6"
+                      data-value-2="1.4"
+                    ></div>
+                  </div>
+                  <div class="container">
+                    <ul class="mil-breadcrumbs mil-light mil-mb-60">
+                      <li><a href="index.html">Homepage</a></li>
+                      <li><a href="services.html">Project Category</a></li>
+                    </ul>
+                    <h1 class="mil-muted mil-mb-60">
+                      Explore<span class="mil-thin">My Projects</span>
+                    </h1>
+                    <a
+                      href="#services"
+                      class="mil-link mil-accent mil-arrow-place mil-down-arrow"
+                    >
+                      <span>Choose a Project Category your interested in</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- banner end -->
+
+            <!-- project category -->
+            <section id="services">
+              <div class="mi-invert-fix">
+                <div class="container mil-p-120-60">
+                  <div class="row">
+                    <!-- <div class="col-lg-5">
+                      <div class="mil-lines-place mil-light"></div>
+                    </div> -->
+
+                <div class="row mil-services-grid m-0">
+                  <div
+                    class="expertise-box col-md-6 col-lg-x col-md-6 col-lg-3 mil-services-grid-item P-2"
+                  >
+                    <a
+                      href="{% url 'design-engineering' %}"
+                      class="mil-service-card-lg mil-more mil-accent-cursor mil-offset"
+                    >
+                      <h4 class="mil-muted mil-up mil-mb-30">
+                        Design Engineering <br />& Technical Solutions.
+                      </h4>
+                      
+                      <ul class="mil-service-list mil-light mil-mb-30">
+                        <li class="mil-up">Lean manufacturing</li>
+                        <li class="mil-up">workflow optimization</li>
+                        <li class="mil-up">system redesign</li>
+                        <li class="mil-up">continuous improvement</li>
+                      </ul>
+                      <div
+                        class="mil-link mil-accent mil-arrow-place mil-up view-more-secondary-btn"
+                      >
+                        <span>View Projects</span>
+                      </div>
+                    </a>
+                  </div>
+                  <div
+                    class="expertise-box col-md-6 col-lg-x col-md-6 col-lg-3 mil-services-grid-item P-2"
+                  >
+                    <a
+                      href="{% url 'process-optimization' %}"
+                      class="mil-service-card-lg mil-more mil-accent-cursor mil-offset"
+                    >
+                      <h4 class="mil-muted mil-up mil-mb-30">
+                        ⁠Process Optimization <br />and Manufacturing
+                      </h4>
+                      
+                      <ul class="mil-service-list mil-light mil-mb-30">
+                        <li class="mil-up">Lean manufacturing</li>
+                        <li class="mil-up">workflow optimization</li>
+                        <li class="mil-up">system redesign</li>
+                        <li class="mil-up">continuous improvement</li>
+                      </ul>
+                      <div
+                        class="mil-link mil-accent mil-arrow-place mil-up view-more-secondary-btn"
+                      >
+                        <span>View Projects</span>
+                      </div>
+                    </a>
+                  </div>
+                  <div
+                    class="expertise-box col-md-6 col-lg-x col-md-6 col-lg-3 mil-services-grid-item P-2"
+                  >
+                    <a
+                      href="{% url 'data-analysis' %}"
+                      class="mil-service-card-lg mil-more mil-accent-cursor mil-offset"
+                    >
+                      <h4 class="mil-muted mil-up mil-mb-30">
+                        Data Analytics <br />and Industry 4.0
+                      </h4>
+                      
+                      <ul class="mil-service-list mil-light mil-mb-30">
+                        <li class="mil-up">Lean manufacturing</li>
+                        <li class="mil-up">workflow optimization</li>
+                        <li class="mil-up">system redesign</li>
+                        <li class="mil-up">continuous improvement</li>
+                      </ul>
+                      <div
+                        class="mil-link mil-accent mil-arrow-place mil-up view-more-secondary-btn"
+                      >
+                        <span>View Projects</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                    <div class="row mil-services-grid m-0"></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <!-- services end -->
+{% include 'Website/__footer.html' %}
