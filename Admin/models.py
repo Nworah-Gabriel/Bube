@@ -9,10 +9,16 @@ from django.utils.timezone import now
 from .managers import CustomUserManager
 from cryptography.fernet import Fernet, InvalidToken
 from uuid import uuid4
+import base64
+from io import BytesIO
+from django.core.files.base import ContentFile
+import cloudinary.uploader
+
 # Create your models here.
 
+
 class User(AbstractBaseUser, PermissionsMixin):
-    
+
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
 
     # user details
@@ -24,14 +30,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     location = models.CharField(max_length=256, null=True, blank=True)
     verification_code = models.CharField(max_length=10, null=True, blank=True)
     is_password_changed = models.BooleanField(default=False)
-    kyc_status = models.CharField(max_length=20, default="unverified", help_text="unverified, verified, pending")
+    kyc_status = models.CharField(
+        max_length=20, default="unverified", help_text="unverified, verified, pending"
+    )
     is_activated = models.BooleanField(default=False)
     profile_photo = models.CharField(max_length=300, default="")
     gender = models.CharField(max_length=245, default="male", blank=True, null=True)
     status = models.CharField(max_length=256, default="pending", blank=True, null=True)
     title = models.CharField(max_length=50, null=True, blank=True)
     Designation = models.CharField(max_length=50, null=True, blank=True)
-    
+
     # user role
     is_superadmin = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
@@ -51,7 +59,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     # ADMIN AUTH CODE STORAGE
     admin_auth_code = models.IntegerField(null=True, blank=True)
     admin_auth_code_expiry = models.DateTimeField(null=True, blank=True)
-    
 
     objects = CustomUserManager()
 
@@ -62,3 +69,54 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.email:
             self.email = self.email.lower()
         super().save(*args, **kwargs)
+
+
+class Project(models.Model):
+    STATUS_CHOICES = [
+        ("draft", "Draft"),
+        ("published", "Published"),
+    ]
+    
+    CATEGORY_CHOICES = [
+        ("Design Engineering", "Design Engineering"),
+        ("Data Analysis", "Data Analysis"),
+        ("Process Optimization", "Process Optimization")
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    title = models.CharField(max_length=255)
+    owners = models.CharField(max_length=500, blank=True)
+    date = models.DateField()
+    content = models.TextField()
+    project_category = models.TextField(max_length=300, choices=CATEGORY_CHOICES, default="Design Engineering")
+    featured_image = models.URLField(blank=True, null=True)
+    gallery_image = models.URLField(blank=True, null=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.title} ({self.status})"
+
+    @classmethod
+    def upload_base64_image(cls, base64_string, folder="projects/"):
+        """Upload base64 image to Cloudinary and return URL"""
+        try:
+            if base64_string.startswith("data:image"):
+                # Extract the base64 data
+                format, imgstr = base64_string.split(";base64,")
+                ext = format.split("/")[-1]
+
+                # Decode base64
+                data = base64.b64decode(imgstr)
+
+                # Upload to Cloudinary
+                upload_result = cloudinary.uploader.upload(
+                    ContentFile(data, name=f"temp.{ext}"),
+                    folder=folder,
+                    resource_type="image",
+                )
+                return upload_result["secure_url"]
+        except Exception as e:
+            print(f"Error uploading image: {e}")
+        return None

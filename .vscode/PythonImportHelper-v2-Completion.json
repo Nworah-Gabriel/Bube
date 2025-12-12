@@ -50,6 +50,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -119,6 +135,95 @@
         "description": "django.contrib",
         "isExtraImport": true,
         "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "JsonResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "JsonResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "JsonResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "csrf_exempt",
+        "importPath": "django.views.decorators.csrf",
+        "description": "django.views.decorators.csrf",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.csrf",
+        "documentation": {}
+    },
+    {
+        "label": "csrf_exempt",
+        "importPath": "django.views.decorators.csrf",
+        "description": "django.views.decorators.csrf",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.csrf",
+        "documentation": {}
+    },
+    {
+        "label": "csrf_exempt",
+        "importPath": "django.views.decorators.csrf",
+        "description": "django.views.decorators.csrf",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.csrf",
+        "documentation": {}
+    },
+    {
+        "label": "method_decorator",
+        "importPath": "django.utils.decorators",
+        "description": "django.utils.decorators",
+        "isExtraImport": true,
+        "detail": "django.utils.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "method_decorator",
+        "importPath": "django.utils.decorators",
+        "description": "django.utils.decorators",
+        "isExtraImport": true,
+        "detail": "django.utils.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "method_decorator",
+        "importPath": "django.utils.decorators",
+        "description": "django.utils.decorators",
+        "isExtraImport": true,
+        "detail": "django.utils.decorators",
         "documentation": {}
     },
     {
@@ -267,6 +372,47 @@
         "documentation": {}
     },
     {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "ContentFile",
+        "importPath": "django.core.files.base",
+        "description": "django.core.files.base",
+        "isExtraImport": true,
+        "detail": "django.core.files.base",
+        "documentation": {}
+    },
+    {
+        "label": "ContentFile",
+        "importPath": "django.core.files.base",
+        "description": "django.core.files.base",
+        "isExtraImport": true,
+        "detail": "django.core.files.base",
+        "documentation": {}
+    },
+    {
+        "label": "cloudinary.uploader",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cloudinary.uploader",
+        "description": "cloudinary.uploader",
+        "detail": "cloudinary.uploader",
+        "documentation": {}
+    },
+    {
         "label": "TestCase",
         "importPath": "django.test",
         "description": "django.test",
@@ -292,31 +438,15 @@
         "documentation": {}
     },
     {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "HttpResponseRedirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "HttpResponse",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
         "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "get_object_or_404",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
         "isExtraImport": true,
@@ -364,7 +494,7 @@
         "documentation": {}
     },
     {
-        "label": "reverse",
+        "label": "reverse_lazy",
         "importPath": "django.urls",
         "description": "django.urls",
         "isExtraImport": true,
@@ -428,11 +558,12 @@
         "documentation": {}
     },
     {
-        "label": "TemplateView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "Admin.api_views",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "importPath": "Admin.api_views",
+        "description": "Admin.api_views",
+        "detail": "Admin.api_views",
         "documentation": {}
     },
     {
@@ -444,51 +575,27 @@
         "documentation": {}
     },
     {
-        "label": "HttpResponse",
-        "importPath": "django.http",
-        "description": "django.http",
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
         "isExtraImport": true,
-        "detail": "django.http",
+        "detail": "django.views.generic",
         "documentation": {}
     },
     {
-        "label": "HttpResponse",
-        "importPath": "django.http",
-        "description": "django.http",
+        "label": "View",
+        "importPath": "django.views",
+        "description": "django.views",
         "isExtraImport": true,
-        "detail": "django.http",
+        "detail": "django.views",
         "documentation": {}
     },
     {
-        "label": "authenticate",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
+        "label": "View",
+        "importPath": "django.views",
+        "description": "django.views",
         "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "login",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "logout",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "get_user_model",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
+        "detail": "django.views",
         "documentation": {}
     },
     {
@@ -532,51 +639,11 @@
         "documentation": {}
     },
     {
-        "label": "LoginRequiredMixin",
-        "importPath": "django.contrib.auth.mixins",
-        "description": "django.contrib.auth.mixins",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.mixins",
-        "documentation": {}
-    },
-    {
-        "label": "View",
-        "importPath": "django.views",
-        "description": "django.views",
-        "isExtraImport": true,
-        "detail": "django.views",
-        "documentation": {}
-    },
-    {
-        "label": "View",
-        "importPath": "django.views",
-        "description": "django.views",
-        "isExtraImport": true,
-        "detail": "django.views",
-        "documentation": {}
-    },
-    {
         "label": "IntegrityError",
         "importPath": "sqlite3",
         "description": "sqlite3",
         "isExtraImport": true,
         "detail": "sqlite3",
-        "documentation": {}
-    },
-    {
-        "label": "IntegrityError",
-        "importPath": "sqlite3",
-        "description": "sqlite3",
-        "isExtraImport": true,
-        "detail": "sqlite3",
-        "documentation": {}
-    },
-    {
-        "label": "PasswordResetTokenGenerator",
-        "importPath": "django.contrib.auth.tokens",
-        "description": "django.contrib.auth.tokens",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.tokens",
         "documentation": {}
     },
     {
@@ -613,51 +680,11 @@
         "documentation": {}
     },
     {
-        "label": "get_template",
-        "importPath": "django.template.loader",
-        "description": "django.template.loader",
-        "isExtraImport": true,
-        "detail": "django.template.loader",
-        "documentation": {}
-    },
-    {
-        "label": "render_to_string",
-        "importPath": "django.template.loader",
-        "description": "django.template.loader",
-        "isExtraImport": true,
-        "detail": "django.template.loader",
-        "documentation": {}
-    },
-    {
         "label": "get_current_site",
         "importPath": "django.contrib.sites.shortcuts",
         "description": "django.contrib.sites.shortcuts",
         "isExtraImport": true,
         "detail": "django.contrib.sites.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "get_current_site",
-        "importPath": "django.contrib.sites.shortcuts",
-        "description": "django.contrib.sites.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.contrib.sites.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "urlsafe_base64_encode",
-        "importPath": "django.utils.http",
-        "description": "django.utils.http",
-        "isExtraImport": true,
-        "detail": "django.utils.http",
-        "documentation": {}
-    },
-    {
-        "label": "urlsafe_base64_decode",
-        "importPath": "django.utils.http",
-        "description": "django.utils.http",
-        "isExtraImport": true,
-        "detail": "django.utils.http",
         "documentation": {}
     },
     {
@@ -693,30 +720,6 @@
         "documentation": {}
     },
     {
-        "label": "force_bytes",
-        "importPath": "django.utils.encoding",
-        "description": "django.utils.encoding",
-        "isExtraImport": true,
-        "detail": "django.utils.encoding",
-        "documentation": {}
-    },
-    {
-        "label": "force_str",
-        "importPath": "django.utils.encoding",
-        "description": "django.utils.encoding",
-        "isExtraImport": true,
-        "detail": "django.utils.encoding",
-        "documentation": {}
-    },
-    {
-        "label": "EmailMessage",
-        "importPath": "django.core.mail",
-        "description": "django.core.mail",
-        "isExtraImport": true,
-        "detail": "django.core.mail",
-        "documentation": {}
-    },
-    {
         "label": "EmailMessage",
         "importPath": "django.core.mail",
         "description": "django.core.mail",
@@ -730,22 +733,6 @@
         "description": "email.mime.multipart",
         "isExtraImport": true,
         "detail": "email.mime.multipart",
-        "documentation": {}
-    },
-    {
-        "label": "MIMEMultipart",
-        "importPath": "email.mime.multipart",
-        "description": "email.mime.multipart",
-        "isExtraImport": true,
-        "detail": "email.mime.multipart",
-        "documentation": {}
-    },
-    {
-        "label": "MIMEText",
-        "importPath": "email.mime.text",
-        "description": "email.mime.text",
-        "isExtraImport": true,
-        "detail": "email.mime.text",
         "documentation": {}
     },
     {
@@ -943,8 +930,26 @@
         "kind": 6,
         "importPath": "Admin.migrations.0001_initial",
         "description": "Admin.migrations.0001_initial",
-        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n        ('auth', '0012_alter_user_first_name_max_length'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='User',\n            fields=[\n                ('password', models.CharField(max_length=128, verbose_name='password')),",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n        ('auth', '0012_alter_user_first_name_max_length'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Project',\n            fields=[\n                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),",
         "detail": "Admin.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "Admin.migrations.0002_alter_project_project_category",
+        "description": "Admin.migrations.0002_alter_project_project_category",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('Admin', '0001_initial'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='project',\n            name='project_category',\n            field=models.TextField(choices=[('Design Engineering', 'Design Engineering'), ('Data Analysis', 'Data Analysis'), ('Process Optimization', 'Process Optimization')], default='Design Engineering', max_length=300),\n        ),",
+        "detail": "Admin.migrations.0002_alter_project_project_category",
+        "documentation": {}
+    },
+    {
+        "label": "create_project_api",
+        "kind": 2,
+        "importPath": "Admin.api_views",
+        "description": "Admin.api_views",
+        "peekOfCode": "def create_project_api(request):\n    if request.method == 'POST':\n        try:\n            data = json.loads(request.body)\n            # Get or create project\n            project_id = data.get('id')\n            if project_id and project_id != 'null':\n                try:\n                    project = Project.objects.get(id=project_id)\n                except Project.DoesNotExist:",
+        "detail": "Admin.api_views",
         "documentation": {}
     },
     {
@@ -975,11 +980,20 @@
         "documentation": {}
     },
     {
+        "label": "Project",
+        "kind": 6,
+        "importPath": "Admin.models",
+        "description": "Admin.models",
+        "peekOfCode": "class Project(models.Model):\n    STATUS_CHOICES = [\n        (\"draft\", \"Draft\"),\n        (\"published\", \"Published\"),\n    ]\n    CATEGORY_CHOICES = [\n        (\"Design Engineering\", \"Design Engineering\"),\n        (\"Data Analysis\", \"Data Analysis\"),\n        (\"Process Optimization\", \"Process Optimization\")\n    ]",
+        "detail": "Admin.models",
+        "documentation": {}
+    },
+    {
         "label": "urlpatterns",
         "kind": 5,
         "importPath": "Admin.urls",
         "description": "Admin.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"home-view\"),\n    path(\"create/\", CreateProject.as_view(), name=\"create-project\"),\n    path(\"certificate/list/\", CertificateList.as_view(), name=\"cert-list\"),\n    path(\"research/create/\", CreateResearch.as_view(), name=\"create-research\"),\n    path(\"research/list/\", ResearchList.as_view(), name=\"research-list\"),\n    path(\"preview/\", Preview.as_view(), name=\"preview\"),\n    path(\"certificate/upload/\", CertificateUpload.as_view(), name=\"upload-certificate\"),\n]\nif settings.DEBUG:",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"home-view\"),\n    path(\"create/\", CreateProject.as_view(), name=\"create-project\"),\n    path(\"certificate/list/\", CertificateList.as_view(), name=\"cert-list\"),\n    path(\"research/create/\", CreateResearch.as_view(), name=\"create-research\"),\n    path(\"research/list/\", ResearchList.as_view(), name=\"research-list\"),\n    path(\"preview/\", Preview.as_view(), name=\"preview\"),\n    path(\"certificate/upload/\", CertificateUpload.as_view(), name=\"upload-certificate\"),\n    path('api/projects/save/', ProjectAPIView.as_view(), name='save_project_api'),\n]",
         "detail": "Admin.urls",
         "documentation": {}
     },
@@ -997,7 +1011,16 @@
         "kind": 6,
         "importPath": "Admin.views",
         "description": "Admin.views",
-        "peekOfCode": "class CreateProject(TemplateView):\n    template_name = \"Admin/editor.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\n    def post(self, request, ref_email, ref_username): ...",
+        "peekOfCode": "class CreateProject(TemplateView):\n    template_name = \"Admin/editor.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        project_id = self.request.GET.get(\"id\")\n        if project_id:\n            try:\n                project = Project.objects.get(id=project_id)\n                context[\"project\"] = project\n                # Pass project data as JSON for JavaScript",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "ProjectAPIView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class ProjectAPIView(View):\n    \"\"\"API view for handling project CRUD operations\"\"\"\n    def post(self, request, *args, **kwargs):\n        try:\n            data = json.loads(request.body)\n            project_id = data.get('id')\n            # Get or create project\n            if project_id and project_id != 'null':\n                try:\n                    project = Project.objects.get(id=project_id)",
         "detail": "Admin.views",
         "documentation": {}
     },

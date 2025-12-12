@@ -3,7 +3,8 @@ import django.shortcuts
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import HomeView, CreateProject, CertificateList, CreateResearch, ResearchList, Preview, CertificateUpload
+from .views import HomeView, CreateProject, CertificateList, CreateResearch, ResearchList, Preview, CertificateUpload, ProjectAPIView
+import Admin.api_views as api_views
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home-view"),
@@ -13,6 +14,8 @@ urlpatterns = [
     path("research/list/", ResearchList.as_view(), name="research-list"),
     path("preview/", Preview.as_view(), name="preview"),
     path("certificate/upload/", CertificateUpload.as_view(), name="upload-certificate"),
+    
+    path('api/projects/save/', ProjectAPIView.as_view(), name='save_project_api'),
 ]
 
 
