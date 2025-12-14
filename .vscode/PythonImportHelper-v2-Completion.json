@@ -981,7 +981,7 @@
         "kind": 6,
         "importPath": "Admin.views",
         "description": "Admin.views",
-        "peekOfCode": "class CertificateList(TemplateView):\n    template_name = \"Admin/cert-list.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\n    def post(self, request, ref_email, ref_username): ...",
+        "peekOfCode": "class CertificateList(TemplateView):\n    template_name = \"Website/certifications.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get all certificates ordered by date\n        certificates = Certificate.objects.all().order_by('-issue_date', '-created_at')\n        context['certificates'] = certificates\n        return context\nclass CreateResearch(TemplateView):\n    template_name = \"Admin/research-create.html\"",
         "detail": "Admin.views",
         "documentation": {}
     },

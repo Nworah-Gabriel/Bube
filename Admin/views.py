@@ -235,18 +235,14 @@ class ProjectAPIView(View):
 
 
 class CertificateList(TemplateView):
-    template_name = "Admin/cert-list.html"
-    new_user = ""
-
+    template_name = "Website/certifications.html"
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Get all certificates ordered by date
+        certificates = Certificate.objects.all().order_by('-issue_date', '-created_at')
+        context['certificates'] = certificates
         return context
-
-    def get(self, request, *args, **kwargs):
-        # Additional logic for handling GET requests
-        return super().get(request, *args, **kwargs)
-
-    def post(self, request, ref_email, ref_username): ...
 
 
 class CreateResearch(TemplateView):
