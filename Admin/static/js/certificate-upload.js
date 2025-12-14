@@ -319,7 +319,7 @@ async function uploadCertificate() {
         });
         
         // Send to Django API
-        const response = await fetch('/admin/api/certificates/upload/', {
+        const response = await fetch('https://bube-7hpy.onrender.com/admin/api/certificates/upload/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
