@@ -1,0 +1,80 @@
+{% include 'Website/__header.html' %}
+
+{% block content %}
+<div class="mil-content">
+    <div id="swupMain" class="mil-main-transition">
+        <!-- error content -->
+        <section class="mil-error-page mil-dark-bg">
+            <div class="mi-invert-fix">
+                <div class="mil-animation-frame">
+                    <div class="mil-animation mil-position-1 mil-scale" 
+                         data-value-1="4" 
+                         data-value-2="1.8">
+                    </div>
+                    <div class="mil-animation mil-position-2 mil-scale" 
+                         data-value-1="2" 
+                         data-value-2="0.8">
+                    </div>
+                </div>
+                <div class="mil-gradient"></div>
+                
+                <div class="container mil-p-120-60">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="mil-error-content mil-text-center mil-up">
+                                <h1 class="mil-muted mil-mb-30">
+                                    4<span class="mil-accent">0</span>1
+                                </h1>
+                                <h2 class="mil-muted mil-mb-30">
+                                    Access <span class="mil-thin">Denied</span>
+                                </h2>
+                                
+                                <p class="mil-light-soft mil-mb-60">
+                                    You don't have permission to access this page. This area requires 
+                                    proper authentication or authorization.
+                                </p>
+                                
+                                <div class="mil-error-illustration mil-mb-60">
+                                    <div class="mil-lines-place"></div>
+                                    <div class="mil-up">
+                                        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="40" y="50" width="40" height="50" rx="5" stroke="currentColor" stroke-width="3"/>
+                                            <path d="M60 30C53.3726 30 48 35.3726 48 42V50H72V42C72 35.3726 66.6274 30 60 30Z" stroke="currentColor" stroke-width="3"/>
+                                            <circle cx="60" cy="75" r="3" fill="currentColor"/>
+                                            <path d="M60 78V85" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <p class="mil-light-soft mil-mb-30">
+                                            Please check your credentials or return to the homepage.
+                                        </p>
+                                        
+                                        <div class="mil-button-group">
+                                            <a href="{% url '' %}" class="mil-button mil-arrow-place mil-mb-15">
+                                                <span>Return Home</span>
+                                            </a>
+                                            <a href="{% url 'project-category' %}" class="mil-button mil-border mil-arrow-place">
+                                                <span>View Public Projects</span>
+                                            </a>
+                                        </div>
+                                        
+                                        <p class="mil-text-sm mil-light-soft mil-mt-60">
+                                            If you believe this is an error, please 
+                                            <a href="mailto:ebubeozurumba@gmail.com" class="mil-accent">contact me</a>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- error content end -->
+    </div>
+</div>
+{% endblock %}
+{% include 'Website/__footer.html' %}

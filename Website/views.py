@@ -11,6 +11,16 @@ from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
+from django.shortcuts import render
+
+def custom_404(request, exception=None):
+    return render(request, 'Website/404.html', status=404)
+
+def custom_500(request, exception=None):
+    return render(request, 'Website/500.html', status=500)
+
+def custom_403(request, exception=None):
+    return render(request, 'Website/401.html', status=403)
 
 class HomeView(TemplateView):
     template_name = "Website/index.html"

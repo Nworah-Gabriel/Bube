@@ -1,0 +1,83 @@
+{% include 'Website/__header.html' %}
+
+{% block content %}
+<div class="mil-content">
+    <div id="swupMain" class="mil-main-transition">
+        <!-- error content -->
+        <section class="mil-error-page mil-dark-bg">
+            <div class="mi-invert-fix">
+                <div class="mil-animation-frame">
+                    <div class="mil-animation mil-position-1 mil-scale" 
+                         data-value-1="6" 
+                         data-value-2="2.5">
+                    </div>
+                    <div class="mil-animation mil-position-2 mil-scale" 
+                         data-value-1="4" 
+                         data-value-2="1.5">
+                    </div>
+                </div>
+                <div class="mil-gradient"></div>
+                
+                <div class="container mil-p-120-60">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="mil-error-content mil-text-center mil-up">
+                                <h1 class="mil-muted mil-mb-30">
+                                    5<span class="mil-accent">0</span>0
+                                </h1>
+                                <h2 class="mil-muted mil-mb-30">
+                                    Internal <span class="mil-thin">Server Error</span>
+                                </h2>
+                                
+                                <p class="mil-light-soft mil-mb-60">
+                                    Something went wrong on our end. Our engineering team has been notified 
+                                    and is working to fix the issue.
+                                </p>
+                                
+                                <div class="mil-error-illustration mil-mb-60">
+                                    <div class="mil-lines-place"></div>
+                                    <div class="mil-up">
+                                        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M60 20V40M60 80V100" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                            <path d="M90 30L75 45M45 75L30 90" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                            <path d="M30 30L45 45M75 75L90 90" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                            <path d="M90 60H100M20 60H40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                            <circle cx="60" cy="60" r="15" stroke="currentColor" stroke-width="3"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <p class="mil-light-soft mil-mb-30">
+                                            In the meantime, you can try refreshing the page or return to the homepage.
+                                        </p>
+                                        
+                                        <div class="mil-button-group">
+                                            <a href="{% url '' %}" class="mil-button mil-arrow-place mil-mb-15">
+                                                <span>Return Home</span>
+                                            </a>
+                                            <button onclick="window.location.reload()" class="mil-button mil-border mil-arrow-place">
+                                                <span>Refresh Page</span>
+                                            </button>
+                                        </div>
+                                        
+                                        <p class="mil-text-sm mil-light-soft mil-mt-60">
+                                            If the problem persists, feel free to 
+                                            <a href="mailto:ebubeozurumba@gmail.com" class="mil-accent">contact me</a> 
+                                            directly.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- error content end -->
+    </div>
+</div>
+{% endblock %}
+
+{% include 'Website/__footer.html' %}

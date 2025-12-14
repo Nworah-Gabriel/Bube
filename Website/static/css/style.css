@@ -4449,3 +4449,60 @@ html.is-animating .mil-menu-frame {
   justify-content: space-between;
   align-items: end;
 }
+
+
+/* Error Pages Styling */
+.mil-error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.mil-error-content {
+    position: relative;
+    z-index: 2;
+}
+
+.mil-error-illustration {
+    position: relative;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mil-error-illustration svg {
+    color: var(--mil-accent);
+    opacity: 0.8;
+}
+
+.mil-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .mil-button-group {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+.mil-button.mil-border {
+    background: transparent;
+    border: 1px solid var(--mil-light-soft);
+    color: var(--mil-light-soft);
+}
+
+.mil-button.mil-border:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mil-text-center {
+    text-align: center;
+}

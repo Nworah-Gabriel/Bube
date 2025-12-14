@@ -187,6 +187,14 @@
         "documentation": {}
     },
     {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
         "label": "csrf_exempt",
         "importPath": "django.views.decorators.csrf",
         "description": "django.views.decorators.csrf",
@@ -510,6 +518,14 @@
         "documentation": {}
     },
     {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
         "label": "path",
         "importPath": "django.urls",
         "description": "django.urls",
@@ -735,6 +751,30 @@
         "description": "pathlib",
         "isExtraImport": true,
         "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "custom_500",
+        "importPath": "Website.views",
+        "description": "Website.views",
+        "isExtraImport": true,
+        "detail": "Website.views",
+        "documentation": {}
+    },
+    {
+        "label": "custom_403",
+        "importPath": "Website.views",
+        "description": "Website.views",
+        "isExtraImport": true,
+        "detail": "Website.views",
+        "documentation": {}
+    },
+    {
+        "label": "custom_404",
+        "importPath": "Website.views",
+        "description": "Website.views",
+        "isExtraImport": true,
+        "detail": "Website.views",
         "documentation": {}
     },
     {
@@ -1157,6 +1197,33 @@
         "documentation": {}
     },
     {
+        "label": "custom_404",
+        "kind": 2,
+        "importPath": "Website.views",
+        "description": "Website.views",
+        "peekOfCode": "def custom_404(request, exception=None):\n    return render(request, 'Website/404.html', status=404)\ndef custom_500(request, exception=None):\n    return render(request, 'Website/500.html', status=500)\ndef custom_403(request, exception=None):\n    return render(request, 'Website/401.html', status=403)\nclass HomeView(TemplateView):\n    template_name = \"Website/index.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):",
+        "detail": "Website.views",
+        "documentation": {}
+    },
+    {
+        "label": "custom_500",
+        "kind": 2,
+        "importPath": "Website.views",
+        "description": "Website.views",
+        "peekOfCode": "def custom_500(request, exception=None):\n    return render(request, 'Website/500.html', status=500)\ndef custom_403(request, exception=None):\n    return render(request, 'Website/401.html', status=403)\nclass HomeView(TemplateView):\n    template_name = \"Website/index.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context",
+        "detail": "Website.views",
+        "documentation": {}
+    },
+    {
+        "label": "custom_403",
+        "kind": 2,
+        "importPath": "Website.views",
+        "description": "Website.views",
+        "peekOfCode": "def custom_403(request, exception=None):\n    return render(request, 'Website/401.html', status=403)\nclass HomeView(TemplateView):\n    template_name = \"Website/index.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests",
+        "detail": "Website.views",
+        "documentation": {}
+    },
+    {
         "label": "application",
         "kind": 5,
         "importPath": "core.asgi",
@@ -1170,7 +1237,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "BASE_DIR =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = os.getenv(\"DJANGO_SECRETKEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [",
+        "peekOfCode": "BASE_DIR =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = os.getenv(\"DJANGO_SECRETKEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = False\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1179,7 +1246,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "SECRET_KEY = os.getenv(\"DJANGO_SECRETKEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",",
+        "peekOfCode": "SECRET_KEY = os.getenv(\"DJANGO_SECRETKEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = False\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1188,7 +1255,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",\n    \"django.contrib.messages\",\n    \"django.contrib.staticfiles\",",
+        "peekOfCode": "DEBUG = False\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",\n    \"django.contrib.messages\",\n    \"django.contrib.staticfiles\",",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1224,7 +1291,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "DJANGO_APPS = [\n    \"Admin\",\n    \"Website\"\n]\nINSTALLED_APPS = DEFAULT_APPS + ADDED_PACKAGES + DJANGO_APPS\nMIDDLEWARE = [\n    \"corsheaders.middleware.CorsMiddleware\",\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',",
+        "peekOfCode": "DJANGO_APPS = [\n    \"Admin\",\n    \"Website\"\n]\nINSTALLED_APPS = DEFAULT_APPS + ADDED_PACKAGES + DJANGO_APPS\nMIDDLEWARE = [\n    \"corsheaders.middleware.CorsMiddleware\",\n    'whitenoise.middleware.WhiteNoiseMiddleware', \n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1233,7 +1300,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "INSTALLED_APPS = DEFAULT_APPS + ADDED_PACKAGES + DJANGO_APPS\nMIDDLEWARE = [\n    \"corsheaders.middleware.CorsMiddleware\",\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',",
+        "peekOfCode": "INSTALLED_APPS = DEFAULT_APPS + ADDED_PACKAGES + DJANGO_APPS\nMIDDLEWARE = [\n    \"corsheaders.middleware.CorsMiddleware\",\n    'whitenoise.middleware.WhiteNoiseMiddleware', \n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1242,7 +1309,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "MIDDLEWARE = [\n    \"corsheaders.middleware.CorsMiddleware\",\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]",
+        "peekOfCode": "MIDDLEWARE = [\n    \"corsheaders.middleware.CorsMiddleware\",\n    'whitenoise.middleware.WhiteNoiseMiddleware', \n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1490,11 +1557,38 @@
         "documentation": {}
     },
     {
+        "label": "handler404",
+        "kind": 5,
+        "importPath": "core.urls",
+        "description": "core.urls",
+        "peekOfCode": "handler404 = custom_404\nhandler500 = custom_500\nhandler403 = custom_403\nurlpatterns = [\n    path('super-admin/', admin.site.urls),\n    path(\"api/api-auth/\", include(\"rest_framework.urls\")),\n    path(\"admin/\", include(\"Admin.urls\"), name=\"admin\"),\n    path(\"\", include(\"Website.urls\")),\n    path('health/', lambda request: HttpResponse('OK'), name='health_check'),\n]",
+        "detail": "core.urls",
+        "documentation": {}
+    },
+    {
+        "label": "handler500",
+        "kind": 5,
+        "importPath": "core.urls",
+        "description": "core.urls",
+        "peekOfCode": "handler500 = custom_500\nhandler403 = custom_403\nurlpatterns = [\n    path('super-admin/', admin.site.urls),\n    path(\"api/api-auth/\", include(\"rest_framework.urls\")),\n    path(\"admin/\", include(\"Admin.urls\"), name=\"admin\"),\n    path(\"\", include(\"Website.urls\")),\n    path('health/', lambda request: HttpResponse('OK'), name='health_check'),\n]\nif settings.DEBUG:",
+        "detail": "core.urls",
+        "documentation": {}
+    },
+    {
+        "label": "handler403",
+        "kind": 5,
+        "importPath": "core.urls",
+        "description": "core.urls",
+        "peekOfCode": "handler403 = custom_403\nurlpatterns = [\n    path('super-admin/', admin.site.urls),\n    path(\"api/api-auth/\", include(\"rest_framework.urls\")),\n    path(\"admin/\", include(\"Admin.urls\"), name=\"admin\"),\n    path(\"\", include(\"Website.urls\")),\n    path('health/', lambda request: HttpResponse('OK'), name='health_check'),\n]\nif settings.DEBUG:\n    urlpatterns += [",
+        "detail": "core.urls",
+        "documentation": {}
+    },
+    {
         "label": "urlpatterns",
         "kind": 5,
         "importPath": "core.urls",
         "description": "core.urls",
-        "peekOfCode": "urlpatterns = [\n    path('super-admin/', admin.site.urls),\n    path(\"api/api-auth/\", include(\"rest_framework.urls\")),\n    path(\"admin/\", include(\"Admin.urls\"), name=\"admin\"),\n    path(\"\", include(\"Website.urls\")),\n]\nif settings.DEBUG:\n    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\n    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)",
+        "peekOfCode": "urlpatterns = [\n    path('super-admin/', admin.site.urls),\n    path(\"api/api-auth/\", include(\"rest_framework.urls\")),\n    path(\"admin/\", include(\"Admin.urls\"), name=\"admin\"),\n    path(\"\", include(\"Website.urls\")),\n    path('health/', lambda request: HttpResponse('OK'), name='health_check'),\n]\nif settings.DEBUG:\n    urlpatterns += [\n        path('404/', custom_404, name='404'),",
         "detail": "core.urls",
         "documentation": {}
     },

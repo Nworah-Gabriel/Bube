@@ -18,16 +18,29 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from Website.views import custom_500, custom_403, custom_404
+from django.http import HttpResponse
+
+
+handler404 = custom_404
+handler500 = custom_500
+handler403 = custom_403
 
 urlpatterns = [
     path('super-admin/', admin.site.urls),
     path("api/api-auth/", include("rest_framework.urls")),
     path("admin/", include("Admin.urls"), name="admin"),
     path("", include("Website.urls")),
+    path('health/', lambda request: HttpResponse('OK'), name='health_check'),
 
 ]
 
 
 if settings.DEBUG:
+    urlpatterns += [
+        path('404/', custom_404, name='404'),
+        path('500/', custom_500, name='500'),
+        path('403/', custom_403, name='403'),
+    ]
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

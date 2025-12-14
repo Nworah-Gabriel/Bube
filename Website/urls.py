@@ -15,8 +15,11 @@ from .views import (
     DataAnalysis,
     DataAnalysisDetail,
     DesignEngineering,
-    DesignEngineeringDetail
+    DesignEngineeringDetail,
     )
+
+
+
 
 urlpatterns = [
     path("", HomeView.as_view(), name=""),
