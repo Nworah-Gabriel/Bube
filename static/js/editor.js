@@ -27,23 +27,6 @@ const quill = new Quill('#editor', {
 let featuredImageBase64 = '';
 let galleryImagesBase64 = [];
 
-// Django CSRF Token function
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-const csrftoken = getCookie('csrftoken');
 
 // Custom Preloader Functions
 function showPreloader(message = 'Uploading...') {
@@ -118,7 +101,7 @@ function showPreloader(message = 'Uploading...') {
                                 opacity: 1;
                                 color: rgb(255, 255, 255);
                                 font-size: 1.5rem;
-                            ">...</p>
+                            ">Processing your project...</p>
                         </div>
                     </div>
                 </div>
@@ -228,7 +211,7 @@ function showSuccessNotification(message, status) {
                         display: flex;
                         align-items: center;
                     ">
-                        <span>Continue to Home Page</span>
+                        <span>Continue to Dashboard</span>
                         <svg style="
                             margin-left: 15px;
                             border-radius: 50%;
@@ -293,7 +276,7 @@ function loadProjectData() {
 function updatePreview() {
     livePreview.innerHTML = `
         <h2 style="overflow-x: auto;overflow-wrap: break-word">${titleInput.value || 'Untitled Project'}</h2>
-        <p style="overflow-x: auto;overflow-wrap: break-word"><strong>Owners:</strong> ${ownersInput.value || 'Not specified'}</p>
+        <p style="overflow-x: auto;overflow-wrap: break-word"><strong>Client:</strong> ${ownersInput.value || 'Not specified'}</p>
         <p style="overflow-x: auto;overflow-wrap: break-word"><strong>Date:</strong> ${dateInput.value || 'Not specified'}</p>
         ${featuredImageBase64 ? `<img src="${featuredImageBase64}" style="max-width: 100%; height: auto; margin-bottom: 20px;" alt="Featured Image">` : ''}
         <div style="overflow-x: auto;overflow-wrap: break-word">${quill.root.innerHTML || '<p>No content yet...</p>'}</div>
@@ -349,7 +332,7 @@ async function saveProjectData(status) {
             date: dateInput.value,
             content: quill.root.innerHTML,
             featuredImage: featuredImageBase64,
-            galleryImage: galleryImagesBase64.length > 0 ? galleryImagesBase64[0] : '',
+            galleryImage: galleryImagesBase64.length > 0 ? galleryImagesBase64[0] : '', // Send first image for now
             status: status,
             projectCategory: categoryInput ? categoryInput.value : ''
         };
