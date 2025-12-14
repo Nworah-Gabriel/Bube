@@ -1,31 +1,15 @@
-// js/editor.js
-
-// Get project ID from URL
-const params = new URLSearchParams(window.location.search);
-const projectId = params.get('id');
+// js/certificate-upload.js
 
 // DOM Elements
-const titleInput = document.getElementById('title');
-const categoryInput = document.getElementById('project_category');
-const ownersInput = document.getElementById('owners');
-const dateInput = document.getElementById('date');
-const livePreview = document.getElementById('live-preview');
-const saveDraftBtn = document.getElementById('save-draft');
-const publishBtn = document.getElementById('publish');
-const featuredImageInput = document.getElementById('featured-image');
-const galleryImagesInput = document.getElementById('gallery-images');
+const certTitleInput = document.getElementById('certTitle');
+const certIssuerInput = document.getElementById('certIssuer');
+const certDateInput = document.getElementById('certDate');
+const certDescriptionInput = document.getElementById('certDescription');
+const certImageInput = document.getElementById('admCertInput');
+const certUploadBtn = document.getElementById('admCertUploadBtn');
 
-// Initialize Quill editor
-const quill = new Quill('#editor', {
-    modules: { 
-        toolbar: '#quill-toolbar' 
-    },
-    theme: 'snow'
-});
-
-// Store images as Base64
-let featuredImageBase64 = '';
-let galleryImagesBase64 = [];
+// Store certificate image as Base64
+let certificateBase64 = '';
 
 // Django CSRF Token function
 function getCookie(name) {
@@ -45,7 +29,7 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 
-// Custom Preloader Functions
+// Custom Preloader Functions (similar to project editor)
 function showPreloader(message = 'Uploading...') {
     // Create preloader element if it doesn't exist
     if (!document.querySelector('.mil-upload-preloader')) {
@@ -57,7 +41,7 @@ function showPreloader(message = 'Uploading...') {
                 width: 100%;
                 height: 100vh;
                 background-color: rgba(0, 0, 0, 0.95);
-                z-index: 9999;
+                z-index: 9000;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -164,7 +148,7 @@ function hidePreloader() {
 }
 
 // Custom Success Notification
-function showSuccessNotification(message, status) {
+function showSuccessNotification(message) {
     // Remove any existing notifications
     const existingNotifications = document.querySelectorAll('.mil-success-notification');
     existingNotifications.forEach(notification => notification.remove());
@@ -198,7 +182,7 @@ function showSuccessNotification(message, status) {
                     margin-bottom: 15px;
                     font-size: 28px;
                 ">
-                    Project ${status === 'draft' ? 'Saved' : 'Published'}!
+                    Certificate Uploaded!
                 </h3>
                 <p class="mil-text-lg" style="
                     color: rgba(255, 255, 255, 0.8);
@@ -228,7 +212,7 @@ function showSuccessNotification(message, status) {
                         display: flex;
                         align-items: center;
                     ">
-                        <span>Continue to Home Page</span>
+                        <span>Upload More</span>
                         <svg style="
                             margin-left: 15px;
                             border-radius: 50%;
@@ -251,13 +235,14 @@ function showSuccessNotification(message, status) {
     // Add event listener to continue button
     document.getElementById('notification-continue').addEventListener('click', function() {
         hideNotification();
-        window.location.href = '/';
+        // Optionally reset form or redirect
+        resetForm();
     });
     
-    // Auto-hide after 5 seconds and redirect
+    // Auto-hide after 5 seconds
     setTimeout(() => {
         hideNotification();
-        window.location.href = '/';
+        resetForm();
     }, 5000);
 }
 
@@ -273,107 +258,87 @@ function hideNotification() {
     }
 }
 
-// Load project data from Django template context
-function loadProjectData() {
-    // Check if project data is passed via Django template
-    if (typeof window.projectData !== 'undefined') {
-        const p = window.projectData;
-        titleInput.value = p.title || '';
-        ownersInput.value = p.owners || '';
-        if (categoryInput) categoryInput.value = p.category || '';
-        dateInput.value = p.date || '';
-        if (p.content) {
-            quill.root.innerHTML = p.content;
-        }
-        updatePreview();
-    }
-}
-
-// Live preview update
-function updatePreview() {
-    livePreview.innerHTML = `
-        <h2 style="overflow-x: auto;overflow-wrap: break-word">${titleInput.value || 'Untitled Project'}</h2>
-        <p style="overflow-x: auto;overflow-wrap: break-word"><strong>Owners:</strong> ${ownersInput.value || 'Not specified'}</p>
-        <p style="overflow-x: auto;overflow-wrap: break-word"><strong>Date:</strong> ${dateInput.value || 'Not specified'}</p>
-        ${featuredImageBase64 ? `<img src="${featuredImageBase64}" style="max-width: 100%; height: auto; margin-bottom: 20px;" alt="Featured Image">` : ''}
-        <div style="overflow-x: auto;overflow-wrap: break-word">${quill.root.innerHTML || '<p>No content yet...</p>'}</div>
-    `;
-}
-
-// Event listeners for live preview
-titleInput.addEventListener('input', updatePreview);
-ownersInput.addEventListener('input', updatePreview);
-dateInput.addEventListener('input', updatePreview);
-quill.on('text-change', updatePreview);
-
-// Handle featured image upload
-featuredImageInput.addEventListener('change', function(e) {
+// Handle certificate image upload
+certImageInput.addEventListener('change', function(e) {
     const file = e.target.files[0];
-    if (file && file.type.startsWith('image/')) {
+    if (file && (file.type.startsWith('image/') || file.type === 'application/pdf')) {
         const reader = new FileReader();
         reader.onload = function(ev) {
-            featuredImageBase64 = ev.target.result;
-            updatePreview();
+            certificateBase64 = ev.target.result;
         };
         reader.readAsDataURL(file);
+    } else {
+        alert('Please select an image or PDF file.');
+        certImageInput.value = '';
     }
 });
 
-// Handle gallery images upload
-galleryImagesInput.addEventListener('change', function(e) {
-    galleryImagesBase64 = [];
-    const files = Array.from(e.target.files);
-    
-    files.forEach(file => {
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                galleryImagesBase64.push(ev.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-});
-
-// Save project function
-async function saveProjectData(status) {
+// Upload certificate function
+async function uploadCertificate() {
     try {
-        // Show preloader
-        showPreloader(status === 'draft' ? 'Saving Draft...' : 'Publishing Project...');
+        const title = certTitleInput.value.trim();
+        const issuer = certIssuerInput.value.trim();
+        const date = certDateInput.value;
+        const description = certDescriptionInput.value.trim();
         
-        // Prepare project data
-        const projectData = {
-            id: projectId || null,
-            title: titleInput.value,
-            owners: ownersInput.value,
-            date: dateInput.value,
-            content: quill.root.innerHTML,
-            featuredImage: featuredImageBase64,
-            galleryImage: galleryImagesBase64.length > 0 ? galleryImagesBase64[0] : '',
-            status: status,
-            projectCategory: categoryInput ? categoryInput.value : ''
+        // Validation
+        if (!certificateBase64) {
+            alert('Please select a certificate image to upload.');
+            return;
+        }
+        
+        if (!title) {
+            alert('Please enter a certificate title.');
+            certTitleInput.focus();
+            return;
+        }
+        
+        if (!issuer) {
+            alert('Please enter the issuing organization.');
+            certIssuerInput.focus();
+            return;
+        }
+        
+        // Show preloader
+        showPreloader('Uploading Certificate...');
+        
+        // Prepare certificate data
+        const certificateData = {
+            title: title,
+            issuer: issuer,
+            issue_date: date || null,
+            description: description,
+            certificate_image: certificateBase64
         };
 
+        console.log("Sending certificate data:", { 
+            title, 
+            issuer, 
+            date,
+            hasImage: !!certificateBase64 
+        });
+        
         // Send to Django API
-        const response = await fetch('https://bube-7hpy.onrender.com/admin/api/projects/save/', {
+        const response = await fetch('https://bube-7hpy.onrender.com/admin/api/certificates/upload/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken
             },
-            body: JSON.stringify(projectData)
+            body: JSON.stringify(certificateData)
         });
 
         const result = await response.json();
-
+        
         // Hide preloader
         hidePreloader();
 
+        console.log("API Response:", result);
+
         if (result.success) {
-            // Show custom success notification instead of alert
+            // Show success notification
             showSuccessNotification(
-                `Your project "${titleInput.value}" has been successfully ${status === 'draft' ? 'saved as draft' : 'published and is now live!'}`,
-                status
+                `Your certificate "${title}" has been uploaded successfully!`
             );
         } else {
             // Show error notification
@@ -414,7 +379,7 @@ async function saveProjectData(status) {
                             font-size: 18px;
                             line-height: 1.5;
                         ">
-                            ${result.message || 'An error occurred while saving the project.'}
+                            ${result.message || 'An error occurred while uploading the certificate.'}
                         </p>
                         <button class="mil-button" id="error-close" style="
                             background-color: #ff4444;
@@ -446,7 +411,7 @@ async function saveProjectData(status) {
         }
 
     } catch (error) {
-        console.error('Error saving project:', error);
+        console.error('Error uploading certificate:', error);
         
         // Hide preloader
         hidePreloader();
@@ -519,12 +484,19 @@ async function saveProjectData(status) {
     }
 }
 
-// Button event listeners
-saveDraftBtn.addEventListener('click', () => saveProjectData('draft'));
-publishBtn.addEventListener('click', () => saveProjectData('published'));
+function resetForm() {
+    certTitleInput.value = '';
+    certIssuerInput.value = '';
+    certDateInput.value = '';
+    certDescriptionInput.value = '';
+    certImageInput.value = '';
+    certificateBase64 = '';
+}
+
+// Button event listener
+certUploadBtn.addEventListener('click', uploadCertificate);
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    loadProjectData();
-    updatePreview();
+    console.log('Certificate upload script loaded');
 });
