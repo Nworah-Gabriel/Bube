@@ -120,3 +120,41 @@ class Project(models.Model):
         except Exception as e:
             print(f"Error uploading image: {e}")
         return None
+
+
+
+class Certificate(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    title = models.CharField(max_length=255, blank=True)
+    issuer = models.CharField(max_length=255, blank=True)
+    issue_date = models.DateField(blank=True, null=True)
+    certificate_image = models.URLField(blank=True, null=True)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"{self.title} - {self.issuer}" if self.title else f"Certificate {self.id}"
+    
+    @classmethod
+    def upload_base64_certificate(cls, base64_string, folder="certificates/"):
+        """Upload base64 image to Cloudinary and return URL"""
+        try:
+            if base64_string.startswith("data:image"):
+                # Extract the base64 data
+                format, imgstr = base64_string.split(";base64,")
+                ext = format.split("/")[-1]
+
+                # Decode base64
+                data = base64.b64decode(imgstr)
+
+                # Upload to Cloudinary
+                upload_result = cloudinary.uploader.upload(
+                    ContentFile(data, name=f"certificate.{ext}"),
+                    folder=folder,
+                    resource_type="image",
+                )
+                return upload_result["secure_url"]
+        except Exception as e:
+            print(f"Error uploading certificate: {e}")
+        return None

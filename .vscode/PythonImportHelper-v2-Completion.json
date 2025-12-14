@@ -66,6 +66,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -115,14 +131,6 @@
     },
     {
         "label": "admin",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
-        "isExtraImport": true,
-        "detail": "django.contrib",
-        "documentation": {}
-    },
-    {
-        "label": "messages",
         "importPath": "django.contrib",
         "description": "django.contrib",
         "isExtraImport": true,
@@ -200,6 +208,22 @@
         "description": "django.views.decorators.csrf",
         "isExtraImport": true,
         "detail": "django.views.decorators.csrf",
+        "documentation": {}
+    },
+    {
+        "label": "csrf_exempt",
+        "importPath": "django.views.decorators.csrf",
+        "description": "django.views.decorators.csrf",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.csrf",
+        "documentation": {}
+    },
+    {
+        "label": "method_decorator",
+        "importPath": "django.utils.decorators",
+        "description": "django.utils.decorators",
+        "isExtraImport": true,
+        "detail": "django.utils.decorators",
         "documentation": {}
     },
     {
@@ -478,7 +502,7 @@
         "documentation": {}
     },
     {
-        "label": "redirect",
+        "label": "get_object_or_404",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
         "isExtraImport": true,
@@ -503,14 +527,6 @@
     },
     {
         "label": "path",
-        "importPath": "django.urls",
-        "description": "django.urls",
-        "isExtraImport": true,
-        "detail": "django.urls",
-        "documentation": {}
-    },
-    {
-        "label": "reverse",
         "importPath": "django.urls",
         "description": "django.urls",
         "isExtraImport": true,
@@ -583,11 +599,59 @@
         "documentation": {}
     },
     {
-        "label": "View",
-        "importPath": "django.views",
-        "description": "django.views",
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
         "isExtraImport": true,
-        "detail": "django.views",
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "Paginator",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
+        "documentation": {}
+    },
+    {
+        "label": "EmptyPage",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
+        "documentation": {}
+    },
+    {
+        "label": "PageNotAnInteger",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
+        "documentation": {}
+    },
+    {
+        "label": "Paginator",
+        "importPath": "django.core.paginator",
+        "description": "django.core.paginator",
+        "isExtraImport": true,
+        "detail": "django.core.paginator",
         "documentation": {}
     },
     {
@@ -599,157 +663,27 @@
         "documentation": {}
     },
     {
-        "label": "authenticate",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
+        "label": "Certificate",
+        "importPath": "Admin.models",
+        "description": "Admin.models",
         "isExtraImport": true,
-        "detail": "django.contrib.auth",
+        "detail": "Admin.models",
         "documentation": {}
     },
     {
-        "label": "login",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
+        "label": "Project",
+        "importPath": "Admin.models",
+        "description": "Admin.models",
         "isExtraImport": true,
-        "detail": "django.contrib.auth",
+        "detail": "Admin.models",
         "documentation": {}
     },
     {
-        "label": "logout",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
         "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "get_user_model",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "LoginRequiredMixin",
-        "importPath": "django.contrib.auth.mixins",
-        "description": "django.contrib.auth.mixins",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.mixins",
-        "documentation": {}
-    },
-    {
-        "label": "IntegrityError",
-        "importPath": "sqlite3",
-        "description": "sqlite3",
-        "isExtraImport": true,
-        "detail": "sqlite3",
-        "documentation": {}
-    },
-    {
-        "label": "PasswordResetTokenGenerator",
-        "importPath": "django.contrib.auth.tokens",
-        "description": "django.contrib.auth.tokens",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.tokens",
-        "documentation": {}
-    },
-    {
-        "label": "six",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "six",
-        "description": "six",
-        "detail": "six",
-        "documentation": {}
-    },
-    {
-        "label": "get_template",
-        "importPath": "django.template.loader",
-        "description": "django.template.loader",
-        "isExtraImport": true,
-        "detail": "django.template.loader",
-        "documentation": {}
-    },
-    {
-        "label": "render_to_string",
-        "importPath": "django.template.loader",
-        "description": "django.template.loader",
-        "isExtraImport": true,
-        "detail": "django.template.loader",
-        "documentation": {}
-    },
-    {
-        "label": "get_current_site",
-        "importPath": "django.contrib.sites.shortcuts",
-        "description": "django.contrib.sites.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.contrib.sites.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "urlsafe_base64_encode",
-        "importPath": "django.utils.http",
-        "description": "django.utils.http",
-        "isExtraImport": true,
-        "detail": "django.utils.http",
-        "documentation": {}
-    },
-    {
-        "label": "urlsafe_base64_decode",
-        "importPath": "django.utils.http",
-        "description": "django.utils.http",
-        "isExtraImport": true,
-        "detail": "django.utils.http",
-        "documentation": {}
-    },
-    {
-        "label": "force_bytes",
-        "importPath": "django.utils.encoding",
-        "description": "django.utils.encoding",
-        "isExtraImport": true,
-        "detail": "django.utils.encoding",
-        "documentation": {}
-    },
-    {
-        "label": "force_str",
-        "importPath": "django.utils.encoding",
-        "description": "django.utils.encoding",
-        "isExtraImport": true,
-        "detail": "django.utils.encoding",
-        "documentation": {}
-    },
-    {
-        "label": "EmailMessage",
-        "importPath": "django.core.mail",
-        "description": "django.core.mail",
-        "isExtraImport": true,
-        "detail": "django.core.mail",
-        "documentation": {}
-    },
-    {
-        "label": "MIMEMultipart",
-        "importPath": "email.mime.multipart",
-        "description": "email.mime.multipart",
-        "isExtraImport": true,
-        "detail": "email.mime.multipart",
-        "documentation": {}
-    },
-    {
-        "label": "MIMEText",
-        "importPath": "email.mime.text",
-        "description": "email.mime.text",
-        "isExtraImport": true,
-        "detail": "email.mime.text",
-        "documentation": {}
-    },
-    {
-        "label": "smtplib",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "smtplib",
-        "description": "smtplib",
-        "detail": "smtplib",
+        "detail": "django.db.models",
         "documentation": {}
     },
     {
@@ -944,6 +878,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "Admin.migrations.0003_certificate",
+        "description": "Admin.migrations.0003_certificate",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('Admin', '0002_alter_project_project_category'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Certificate',\n            fields=[\n                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),\n                ('title', models.CharField(blank=True, max_length=255)),",
+        "detail": "Admin.migrations.0003_certificate",
+        "documentation": {}
+    },
+    {
         "label": "create_project_api",
         "kind": 2,
         "importPath": "Admin.api_views",
@@ -989,11 +932,20 @@
         "documentation": {}
     },
     {
+        "label": "Certificate",
+        "kind": 6,
+        "importPath": "Admin.models",
+        "description": "Admin.models",
+        "peekOfCode": "class Certificate(models.Model):\n    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)\n    title = models.CharField(max_length=255, blank=True)\n    issuer = models.CharField(max_length=255, blank=True)\n    issue_date = models.DateField(blank=True, null=True)\n    certificate_image = models.URLField(blank=True, null=True)\n    description = models.TextField(blank=True)\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)\n    def __str__(self):",
+        "detail": "Admin.models",
+        "documentation": {}
+    },
+    {
         "label": "urlpatterns",
         "kind": 5,
         "importPath": "Admin.urls",
         "description": "Admin.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"home-view\"),\n    path(\"create/\", CreateProject.as_view(), name=\"create-project\"),\n    path(\"certificate/list/\", CertificateList.as_view(), name=\"cert-list\"),\n    path(\"research/create/\", CreateResearch.as_view(), name=\"create-research\"),\n    path(\"research/list/\", ResearchList.as_view(), name=\"research-list\"),\n    path(\"preview/\", Preview.as_view(), name=\"preview\"),\n    path(\"certificate/upload/\", CertificateUpload.as_view(), name=\"upload-certificate\"),\n    path('api/projects/save/', ProjectAPIView.as_view(), name='save_project_api'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"admin\"),\n    path(\"create/\", CreateProject.as_view(), name=\"create-project\"),\n    path(\"certificate/list/\", CertificateList.as_view(), name=\"cert-list\"),\n    path(\"research/create/\", CreateResearch.as_view(), name=\"create-research\"),\n    path(\"research/list/\", ResearchList.as_view(), name=\"research-list\"),\n    path(\"preview/\", Preview.as_view(), name=\"preview\"),\n    path(\"certificate/upload/\", CertificateUpload.as_view(), name=\"upload-certificate\"),\n     path('api/certificates/upload/', CertificateAPIView.as_view(), name='upload_certificate_api'),\n    path('api/projects/save/', ProjectAPIView.as_view(), name='save_project_api'),",
         "detail": "Admin.urls",
         "documentation": {}
     },
@@ -1002,7 +954,7 @@
         "kind": 6,
         "importPath": "Admin.views",
         "description": "Admin.views",
-        "peekOfCode": "class HomeView(TemplateView):\n    template_name = \"Admin/project-dashboard.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\n    def post(self, request, ref_email, ref_username): ...",
+        "peekOfCode": "class HomeView(TemplateView):\n    template_name = \"Admin/project-dashboard.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get page number from request\n        published_page = self.request.GET.get('published_page', 1)\n        draft_page = self.request.GET.get('draft_page', 1)\n        # Get all projects\n        published_projects = Project.objects.filter(status='published').order_by('-date')\n        draft_projects = Project.objects.filter(status='draft').order_by('-date')",
         "detail": "Admin.views",
         "documentation": {}
     },
@@ -1065,7 +1017,16 @@
         "kind": 6,
         "importPath": "Admin.views",
         "description": "Admin.views",
-        "peekOfCode": "class CertificateUpload(TemplateView):\n    template_name = \"Admin/cert-upload.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\n    def post(self, request, ref_email, ref_username): ...",
+        "peekOfCode": "class CertificateUpload(TemplateView):\n    template_name = \"Admin/cert-upload.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get recent projects for menu\n        context['recent_projects'] = Project.objects.filter(\n            status='published'\n        ).order_by('-created_at')[:6]\n        return context\n# API View for certificate upload",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "CertificateAPIView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class CertificateAPIView(TemplateView):\n    \"\"\"API view for handling certificate uploads\"\"\"\n    def post(self, request, *args, **kwargs):\n        try:\n            data = json.loads(request.body)\n            # Create new certificate\n            certificate = Certificate()\n            # Update fields\n            certificate.title = data.get('title', '')\n            certificate.issuer = data.get('issuer', '')",
         "detail": "Admin.views",
         "documentation": {}
     },
@@ -1083,7 +1044,7 @@
         "kind": 5,
         "importPath": "Website.urls",
         "description": "Website.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"\"),\n    path(\"about\", About.as_view(), name=\"about\"),\n    path(\"skills\", SKills.as_view(), name=\"skills\"),\n    path(\"certifications\", Certifications.as_view(), name=\"certifications\"),\n    path(\"research\", Research.as_view(), name=\"research\"),\n    path(\"project-category\", ProjectCategory.as_view(), name=\"project-category\"),\n    path(\"process-optimization\", ProcessOptimization.as_view(), name=\"process-optimization\"),\n    path(\"process-optimization/<uuid:id>/\", ProcessOptimizationDetails.as_view(), name=\"process-optimization/detail\"),\n    path(\"data-analysis/<uuid:id>/\", DataAnalysisDetail.as_view(), name=\"data-analysis-detail\"),",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"\"),\n    path(\"\", HomeView.as_view(), name=\"home-view\"),\n    path(\"about\", About.as_view(), name=\"about\"),\n    path(\"skills\", SKills.as_view(), name=\"skills\"),\n    path(\"certifications\", Certifications.as_view(), name=\"certifications\"),\n    path(\"research\", Research.as_view(), name=\"research\"),\n    path(\"project-category\", ProjectCategory.as_view(), name=\"project-category\"),\n    path(\"process-optimization\", ProcessOptimization.as_view(), name=\"process-optimization\"),\n    path(\"process-optimization/<uuid:id>/\", ProcessOptimizationDetails.as_view(), name=\"process-optimization-detail\"),",
         "detail": "Website.urls",
         "documentation": {}
     },
@@ -1102,24 +1063,6 @@
         "importPath": "Website.views",
         "description": "Website.views",
         "peekOfCode": "class ProjectCategory(TemplateView):\n    template_name = \"Website/project-category.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\n    def post(self, request, ref_email, ref_username): ...",
-        "detail": "Website.views",
-        "documentation": {}
-    },
-    {
-        "label": "ProcessOptimization",
-        "kind": 6,
-        "importPath": "Website.views",
-        "description": "Website.views",
-        "peekOfCode": "class ProcessOptimization(TemplateView):\n    template_name = \"Website/⁠Process-optimization.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\n    def post(self, request, ref_email, ref_username): ...",
-        "detail": "Website.views",
-        "documentation": {}
-    },
-    {
-        "label": "ProcessOptimizationDetails",
-        "kind": 6,
-        "importPath": "Website.views",
-        "description": "Website.views",
-        "peekOfCode": "class ProcessOptimizationDetails(TemplateView):\n    template_name = \"Website/process-optimization-detail.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\n    def post(self, request, ref_email, ref_username): ...",
         "detail": "Website.views",
         "documentation": {}
     },
@@ -1146,7 +1089,7 @@
         "kind": 6,
         "importPath": "Website.views",
         "description": "Website.views",
-        "peekOfCode": "class Certifications(TemplateView):\n    template_name = \"Website/certifications.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\nclass Research(TemplateView):",
+        "peekOfCode": "class Certifications(TemplateView):\n    template_name = \"Website/certifications.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get all certificates ordered by date\n        certificates = Certificate.objects.all().order_by('-issue_date', '-created_at')\n        context['certificates'] = certificates\n        return context\nclass Research(TemplateView):\n    template_name = \"Website/research.html\"",
         "detail": "Website.views",
         "documentation": {}
     },
@@ -1155,16 +1098,7 @@
         "kind": 6,
         "importPath": "Website.views",
         "description": "Website.views",
-        "peekOfCode": "class Research(TemplateView):\n    template_name = \"Website/research.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\nclass DataAnalysisDetail(TemplateView):",
-        "detail": "Website.views",
-        "documentation": {}
-    },
-    {
-        "label": "DataAnalysisDetail",
-        "kind": 6,
-        "importPath": "Website.views",
-        "description": "Website.views",
-        "peekOfCode": "class DataAnalysisDetail(TemplateView):\n    template_name = \"Website/data-analytics-projects.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\nclass DataAnalysis(TemplateView):",
+        "peekOfCode": "class Research(TemplateView):\n    template_name = \"Website/research.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\nclass DataAnalysis(TemplateView):",
         "detail": "Website.views",
         "documentation": {}
     },
@@ -1173,7 +1107,16 @@
         "kind": 6,
         "importPath": "Website.views",
         "description": "Website.views",
-        "peekOfCode": "class DataAnalysis(TemplateView):\n    template_name = \"Website/data-analytics.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\nclass DesignEngineering(TemplateView):",
+        "peekOfCode": "class DataAnalysis(TemplateView):\n    template_name = \"Website/data-analytics.html\"\n    paginate_by = 6\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get only published projects with Data Analysis category\n        projects = Project.objects.filter(\n            status='published',\n            project_category='Data Analysis'\n        ).order_by('-date')",
+        "detail": "Website.views",
+        "documentation": {}
+    },
+    {
+        "label": "DataAnalysisDetail",
+        "kind": 6,
+        "importPath": "Website.views",
+        "description": "Website.views",
+        "peekOfCode": "class DataAnalysisDetail(DetailView):\n    template_name = \"Website/data-analytics-projects.html\"\n    model = Project\n    context_object_name = 'project'\n    def get_object(self):\n        # Get the project by UUID, only if published\n        return get_object_or_404(\n            Project, \n            id=self.kwargs['id'],\n            status='published'",
         "detail": "Website.views",
         "documentation": {}
     },
@@ -1182,7 +1125,7 @@
         "kind": 6,
         "importPath": "Website.views",
         "description": "Website.views",
-        "peekOfCode": "class DesignEngineering(TemplateView):\n    template_name = \"Website/design-engineering.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\nclass DesignEngineeringDetail(TemplateView):",
+        "peekOfCode": "class DesignEngineering(TemplateView):\n    template_name = \"Website/design-engineering.html\"\n    paginate_by = 6  # Number of projects per page\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get only published projects with Design Engineering category\n        projects = Project.objects.filter(\n            status='published',\n            project_category='Design Engineering'\n        ).order_by('-date')  # Show newest first",
         "detail": "Website.views",
         "documentation": {}
     },
@@ -1191,7 +1134,25 @@
         "kind": 6,
         "importPath": "Website.views",
         "description": "Website.views",
-        "peekOfCode": "class DesignEngineeringDetail(TemplateView):\n    template_name = \"Website/design-engineering-project-detail.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)",
+        "peekOfCode": "class DesignEngineeringDetail(DetailView):\n    template_name = \"Website/design-engineering-project-detail.html\"\n    model = Project\n    context_object_name = 'project'\n    def get_object(self):\n        # Get the project by UUID, only if published\n        return get_object_or_404(\n            Project, \n            id=self.kwargs['id'],\n            status='published'",
+        "detail": "Website.views",
+        "documentation": {}
+    },
+    {
+        "label": "ProcessOptimization",
+        "kind": 6,
+        "importPath": "Website.views",
+        "description": "Website.views",
+        "peekOfCode": "class ProcessOptimization(TemplateView):\n    template_name = \"Website/⁠Process-optimization.html\"\n    paginate_by = 6\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get only published projects with Process Optimization category\n        projects = Project.objects.filter(\n            status='published',\n            project_category='Process Optimization'\n        ).order_by('-date')",
+        "detail": "Website.views",
+        "documentation": {}
+    },
+    {
+        "label": "ProcessOptimizationDetails",
+        "kind": 6,
+        "importPath": "Website.views",
+        "description": "Website.views",
+        "peekOfCode": "class ProcessOptimizationDetails(DetailView):\n    template_name = \"Website/process-optimization-detail.html\"\n    model = Project\n    context_object_name = 'project'\n    def get_object(self):\n        # Get the project by UUID, only if published\n        return get_object_or_404(\n            Project, \n            id=self.kwargs['id'],\n            status='published'",
         "detail": "Website.views",
         "documentation": {}
     },
@@ -1533,7 +1494,7 @@
         "kind": 5,
         "importPath": "core.urls",
         "description": "core.urls",
-        "peekOfCode": "urlpatterns = [\n    path('super-admin/', admin.site.urls),\n    path(\"api/api-auth/\", include(\"rest_framework.urls\")),\n    path(\"admin/\", include(\"Admin.urls\")),\n    path(\"\", include(\"Website.urls\")),\n]\nif settings.DEBUG:\n    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\n    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)",
+        "peekOfCode": "urlpatterns = [\n    path('super-admin/', admin.site.urls),\n    path(\"api/api-auth/\", include(\"rest_framework.urls\")),\n    path(\"admin/\", include(\"Admin.urls\"), name=\"admin\"),\n    path(\"\", include(\"Website.urls\")),\n]\nif settings.DEBUG:\n    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\n    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)",
         "detail": "core.urls",
         "documentation": {}
     },

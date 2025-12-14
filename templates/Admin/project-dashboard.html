@@ -1,81 +1,761 @@
 {% load static %}
 {% include 'Admin/__header.html' %}
 <!-- banner -->
-          <div class="mil-inner-banner">
-            <div class="mil-banner-content mil-up">
-              <div class="mil-animation-frame">
-                <div
-                  class="mil-animation mil-position-4 mil-dark mil-scale"
-                  data-value-1="6"
-                  data-value-2="1.4"
-                ></div>
-              </div>
-              <div class="container">
-                <ul class="mil-breadcrumbs mil-mb-60">
-                  <li><a href="project-dashboard.html">Admin</a></li>
-                  <li><a href="">Projects</a></li>
-                  
-                </ul>
-                <div class="new-project-btn">
+<div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+        <div class="mil-animation-frame">
+            <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+        </div>
+        <div class="container">
+            <ul class="mil-breadcrumbs mil-mb-60">
+                <li><a href="project-dashboard.html">Admin</a></li>
+                <li><a href="">Projects</a></li>
+            </ul>
+            <div class="new-project-btn">
                 <h1 class="mil-mb-60">
-                  Admin <span class="mil-thin">Dashboard</span>
+                    Admin <span class="mil-thin">Dashboard</span>
                 </h1>
-                <a href="{% url 'create-project' %}" class="mil-button mil-arrow-place"
-                    ><span>Create Project</span></a
-                </div>
-                <!-- <a
-                  href="#project"
-                  class="mil-link mil-dark mil-arrow-place mil-down-arrow"
-                >
-                  <span>Read more</span>
-                </a> -->
-              </div>
+                
             </div>
-          </div>
-          <!-- banner end -->
-
-          <!-- project -->
-          <section class="mil-p-90-0">
-            <div class="container mil-p-0-120" id="project">
-              <div class="tabs">
-    <button id="tab-published" class="tab-btn active">Published Projects</button>
-    <button id="tab-draft" class="tab-btn">Draft Projects</button>
+        </div>
+    </div>
 </div>
+<!-- banner end -->
 
-<div id="projects-container" class="projects-grid"></div>
+<!-- preloader -->
+<div class="mil-preloader">
+    <div class="mil-preloader-animation">
+        <div class="mil-pos-abs mil-animation-1">
+            <p class="mil-h3 mil-muted mil-thin">Welcome</p>
+            <p class="mil-h3 mil-muted">To Your</p>
+            <p class="mil-h3 mil-muted mil-thin">Admin</p>
+            <p class="mil-h3 mil-muted">Dashboard</p>
+        </div>
+        <div class="mil-pos-abs mil-animation-2">
+            <div class="mil-reveal-frame">
+                <p class="mil-reveal-box"></p>
+                <p class="mil-h3 mil-muted mil-thin">Ebube Ozurumba</p>
             </div>
-          </section>
-          <!-- project end -->
+        </div>
+    </div>
+</div>
+<!-- preloader end -->
 
-          <!-- call to action -->
-          <section class="mil-soft-bg">
-            <div class="container mil-p-120-120">
-              <div class="row">
-                <div class="col-lg-10">
-                  <span
-                    class="mil-suptitle mil-suptitle-right mil-suptitle-dark mil-up"
-                    >Looking to make your mark? We'll help you turn <br />
-                    your project into a success story.</span
-                  >
+<!-- project -->
+<section class="mil-p-90-0">
+    <div class="container mil-p-0-120" id="project">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button id="tab-published" class="tab-btn active" data-status="published">
+                Published Projects ({{ published_paginator.count }})
+            </button>
+            <button id="tab-draft" class="tab-btn" data-status="draft">
+                Draft Projects ({{ draft_paginator.count }})
+            </button>
+        </div>
+
+        <!-- Published Projects (initially visible) -->
+        <div id="published-projects" class="projects-grid tab-content active">
+            {% if published_projects %}
+                <div class="row">
+                    {% for project in published_projects %}
+                    <div class="col-lg-4 mil-mb-60">
+                        <div class="mil-project-card mil-up">
+                            <div class="mil-cover-frame mil-up">
+                                {% if project.featured_image %}
+                                <img src="{{ project.featured_image }}" alt="{{ project.title }}" class="mil-cover">
+                                {% else %}
+                                <div class="mil-cover-placeholder">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                {% endif %}
+                                <div class="mil-card-hover">
+                                    <div class="mil-card-buttons">
+                                        {% if project.project_category == "Data Analysis" %}
+                                        <a href="{% url 'data-analysis-detail' project.id %}" class="mil-link mil-arrow-place">
+                                             <span style="color: white !important">View Details</span>
+                                        </a>
+                                        {% endif %}
+                                      {% if project.project_category == "Design Engineering" %}
+                                        <a href="{% url 'design-engineering-detail' project.id %}" class="mil-link mil-arrow-place">
+                                             <span style="color: white !important">View Details</span>
+                                        </a>
+                                      {% endif %}
+                                      {% if project.project_category == "Process Optimization" %}
+                                        <a href="{% url 'process-optimization-detail' project.id %}" class="mil-link mil-arrow-place">
+                                            <span style="color: white !important">View Details</span>
+                                        </a>
+                                      {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mil-description mil-up">
+                                <div class="mil-project-title">
+                                    <h4 class="mil-mb-10">{{ project.title }}</h4>
+                                    <div class="mil-project-info">
+                                        <div class="mil-project-info-item">
+                                            <span class="mil-project-info-label">Category:</span>
+                                            <span class="mil-project-info-value">{{ project.project_category }}</span>
+                                        </div>
+                                        <div class="mil-project-info-item">
+                                            <span class="mil-project-info-label">Date:</span>
+                                            <span class="mil-project-info-value">{{ project.date }}</span>
+                                        </div>
+                                        <div class="mil-project-info-item">
+                                            <span class="mil-project-info-label">Status:</span>
+                                            <span class="mil-status-badge mil-published">{{ project.status|title }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mil-project-actions">
+                                  {% if project.project_category == "Data Analysis" %}
+                                    <a href="{% url 'data-analysis-detail' project.id %}" class="mil-link mil-arrow-place">
+                                        <span>View Details</span>
+                                    </a>
+                                    {% endif %}
+                                  {% if project.project_category == "Design Engineering" %}
+                                    <a href="{% url 'design-engineering-detail' project.id %}" class="mil-link mil-arrow-place">
+                                        <span>View Details</span>
+                                    </a>
+                                  {% endif %}
+                                  {% if project.project_category == "Process Optimization" %}
+                                    <a href="{% url 'process-optimization-detail' project.id %}" class="mil-link mil-arrow-place">
+                                        <span>View Details</span>
+                                    </a>
+                                  {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-              </div>
-              <div class="mil-center">
-                <h2 class="mil-up mil-mb-60">
-                  Ready to bring your
-                  <span class="mil-thin">ideas to</span> life? <br />
-                  We're <span class="mil-thin">here to help</span>
-                </h2>
-                <div class="mil-up">
-                  <a href="contact.html" class="mil-button mil-arrow-place"
-                    ><span>Contact us</span></a
-                  >
+                
+                <!-- Pagination for Published Projects -->
+                {% if published_paginator.num_pages > 1 %}
+                <div class="mil-pagination mil-up">
+                    <nav aria-label="Published projects pagination">
+                        <ul class="pagination">
+                            {% if published_projects.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?published_page=1{% if request.GET.draft_page %}&draft_page={{ request.GET.draft_page }}{% endif %}#published" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?published_page={{ published_projects.previous_page_number }}{% if request.GET.draft_page %}&draft_page={{ request.GET.draft_page }}{% endif %}#published" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            
+                            {% for num in published_paginator.page_range %}
+                                {% if published_projects.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                                {% elif num > published_projects.number|add:'-3' and num < published_projects.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?published_page={{ num }}{% if request.GET.draft_page %}&draft_page={{ request.GET.draft_page }}{% endif %}#published">{{ num }}</a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if published_projects.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?published_page={{ published_projects.next_page_number }}{% if request.GET.draft_page %}&draft_page={{ request.GET.draft_page }}{% endif %}#published" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?published_page={{ published_paginator.num_pages }}{% if request.GET.draft_page %}&draft_page={{ request.GET.draft_page }}{% endif %}#published" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    <div class="mil-pagination-info">
+                        Page {{ published_projects.number }} of {{ published_paginator.num_pages }}
+                    </div>
                 </div>
-              </div>
+                {% endif %}
+            {% else %}
+                <div class="mil-empty-state mil-up">
+                    <div class="mil-empty-icon">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <h3>No Published Projects</h3>
+                    <p>You haven't published any projects yet.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Draft Projects (initially hidden) -->
+        <div id="draft-projects" class="projects-grid tab-content">
+            {% if draft_projects %}
+                <div class="row">
+                    {% for project in draft_projects %}
+                    <div class="col-lg-4 mil-mb-60">
+                        <div class="mil-project-card mil-up">
+                            <div class="mil-cover-frame mil-up">
+                                {% if project.featured_image %}
+                                <img src="{{ project.featured_image }}" alt="{{ project.title }}" class="mil-cover">
+                                {% else %}
+                                <div class="mil-cover-placeholder">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                {% endif %}
+                                <div class="mil-card-hover">
+                                    <div class="mil-card-buttons">
+                                        <a href="{% url 'edit-project' project.id %}" class="mil-button mil-small mil-arrow-place">
+                                            <span>Edit</span>
+                                        </a>
+                                        <a href="{% url 'project-detail' project.id %}" class="mil-button mil-small mil-arrow-place">
+                                            <span>Preview</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mil-description mil-up">
+                                <div class="mil-project-title">
+                                    <h4 class="mil-mb-10">{{ project.title }}</h4>
+                                    <div class="mil-project-info">
+                                        <div class="mil-project-info-item">
+                                            <span class="mil-project-info-label">Category:</span>
+                                            <span class="mil-project-info-value">{{ project.project_category }}</span>
+                                        </div>
+                                        <div class="mil-project-info-item">
+                                            <span class="mil-project-info-label">Date:</span>
+                                            <span class="mil-project-info-value">{{ project.date }}</span>
+                                        </div>
+                                        <div class="mil-project-info-item">
+                                            <span class="mil-project-info-label">Status:</span>
+                                            <span class="mil-status-badge mil-draft">{{ project.status|title }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mil-project-actions">
+                                    <a href="{% url 'edit-project' project.id %}" class="mil-link mil-arrow-place">
+                                        <span>Continue Editing</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination for Draft Projects -->
+                {% if draft_paginator.num_pages > 1 %}
+                <div class="mil-pagination mil-up">
+                    <nav aria-label="Draft projects pagination">
+                        <ul class="pagination">
+                            {% if draft_projects.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?draft_page=1{% if request.GET.published_page %}&published_page={{ request.GET.published_page }}{% endif %}#draft" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?draft_page={{ draft_projects.previous_page_number }}{% if request.GET.published_page %}&published_page={{ request.GET.published_page }}{% endif %}#draft" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            
+                            {% for num in draft_paginator.page_range %}
+                                {% if draft_projects.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                                {% elif num > draft_projects.number|add:'-3' and num < draft_projects.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?draft_page={{ num }}{% if request.GET.published_page %}&published_page={{ request.GET.published_page }}{% endif %}#draft">{{ num }}</a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if draft_projects.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?draft_page={{ draft_projects.next_page_number }}{% if request.GET.published_page %}&published_page={{ request.GET.published_page }}{% endif %}#draft" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?draft_page={{ draft_paginator.num_pages }}{% if request.GET.published_page %}&published_page={{ request.GET.published_page }}{% endif %}#draft" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    <div class="mil-pagination-info">
+                        Page {{ draft_projects.number }} of {{ draft_paginator.num_pages }}
+                    </div>
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="mil-empty-state mil-up">
+                    <div class="mil-empty-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>No Draft Projects</h3>
+                    <p>You don't have any draft projects. Create a new one!</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- project end -->
+
+<!-- call to action -->
+<section class="mil-soft-bg">
+    <div class="container mil-p-120-120">
+        <div class="row">
+            <div class="col-lg-10">
+                <span class="mil-suptitle mil-suptitle-right mil-suptitle-dark mil-up">
+                    Looking to make your mark? We'll help you turn <br />
+                    your project into a success story.
+                </span>
             </div>
-          </section>
-          <!-- call to action end -->
+        </div>
+        <div class="mil-center">
+            <h2 class="mil-up mil-mb-60">
+                Ready to bring your
+                <span class="mil-thin">ideas to</span> life? <br />
+                We're <span class="mil-thin">here to help</span>
+            </h2>
+            <div class="mil-up">
+                <a href="contact.html" class="mil-button mil-arrow-place">
+                    <span>Contact us</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- call to action end -->
 
-          
-          <!-- hidden elements end -->
+<!-- Add JavaScript for tab functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get tab buttons and content sections
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Function to switch tabs
+    function switchTab(selectedTab) {
+        // Remove active class from all tabs and contents
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // Add active class to selected tab
+        selectedTab.classList.add('active');
+        
+        // Show corresponding content
+        const tabId = selectedTab.id;
+        const contentId = tabId === 'tab-published' ? 'published-projects' : 'draft-projects';
+        document.getElementById(contentId).classList.add('active');
+        
+        // Update URL hash without scrolling
+        const status = selectedTab.dataset.status;
+        history.replaceState(null, null, `#${status}`);
+        
+        // Store active tab in sessionStorage for persistence
+        sessionStorage.setItem('activeTab', status);
+    }
+    
+    // Function to scroll to projects section
+    function scrollToProjects() {
+        const projectsSection = document.getElementById('project');
+        if (projectsSection) {
+            projectsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    
+    // Add click event listeners to tabs
+    tabButtons.forEach(tab => {
+        tab.addEventListener('click', function() {
+            switchTab(this);
+            scrollToProjects();
+        });
+    });
+    
+    // Function to restore tab state from URL hash or sessionStorage
+    function restoreTabState() {
+        const hash = window.location.hash.substring(1);
+        let activeTab = hash;
+        
+        if (!activeTab) {
+            // Check sessionStorage
+            activeTab = sessionStorage.getItem('activeTab');
+        }
+        
+        if (activeTab === 'draft') {
+            const draftTab = document.getElementById('tab-draft');
+            if (draftTab) {
+                switchTab(draftTab);
+            }
+        } else {
+            // Default to published tab
+            const publishedTab = document.getElementById('tab-published');
+            if (publishedTab) {
+                switchTab(publishedTab);
+            }
+        }
+    }
+    
+    // Restore tab state on page load
+    restoreTabState();
+    
+    // Handle pagination links - maintain active tab
+    document.querySelectorAll('.page-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Get current active tab
+            const activeTab = document.querySelector('.tab-btn.active');
+            if (activeTab) {
+                const status = activeTab.dataset.status;
+                // Add the tab parameter to maintain active state
+                let href = this.getAttribute('href');
+                if (href && !href.includes(`#${status}`)) {
+                    if (href.includes('#')) {
+                        href = href.split('#')[0];
+                    }
+                    this.setAttribute('href', `${href}#${status}`);
+                }
+            }
+        });
+    });
+});
+</script>
 
-          {% include 'Admin/__footer.html' %}
+<style>
+/* Tab Styling */
+.tabs {
+    display: flex;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: #333;
+}
+
+.tab-btn.active {
+    color: #000;
+    font-weight: 600;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Project Cards */
+.mil-project-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.mil-project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.mil-cover-frame {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.mil-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.mil-project-card:hover .mil-cover {
+    transform: scale(1.05);
+}
+
+.mil-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 48px;
+}
+
+.mil-card-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mil-project-card:hover .mil-card-hover {
+    opacity: 1;
+}
+
+.mil-card-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.mil-description {
+    padding: 24px;
+}
+
+.mil-project-info {
+    margin-top: 15px;
+}
+
+.mil-project-info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.mil-project-info-label {
+    color: #666;
+    font-weight: 500;
+}
+
+.mil-project-info-value {
+    color: #333;
+}
+
+.mil-status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.mil-status-badge.mil-published {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.mil-status-badge.mil-draft {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.mil-project-actions {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+/* Pagination Styling */
+.mil-pagination {
+    margin-top: 60px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.page-item {
+    margin: 0;
+}
+
+.page-link,
+.page-item.active .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #e0e0e0;
+    background-color: white;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.page-link:hover {
+    background-color: #f5f5f5;
+    border-color: #ccc;
+}
+
+.page-item.active .page-link {
+    background-color: #000;
+    border-color: #000;
+    color: white;
+}
+
+.page-item.disabled .page-link {
+    color: #999;
+    background-color: #f9f9f9;
+    border-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.mil-pagination-info {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Empty State */
+.mil-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.mil-empty-icon {
+    font-size: 48px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.mil-empty-state h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.mil-empty-state p {
+    color: #888;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .mil-cover-frame {
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tabs {
+        justify-content: center;
+    }
+    
+    .tab-btn {
+        padding: 10px 20px;
+        margin-right: 10px;
+        font-size: 14px;
+    }
+    
+    .mil-description {
+        padding: 20px;
+    }
+    
+    .page-link,
+    .page-item.active .page-link {
+        min-width: 36px;
+        height: 36px;
+        padding: 0 10px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+    .tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tab-btn {
+        width: 100%;
+        max-width: 300px;
+        margin-right: 0;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    .tab-btn.active::after {
+        bottom: -5px;
+    }
+    
+    .pagination {
+        gap: 5px;
+    }
+    
+    .page-link,
+    .page-item.active .page-link {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        font-size: 12px;
+    }
+}
+</style>
+
+{% include 'Admin/__footer.html' %}

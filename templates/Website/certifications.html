@@ -1,105 +1,123 @@
-{% load static %} {% include 'Website/__header.html' %}
-          <!-- banner -->
-          <div class="mil-inner-banner">
-            <div class="mil-banner-content mil-up">
-              <div class="mil-animation-frame">
-                <div
-                  class="mil-animation mil-position-4 mil-dark mil-scale"
-                  data-value-1="6"
-                  data-value-2="1.4"
-                ></div>
-              </div>
-              <div class="container">
-                <ul class="mil-breadcrumbs mil-mb-60">
-                  <li><a href="home-1.html">Homepage</a></li>
-                  <li><a href="certifications.html">Certifications</a></li>
-                </ul>
-                <h1 class="mil-mb-60">
-                  Certified <span class="mil-thin">& Credible</span><br />
-                  <span class="mil-thin"></span>
-                </h1>
-                <a
-                  href="#certifications"
-                  class="mil-link mil-dark mil-arrow-place mil-down-arrow"
-                >
-                  <span>My Certifications</span>
-                </a>
-              </div>
+{% load static %}
+{% include 'Website/__header.html' %}
+<!-- banner -->
+<div class="mil-inner-banner">
+  <div class="mil-banner-content mil-up">
+    <div class="mil-animation-frame">
+      <div
+        class="mil-animation mil-position-4 mil-dark mil-scale"
+        data-value-1="6"
+        data-value-2="1.4"
+      ></div>
+    </div>
+    <div class="container">
+      <ul class="mil-breadcrumbs mil-mb-60">
+        <li><a href="{% url '' %}">Homepage</a></li>
+        <li><a href="{% url 'certifications' %}">Certifications</a></li>
+      </ul>
+      <h1 class="mil-mb-60">
+        Certified <span class="mil-thin">& Credible</span><br />
+        <span class="mil-thin"></span>
+      </h1>
+      <a
+        href="#certifications"
+        class="mil-link mil-dark mil-arrow-place mil-down-arrow"
+      >
+        <span>My Certifications</span>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- banner end -->
+
+<!-- certificates -->
+<section id="certifications">
+  <div class="container mil-p-120-90">
+    {% if certificates %}
+      <div class="row">
+        {% for cert in certificates %}
+        <div class="col-lg-6 mil-mb-30">
+          <div class="certificate-card mil-up">
+            <div class="mil-image-frame mil-square">
+              {% if cert.certificate_image %}
+              <img src="{{ cert.certificate_image }}" alt="{{ cert.title|default:'Certificate' }}">
+              {% else %}
+              <img src="{% static 'img/certificates/default.jpg' %}" alt="Certificate">
+              {% endif %}
+              <a data-fancybox="gallery{{ forloop.counter }}" 
+                 data-no-swup 
+                 href="{{ cert.certificate_image|default:'#' }}" 
+                 class="mil-zoom-btn">
+                <img src="{% static 'img/icons/zoom.svg' %}" alt="zoom">
+              </a>
+            </div>
+            
+            <div class="certificate-info mil-up">
+              {% if cert.title %}
+              <h4 class="mil-mb-10">{{ cert.title }}</h4>
+              {% endif %}
+              
+              {% if cert.issuer %}
+              <p class="mil-text-sm mil-mb-5"><strong>Issued by:</strong> {{ cert.issuer }}</p>
+              {% endif %}
+              
+              {% if cert.issue_date %}
+              <p class="mil-text-sm mil-mb-5"><strong>Date:</strong> {{ cert.issue_date|date:"F Y" }}</p>
+              {% endif %}
+              
+              {% if cert.description %}
+              <p class="mil-text-sm">{{ cert.description }}</p>
+              {% endif %}
             </div>
           </div>
-          <!-- banner end -->
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <!-- No certificates message -->
+      <div class="row">
+        <div class="col-12 mil-center">
+          <div class="mil-mb-60">
+            <h3 class="mil-up mil-mb-30">Certifications Coming Soon</h3>
+            <p class="mil-text-lg mil-up mil-mb-30">
+              I'm currently working on adding my professional certifications to this section.
+              Please check back soon!
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+<!-- certificates end -->
 
-          <!-- team -->
-          <section id="certifications">
-            <div class="container mil-p-120-90">
-              <div class="row">
-                <div class="col-lg-6">
-
-                                    <div class="mil-image-frame mil-square mil-up mil-mb-30">
-                                        <img src="{%  static 'img/certificates/cert 1.jpg' %}" alt="image">
-                                        <a data-fancybox="gallery" data-no-swup href="{%  static 'img/certificates/cert 1.jpg' %}" class="mil-zoom-btn">
-                                            <img src="{%  static 'img/icons/zoom.svg" alt="zoom">
-                                        </a>
-                                    </div>
-
-                                </div>
-
-               <div class="col-lg-6">
-
-                                    <div class="mil-image-frame mil-square mil-up mil-mb-30">
-                                        <img src="{%  static 'img/certificates/cert 2.jpg' %}" alt="image">
-                                        <a data-fancybox="gallery" data-no-swup href="{%  static 'img/certificates/cert 2.jpg' %}" class="mil-zoom-btn">
-                                            <img src="{%  static 'img/icons/zoom.svg" alt="zoom">
-                                        </a>
-                                    </div>
-
-                                </div>
-
-                <div class="col-lg-6">
-
-                                    <div class="mil-image-frame mil-square mil-up mil-mb-30">
-                                        <img src="{%  static 'img/certificates/cert 3.jpg' %}" alt="image">
-                                        <a data-fancybox="gallery" data-no-swup href="{%  static 'img/certificates/cert 3.jpg' %}" class="mil-zoom-btn">
-                                            <img src="{%  static 'img/icons/zoom.svg" alt="zoom">
-                                        </a>
-                                    </div>
-
-                                </div>
-
-                <div class="col-lg-6">
-
-                                    <div class="mil-image-frame mil-square mil-up mil-mb-30">
-                                        <img src="{%  static 'img/certificates/cert 4.jpg' %}" alt="image">
-                                        <a data-fancybox="gallery" data-no-swup href="{%  static 'img/certificates/cert 4.jpg' %}" class="mil-zoom-btn">
-                                            <img src="{%  static 'img/icons/zoom.svg" alt="zoom">
-                                        </a>
-                                    </div>
-
-                                </div>
-
-                <div class="col-lg-6">
-
-                                    <div class="mil-image-frame mil-square mil-up mil-mb-30">
-                                        <img src="{%  static 'img/certificates/cert 5.jpg' %}" alt="image">
-                                        <a data-fancybox="gallery" data-no-swup href="{%  static 'img/certificates/cert 5.jpg' %}" class="mil-zoom-btn">
-                                            <img src="{%  static 'img/icons/zoom.svg" alt="zoom">
-                                        </a>
-                                    </div>
-
-                                </div>
-
-                <div class="col-lg-6">
-
-                                    <div class="mil-image-frame mil-square mil-up mil-mb-30">
-                                        <img src="{%  static 'img/certificates/cert 6.jpg' %}" alt="image">
-                                        <a data-fancybox="gallery" data-no-swup href="{%  static 'img/certificates/cert 6.jpg' %}" class="mil-zoom-btn">
-                                            <img src="{%  static 'img/icons/zoom.svg" alt="zoom">
-                                        </a>
-                                    </div>
-
-                                </div>
-              </div>
-            </div>
-          </section>
-          <!-- team end -->
 {% include 'Website/__footer.html' %}
+
+<style>
+  .certificate-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .certificate-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .certificate-info {
+    padding: 20px;
+  }
+  
+  .certificate-info h4 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .certificate-info p {
+    color: #666;
+    margin-bottom: 5px;
+  }
+</style>

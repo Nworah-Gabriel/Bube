@@ -27,7 +27,7 @@
                         <nav class="mil-footer-menu mil-mb-60">
                           <ul>
                             <li class="mil-up mil-active">
-                              <a href="{% url 'home-view' %}">Home</a>
+                              <a href="{% url '' %}">Home</a>
                             </li>
                             <li class="mil-up">
                               <a href="#">Portfolio</a>
@@ -244,11 +244,15 @@
     <!-- ashley js -->
     <script src="{% static 'js/main.js' %}"></script>
 
+  <!-- Include the certificate upload JavaScript -->
+  <script src="{% static 'js/certificate-upload.js' %}"></script>
+
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
      <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>   
 <script src="{% static 'js/storage.js' %}"></script>
     <script src="{% static 'js/editor.js' %}"></script>
 <script>
+
 const container = document.getElementById('projects-container');
 const tabPublished = document.getElementById('tab-published');
 const tabDraft = document.getElementById('tab-draft');

@@ -1,178 +1,189 @@
-{% load static %} {% include 'Website/__header.html' %}
-          <!-- banner -->
-          <div class="mil-inner-banner">
-            <div class="mil-banner-content mil-up">
-              <div class="mil-animation-frame">
-                <div
-                  class="mil-animation mil-position-4 mil-dark mil-scale"
-                  data-value-1="6"
-                  data-value-2="1.4"
-                ></div>
-              </div>
-              <div class="container">
-                <ul class="mil-breadcrumbs mil-mb-60">
-                  <li><a href="index.html">Homepage</a></li>
-                  <li><a href="portfolio-1.html">Portfolio</a></li>
-                </ul>
-                <h1 class="mil-mb-60">
-                  Design Engineering<br />
-                  <span class="mil-thin">& Technical Solutions.
-</span>
-                </h1>
-                <a
-                  href="#portfolio"
-                  class="mil-link mil-dark mil-arrow-place mil-down-arrow"
-                >
-                  <span>Projects</span>
-                </a>
-              </div>
+{% load static %}
+{% include 'Website/__header.html' %}
+
+<!-- banner -->
+<div class="mil-inner-banner">
+  <div class="mil-banner-content mil-up">
+    <div class="mil-animation-frame">
+      <div
+        class="mil-animation mil-position-4 mil-dark mil-scale"
+        data-value-1="6"
+        data-value-2="1.4"
+      ></div>
+    </div>
+    <div class="container">
+      <ul class="mil-breadcrumbs mil-mb-60">
+        <li><a href="{% url 'home-view' %}">Homepage</a></li>
+        <li><a href="{% url 'design-engineering' %}">Design Engineering</a></li>
+      </ul>
+      <h1 class="mil-mb-60">
+        Design Engineering<br />
+        <span class="mil-thin">& Technical Solutions</span>
+      </h1>
+      <a
+        href="#portfolio"
+        class="mil-link mil-dark mil-arrow-place mil-down-arrow"
+      >
+        <span>View Projects</span>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- banner end -->
+
+<!-- portfolio -->
+<section id="portfolio">
+  <div class="container mil-portfolio mil-p-120-60">
+    <div class="mil-lines-place"></div>
+    <div class="mil-lines-place mil-lines-long"></div>
+
+    <div class="row justify-content-between align-items-center">
+      {% if projects %}
+        {% for project in projects %}
+          <!-- Alternate between vertical and horizontal layouts -->
+          {% if forloop.counter0|divisibleby:3 or forloop.counter0 == 0 or forloop.counter0 == 3 or forloop.counter0 == 4 %}
+            <!-- Vertical layout for positions 0, 3, 4 -->
+            <div class="col-lg-5">
+              <a
+                href="{% url 'design-engineering-detail' project.id %}"
+                class="mil-portfolio-item mil-more mil-mb-60"
+              >
+                <div class="mil-cover-frame mil-vert mil-up">
+                  <div class="mil-cover">
+                    {% if project.featured_image %}
+                      <img src="{{ project.featured_image }}" alt="{{ project.title }}" />
+                    {% else %}
+                      <img src="{% static 'img/works/default.jpg' %}" alt="Default Project Image" />
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="mil-descr">
+                  <div class="mil-labels mil-up mil-mb-15">
+                    <div class="mil-label mil-upper mil-accent">
+                      {% if project.project_category %}
+                        {{ project.get_project_category_display|upper }}
+                      {% else %}
+                        DESIGN ENGINEERING
+                      {% endif %}
+                    </div>
+                    <div class="mil-label mil-upper">
+                      {{ project.date|date:"M d Y"|lower }}
+                    </div>
+                  </div>
+                  <h4 class="mil-up">{{ project.title }}</h4>
+                </div>
+              </a>
             </div>
+          {% elif forloop.counter0 == 1 or forloop.counter0 == 2 or forloop.counter0 == 5 %}
+            <!-- Horizontal layout for positions 1, 2, 5 -->
+            <div class="col-lg-6">
+              <a
+                href="{% url 'design-engineering-detail' project.id %}"
+                class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
+                data-value-1="60"
+                data-value-2="-60"
+              >
+                <div class="mil-cover-frame mil-hori mil-up">
+                  <div class="mil-cover">
+                    {% if project.featured_image %}
+                      <img src="{{ project.featured_image }}" alt="{{ project.title }}" />
+                    {% else %}
+                      <img src="{% static 'img/works/default.jpg' %}" alt="Default Project Image" />
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="mil-descr">
+                  <div class="mil-labels mil-up mil-mb-15">
+                    <div class="mil-label mil-upper mil-accent">
+                      {% if project.project_category %}
+                        {{ project.get_project_category_display|upper }}
+                      {% else %}
+                        DESIGN ENGINEERING
+                      {% endif %}
+                    </div>
+                    <div class="mil-label mil-upper">
+                      {{ project.date|date:"M d Y"|lower }}
+                    </div>
+                  </div>
+                  <h4 class="mil-up">{{ project.title }}</h4>
+                </div>
+              </a>
+            </div>
+          {% else %}
+            <!-- Default to vertical layout -->
+            <div class="col-lg-5">
+              <a
+                href="{% url 'project_detail' project.id %}"
+                class="mil-portfolio-item mil-more mil-mb-60"
+              >
+                <div class="mil-cover-frame mil-vert mil-up">
+                  <div class="mil-cover">
+                    {% if project.featured_image %}
+                      <img src="{{ project.featured_image }}" alt="{{ project.title }}" />
+                    {% else %}
+                      <img src="{% static 'img/works/default.jpg' %}" alt="Default Project Image" />
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="mil-descr">
+                  <div class="mil-labels mil-up mil-mb-15">
+                    <div class="mil-label mil-upper mil-accent">
+                      {% if project.project_category %}
+                        {{ project.get_project_category_display|upper }}
+                      {% else %}
+                        DESIGN ENGINEERING
+                      {% endif %}
+                    </div>
+                    <div class="mil-label mil-upper">
+                      {{ project.date|date:"M d Y"|lower }}
+                    </div>
+                  </div>
+                  <h4 class="mil-up">{{ project.title }}</h4>
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <!-- No projects message -->
+        <div class="col-12 mil-center">
+          <div class="mil-mb-60">
+            <h3 class="mil-up mil-mb-30">No Design Engineering Projects Available</h3>
+            <p class="mil-text-lg mil-up mil-mb-30">
+              We're currently working on new projects in the Design Engineering category.
+              Please check back soon!
+            </p>
           </div>
-          <!-- banner end -->
+        </div>
+      {% endif %}
+    </div>
+    
+    <!-- Pagination if needed -->
+    {% if is_paginated %}
+    <div class="row">
+      <div class="col-12 mil-center">
+        <div class="mil-pagination mil-up">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="mil-pagination-btn">Prev</a>
+          {% endif %}
+          
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <span class="mil-pagination-btn mil-active">{{ num }}</span>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a href="?page={{ num }}" class="mil-pagination-btn">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+          
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="mil-pagination-btn">Next</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+<!-- portfolio end -->
 
-          <!-- portfolio -->
-          <section id="portfolio">
-            <div class="container mil-portfolio mil-p-120-60">
-              <div class="mil-lines-place"></div>
-              <div class="mil-lines-place mil-lines-long"></div>
-
-              <div class="row justify-content-between align-items-center">
-                <div class="col-lg-5">
-                  <a
-                    href="project-1.html"
-                    class="mil-portfolio-item mil-more mil-mb-60"
-                  >
-                    <div class="mil-cover-frame mil-vert mil-up">
-                      <div class="mil-cover">
-                        <img src="{%  static 'img/works/1.jpg' %}" alt="cover" />
-                      </div>
-                    </div>
-                    <div class="mil-descr">
-                      <div class="mil-labels mil-up mil-mb-15">
-                        <div class="mil-label mil-upper mil-accent">
-                          XMARR TECHNOLOGIES
-                        </div>
-                        <div class="mil-label mil-upper">may 24 2023</div>
-                      </div>
-                      <h4 class="mil-up">GreenFlow Energy Optimization</h4>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-6">
-                  <a
-                    href="project-1.html"
-                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
-                    data-value-1="60"
-                    data-value-2="-60"
-                  >
-                    <div class="mil-cover-frame mil-hori mil-up">
-                      <div class="mil-cover">
-                        <img src="{%  static 'img/works/2.jpg' %}" alt="cover" />
-                      </div>
-                    </div>
-                    <div class="mil-descr">
-                      <div class="mil-labels mil-up mil-mb-15">
-                        <div class="mil-label mil-upper mil-accent">
-                          Engineering
-                        </div>
-                        <div class="mil-label mil-upper">may 24 2023</div>
-                      </div>
-                      <h4 class="mil-up">LeanLine Manufacturing Redesign</h4>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-6">
-                  <a
-                    href="project-1.html"
-                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
-                    data-value-1="60"
-                    data-value-2="-60"
-                  >
-                    <div class="mil-cover-frame mil-hori mil-up">
-                      <div class="mil-cover">
-                        <img src="{%  static 'img/works/3.jpg' %}" alt="cover" />
-                      </div>
-                    </div>
-                    <div class="mil-descr">
-                      <div class="mil-labels mil-up mil-mb-15">
-                        <div class="mil-label mil-upper mil-accent">
-                          Engineering
-                        </div>
-                        <div class="mil-label mil-upper">may 24 2023</div>
-                      </div>
-                      <h4 class="mil-up">
-                        SupplyChain Sync: Efficiency Enhancement
-                      </h4>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-5">
-                  <a
-                    href="project-1.html"
-                    class="mil-portfolio-item mil-more mil-mb-60"
-                  >
-                    <div class="mil-cover-frame mil-vert mil-up">
-                      <div class="mil-cover">
-                        <img src="{%  static 'img/works/4.jpg' %}" alt="cover" />
-                      </div>
-                    </div>
-                    <div class="mil-descr">
-                      <div class="mil-labels mil-up mil-mb-15">
-                        <div class="mil-label mil-upper mil-accent">Design</div>
-                        <div class="mil-label mil-upper">may 24 2023</div>
-                      </div>
-                      <h4 class="mil-up">
-                        ThermalPro Renewable Heating Design
-                      </h4>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-5">
-                  <a
-                    href="project-1.html"
-                    class="mil-portfolio-item mil-more mil-mb-60"
-                  >
-                    <div class="mil-cover-frame mil-vert mil-up">
-                      <div class="mil-cover">
-                        <img src="{%  static 'img/works/5.jpg' %}" alt="cover" />
-                      </div>
-                    </div>
-                    <div class="mil-descr">
-                      <div class="mil-labels mil-up mil-mb-15">
-                        <div class="mil-label mil-upper mil-accent">
-                          Engineering
-                        </div>
-                        <div class="mil-label mil-upper">may 24 2023</div>
-                      </div>
-                      <h4 class="mil-up">EcoFusion Process Improvement</h4>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-6">
-                  <a
-                    href="project-1.html"
-                    class="mil-portfolio-item mil-more mil-parallax mil-mb-60"
-                    data-value-1="60"
-                    data-value-2="-60"
-                  >
-                    <div class="mil-cover-frame mil-hori mil-up">
-                      <div class="mil-cover">
-                        <img src="{%  static 'img/works/6.jpg' %}" alt="cover" />
-                      </div>
-                    </div>
-                    <div class="mil-descr">
-                      <div class="mil-labels mil-up mil-mb-15">
-                        <div class="mil-label mil-upper mil-accent">
-                          Engineering
-                        </div>
-                        <div class="mil-label mil-upper">may 24 2023</div>
-                      </div>
-                      <h4 class="mil-up">SmartGrid Energy Integration</h4>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-          <!-- portfolio end -->
 {% include 'Website/__footer.html' %}
