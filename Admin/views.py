@@ -24,8 +24,8 @@ class HomeView(TemplateView):
         draft_page = self.request.GET.get('draft_page', 1)
         
         # Get all projects
-        published_projects = Project.objects.filter(status='published').order_by('-date')
-        draft_projects = Project.objects.filter(status='draft').order_by('-date')
+        published_projects = Project.objects.filter(status='published').order_by('-created_at')
+        draft_projects = Project.objects.filter(status='draft').order_by('-created_at')
         
         # Paginate published projects
         published_paginator = Paginator(published_projects, 6)
@@ -54,108 +54,47 @@ class HomeView(TemplateView):
 
 # views.py
 import json
-import base64
-from io import BytesIO
-from django.core.files.base import ContentFile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from django.shortcuts import get_object_or_404
-from .models import Project
+from django.shortcuts import get_object_or_404, render
 from django.views import View
+from django.views.generic import TemplateView
+from .models import Project
 
-class CreateProject(TemplateView):
+class CreateProjectView(TemplateView):
+    """View for creating a new project"""
     template_name = "Admin/editor.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        project_id = self.request.GET.get("id")
+        # For create view, no project data needed
+        context["project"] = None
+        return context
 
+class EditProjectView(TemplateView):
+    """View for editing an existing project"""
+    template_name = "Admin/editor.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project_id = self.kwargs.get('id')
+        
         if project_id:
             try:
                 project = Project.objects.get(id=project_id)
                 context["project"] = project
-                # Pass project data as JSON for JavaScript
-                context["project_data"] = {
-                    "id": str(project.id),
-                    "title": project.title,
-                    "owners": project.owners,
-                    "date": project.date.strftime("%Y-%m-%d") if project.date else "",
-                    "content": project.content,
-                    "featured_image": project.featured_image,
-                    "gallery_image": project.gallery_image,
-                    "status": project.status,
-                    "project_category": project.project_category
-                }
             except Project.DoesNotExist:
-                pass
-
+                context["project"] = None
+        
         return context
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        try:
-            # Parse JSON data
-            data = json.loads(request.body)
-
-            # Get or create project
-            project_id = data.get("id")
-            if project_id:
-                project = get_object_or_404(Project, id=project_id)
-            else:
-                project = Project()
-
-            # Update fields
-            project.title = data.get("title", "")
-            project.owners = data.get("owners", "")
-            project.date = data.get("date", "")
-            project.content = data.get("content", "")
-            project.status = data.get("status", "draft")
-
-            # Handle Base64 images
-            featured_image_base64 = data.get("featuredImage")
-            gallery_image_base64 = data.get(
-                "galleryImage"
-            )  # Changed from galleryImages
-
-            if featured_image_base64 and featured_image_base64.startswith("data:image"):
-                # Upload to Cloudinary
-                project.featured_image = Project.upload_base64_image(
-                    featured_image_base64, folder="projects/featured/"
-                )
-
-            if gallery_image_base64 and gallery_image_base64.startswith("data:image"):
-                # Upload to Cloudinary
-                project.gallery_image = Project.upload_base64_image(
-                    gallery_image_base64, folder="projects/gallery/"
-                )
-
-            project.save()
-
-            return JsonResponse(
-                {
-                    "success": True,
-                    "message": f"Project {'updated' if project_id else 'created'} successfully!",
-                    "project": {
-                        "id": str(project.id),
-                        "title": project.title,
-                        "featured_image": project.featured_image,
-                        "gallery_image": project.gallery_image,
-                    },
-                }
-            )
-
-        except Exception as e:
-            return JsonResponse({"success": False, "message": str(e)}, status=400)
 
 @method_decorator(csrf_exempt, name='dispatch')
 class ProjectAPIView(View):
     """API view for handling project CRUD operations"""
     
     def post(self, request, *args, **kwargs):
+        """Handle project creation and updates"""
         try:
             data = json.loads(request.body)
             project_id = data.get('id')
@@ -181,7 +120,7 @@ class ProjectAPIView(View):
                 try:
                     project.date = datetime.strptime(date_str, '%Y-%m-%d').date()
                 except ValueError:
-                    project.date = None
+                    project.date = datetime.strptime(datetime.now(), '%Y-%m-%d').date()
             else:
                 project.date = None
             
@@ -192,7 +131,10 @@ class ProjectAPIView(View):
             featured_image_base64 = data.get('featuredImage')
             gallery_image_base64 = data.get('galleryImage')
             
-            if featured_image_base64 and featured_image_base64.startswith('data:image'):
+            # Handle featured image
+            if data.get('removeFeatured'):
+                project.featured_image = None
+            elif featured_image_base64 and featured_image_base64.startswith('data:image'):
                 try:
                     project.featured_image = Project.upload_base64_image(
                         featured_image_base64, 
@@ -201,7 +143,10 @@ class ProjectAPIView(View):
                 except Exception as e:
                     print(f"Error uploading featured image: {e}")
             
-            if gallery_image_base64 and gallery_image_base64.startswith('data:image'):
+            # Handle gallery image
+            if data.get('removeGallery'):
+                project.gallery_image = None
+            elif gallery_image_base64 and gallery_image_base64.startswith('data:image'):
                 try:
                     project.gallery_image = Project.upload_base64_image(
                         gallery_image_base64,
@@ -232,8 +177,34 @@ class ProjectAPIView(View):
                 'success': False,
                 'message': str(e)
             }, status=400)
-
-
+    
+    def delete(self, request, *args, **kwargs):
+        """Handle project deletion"""
+        try:
+            project_id = kwargs.get('project_id') or request.GET.get('project_id')
+            
+            if not project_id:
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Project ID is required'
+                }, status=400)
+            
+            project = get_object_or_404(Project, id=project_id)
+            project_title = project.title
+            
+            # Delete the project
+            project.delete()
+            
+            return JsonResponse({
+                'success': True,
+                'message': f'Project "{project_title}" has been deleted successfully!'
+            })
+            
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'message': str(e)
+            }, status=400)
 class CertificateList(TemplateView):
     template_name = "Website/certifications.html"
     

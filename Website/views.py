@@ -28,6 +28,11 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
+        projects = Project.objects.filter(status='published').order_by('-created_at')[:4]
+
+        context['projects'] = projects
+        
         return context
 
     def get(self, request, *args, **kwargs):
@@ -35,8 +40,7 @@ class HomeView(TemplateView):
         return super().get(request, *args, **kwargs)
 
     def post(self, request, ref_email, ref_username): 
-        ...
-        
+        ...        
 class ProjectCategory(TemplateView):
     template_name = "Website/project-category.html"
     new_user = ""

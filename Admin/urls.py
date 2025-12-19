@@ -1,25 +1,36 @@
 from django.contrib import admin
-import django.shortcuts
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import HomeView, CreateProject, CertificateList, CreateResearch, ResearchList, Preview, CertificateUpload, ProjectAPIView, CertificateAPIView
-import Admin.api_views as api_views
+from .views import (
+    HomeView, 
+    CreateProjectView, 
+    CertificateList, 
+    CreateResearch, 
+    ResearchList, 
+    Preview, 
+    CertificateUpload, 
+    ProjectAPIView, 
+    CertificateAPIView,
+    EditProjectView
+)
 
 urlpatterns = [
     path("", HomeView.as_view(), name="admin"),
-    path("create/", CreateProject.as_view(), name="create-project"),
+    path("create/", CreateProjectView.as_view(), name="create-project"),
+    path("edit/<uuid:id>/", EditProjectView.as_view(), name="edit-project"),
     path("certificate/list/", CertificateList.as_view(), name="cert-list"),
     path("research/create/", CreateResearch.as_view(), name="create-research"),
     path("research/list/", ResearchList.as_view(), name="research-list"),
     path("preview/", Preview.as_view(), name="preview"),
     path("certificate/upload/", CertificateUpload.as_view(), name="upload-certificate"),
-     path('api/certificates/upload/', CertificateAPIView.as_view(), name='upload_certificate_api'),
+    path('api/certificates/upload/', CertificateAPIView.as_view(), name='upload_certificate_api'),
     
+    # Project API endpoints
     path('api/projects/save/', ProjectAPIView.as_view(), name='save_project_api'),
+    path('api/projects/<uuid:project_id>/delete/', ProjectAPIView.as_view(), name='delete_project_api'),
+    path('api/projects/delete/', ProjectAPIView.as_view(), name='delete_project_api_no_id'),
 ]
-
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -15,7 +15,6 @@
                 <h1 class="mil-mb-60">
                     Admin <span class="mil-thin">Dashboard</span>
                 </h1>
-                
             </div>
         </div>
     </div>
@@ -71,21 +70,23 @@
                                 {% endif %}
                                 <div class="mil-card-hover">
                                     <div class="mil-card-buttons">
+                                        
                                         {% if project.project_category == "Data Analysis" %}
                                         <a href="{% url 'data-analysis-detail' project.id %}" class="mil-link mil-arrow-place">
-                                             <span style="color: white !important">View Details</span>
+                                             <span style="color: white !important">Preview</span>
                                         </a>
                                         {% endif %}
                                       {% if project.project_category == "Design Engineering" %}
                                         <a href="{% url 'design-engineering-detail' project.id %}" class="mil-link mil-arrow-place">
-                                             <span style="color: white !important">View Details</span>
+                                             <span style="color: white !important">Preview</span>
                                         </a>
                                       {% endif %}
                                       {% if project.project_category == "Process Optimization" %}
                                         <a href="{% url 'process-optimization-detail' project.id %}" class="mil-link mil-arrow-place">
-                                            <span style="color: white !important">View Details</span>
+                                            <span style="color: white !important">Preview</span>
                                         </a>
                                       {% endif %}
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -108,21 +109,18 @@
                                     </div>
                                 </div>
                                 <div class="mil-project-actions">
-                                  {% if project.project_category == "Data Analysis" %}
-                                    <a href="{% url 'data-analysis-detail' project.id %}" class="mil-link mil-arrow-place">
-                                        <span>View Details</span>
-                                    </a>
-                                    {% endif %}
-                                  {% if project.project_category == "Design Engineering" %}
-                                    <a href="{% url 'design-engineering-detail' project.id %}" class="mil-link mil-arrow-place">
-                                        <span>View Details</span>
-                                    </a>
-                                  {% endif %}
-                                  {% if project.project_category == "Process Optimization" %}
-                                    <a href="{% url 'process-optimization-detail' project.id %}" class="mil-link mil-arrow-place">
-                                        <span>View Details</span>
-                                    </a>
-                                  {% endif %}
+                                    <div class="mil-action-buttons">
+                                        <a href="{% url 'edit-project' project.id %}" class="mil-button mil-large" data-no-swup>
+                                            <span>Edit</span>
+                                        </a>
+                                        
+                                      <button class="mil-button mil-small mil-danger delete-project-btn" 
+                                              data-project-id="{{ project.id }}" 
+                                              data-project-title="{{ project.title }}"
+                                              data-project-status="published">
+                                        <span>Delete</span>
+                                      </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -186,6 +184,9 @@
                     </div>
                     <h3>No Published Projects</h3>
                     <p>You haven't published any projects yet.</p>
+                    <a href="{% url 'create-project' %}" class="mil-button mil-arrow-place" style="margin-top: 20px;">
+                        <span>Create Your First Project</span>
+                    </a>
                 </div>
             {% endif %}
         </div>
@@ -207,12 +208,25 @@
                                 {% endif %}
                                 <div class="mil-card-hover">
                                     <div class="mil-card-buttons">
-                                        <a href="{% url 'edit-project' project.id %}" class="mil-button mil-small mil-arrow-place">
+                                        <a href="{% url 'edit-project' project.id %}" class="mil-button mil-small mil-arrow-place" data-no-swup>
                                             <span>Edit</span>
                                         </a>
-                                        <a href="{% url 'project-detail' project.id %}" class="mil-button mil-small mil-arrow-place">
-                                            <span>Preview</span>
+                                        {% if project.project_category == "Data Analysis" %}
+                                        <a href="{% url 'data-analysis-detail' project.id %}" class="mil-link mil-arrow-place">
+                                             <span style="color: white !important">Preview</span>
                                         </a>
+                                        {% endif %}
+                                      {% if project.project_category == "Design Engineering" %}
+                                        <a href="{% url 'design-engineering-detail' project.id %}" class="mil-link mil-arrow-place">
+                                             <span style="color: white !important">Preview</span>
+                                        </a>
+                                      {% endif %}
+                                      {% if project.project_category == "Process Optimization" %}
+                                        <a href="{% url 'process-optimization-detail' project.id %}" class="mil-link mil-arrow-place">
+                                            <span style="color: white !important">Preview</span>
+                                        </a>
+                                      {% endif %}
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -235,9 +249,17 @@
                                     </div>
                                 </div>
                                 <div class="mil-project-actions">
-                                    <a href="{% url 'edit-project' project.id %}" class="mil-link mil-arrow-place">
-                                        <span>Continue Editing</span>
-                                    </a>
+                                    <div class="mil-action-buttons">
+                                        <a href="{% url 'edit-project' project.id %}" class="mil-button mil-small mil-arrow-place" data-no-swup>
+                                            <span>Continue Editing</span>
+                                        </a>
+                                        <button class="mil-button mil-small mil-danger delete-project-btn" 
+                                                data-project-id="{{ project.id }}" 
+                                                data-project-title="{{ project.title }}"
+                                                data-project-status="draft">
+                                            <span>Delete</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -301,6 +323,9 @@
                     </div>
                     <h3>No Draft Projects</h3>
                     <p>You don't have any draft projects. Create a new one!</p>
+                    <a href="{% url 'create-project' %}" class="mil-button mil-arrow-place" style="margin-top: 20px;">
+                        <span>Create New Project</span>
+                    </a>
                 </div>
             {% endif %}
         </div>
@@ -335,98 +360,22 @@
 </section>
 <!-- call to action end -->
 
-<!-- Add JavaScript for tab functionality -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get tab buttons and content sections
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    // Function to switch tabs
-    function switchTab(selectedTab) {
-        // Remove active class from all tabs and contents
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
-        
-        // Add active class to selected tab
-        selectedTab.classList.add('active');
-        
-        // Show corresponding content
-        const tabId = selectedTab.id;
-        const contentId = tabId === 'tab-published' ? 'published-projects' : 'draft-projects';
-        document.getElementById(contentId).classList.add('active');
-        
-        // Update URL hash without scrolling
-        const status = selectedTab.dataset.status;
-        history.replaceState(null, null, `#${status}`);
-        
-        // Store active tab in sessionStorage for persistence
-        sessionStorage.setItem('activeTab', status);
-    }
-    
-    // Function to scroll to projects section
-    function scrollToProjects() {
-        const projectsSection = document.getElementById('project');
-        if (projectsSection) {
-            projectsSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-    
-    // Add click event listeners to tabs
-    tabButtons.forEach(tab => {
-        tab.addEventListener('click', function() {
-            switchTab(this);
-            scrollToProjects();
-        });
-    });
-    
-    // Function to restore tab state from URL hash or sessionStorage
-    function restoreTabState() {
-        const hash = window.location.hash.substring(1);
-        let activeTab = hash;
-        
-        if (!activeTab) {
-            // Check sessionStorage
-            activeTab = sessionStorage.getItem('activeTab');
-        }
-        
-        if (activeTab === 'draft') {
-            const draftTab = document.getElementById('tab-draft');
-            if (draftTab) {
-                switchTab(draftTab);
-            }
-        } else {
-            // Default to published tab
-            const publishedTab = document.getElementById('tab-published');
-            if (publishedTab) {
-                switchTab(publishedTab);
-            }
-        }
-    }
-    
-    // Restore tab state on page load
-    restoreTabState();
-    
-    // Handle pagination links - maintain active tab
-    document.querySelectorAll('.page-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Get current active tab
-            const activeTab = document.querySelector('.tab-btn.active');
-            if (activeTab) {
-                const status = activeTab.dataset.status;
-                // Add the tab parameter to maintain active state
-                let href = this.getAttribute('href');
-                if (href && !href.includes(`#${status}`)) {
-                    if (href.includes('#')) {
-                        href = href.split('#')[0];
-                    }
-                    this.setAttribute('href', `${href}#${status}`);
-                }
-            }
-        });
-    });
-});
-</script>
+<!-- Delete Confirmation Modal -->
+<div id="delete-modal" class="mil-modal" style="display: none;">
+    <div class="mil-modal-content">
+        <div class="mil-modal-header">
+            <h3>Confirm Deletion</h3>
+            <button class="mil-modal-close">&times;</button>
+        </div>
+        <div class="mil-modal-body">
+            <p>Are you sure you want to delete "<span id="delete-project-title"></span>"?</p>
+            <p class="mil-text-sm mil-muted">This action cannot be undone.</p>
+        </div>
+        <div class="mil-modal-footer">
+            <button id="confirm-delete" class="mil-button mil-small mil-danger" style="text-align:center">Delete Project</button>
+        </div>
+    </div>
+</div>
 
 <style>
 /* Tab Styling */
@@ -554,6 +503,8 @@ document.addEventListener('DOMContentLoaded', function() {
 .mil-card-buttons {
     display: flex;
     gap: 10px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .mil-description {
@@ -603,6 +554,102 @@ document.addEventListener('DOMContentLoaded', function() {
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid #eee;
+    width: "100%"mil-button
+}
+
+.mil-action-buttons {
+    display: flex;
+    justify-content: "space-around";
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mil-button.mil-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: "5px";
+}
+
+.mil-button.mil-danger:hover {
+    background-color: #c82333;
+}
+
+.mil-button.mil-small {
+    padding: 8px 16px;
+    font-size: 12px;
+}
+
+.mil-button.mil-large {
+    padding: 8px 20px;
+    font-size: 12px;
+}
+
+/* Modal Styles */
+.mil-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.mil-modal-content {
+    background: white;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.mil-modal-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mil-modal-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.mil-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.mil-modal-body {
+    padding: 30px;
+}
+
+.mil-modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.mil-button.mil-outline {
+    background-color: transparent;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.mil-button.mil-outline:hover {
+    background-color: #f5f5f5;
 }
 
 /* Pagination Styling */
@@ -695,6 +742,23 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 0 auto;
 }
 
+/* Success Notification */
+.mil-success-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 2px solid rgb(255, 152, 0);
+    border-radius: 10px;
+    padding: 40px;
+    z-index: 10000;
+    text-align: center;
+    min-width: 400px;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
     .mil-cover-frame {
@@ -717,12 +781,23 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 20px;
     }
     
+    .mil-action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
     .page-link,
     .page-item.active .page-link {
         min-width: 36px;
         height: 36px;
         padding: 0 10px;
         font-size: 13px;
+    }
+    
+    .mil-success-notification {
+        min-width: 300px;
+        max-width: 90%;
+        padding: 30px 20px;
     }
 }
 
@@ -757,5 +832,293 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get tab buttons and content sections
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Function to switch tabs
+    function switchTab(selectedTab) {
+        // Remove active class from all tabs and contents
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // Add active class to selected tab
+        selectedTab.classList.add('active');
+        
+        // Show corresponding content
+        const tabId = selectedTab.id;
+        const contentId = tabId === 'tab-published' ? 'published-projects' : 'draft-projects';
+        document.getElementById(contentId).classList.add('active');
+        
+        // Update URL hash without scrolling
+        const status = selectedTab.dataset.status;
+        history.replaceState(null, null, `#${status}`);
+        
+        // Store active tab in sessionStorage for persistence
+        sessionStorage.setItem('activeTab', status);
+    }
+    
+    // Function to scroll to projects section
+    function scrollToProjects() {
+        const projectsSection = document.getElementById('project');
+        if (projectsSection) {
+            projectsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    
+    // Add click event listeners to tabs
+    tabButtons.forEach(tab => {
+        tab.addEventListener('click', function() {
+            switchTab(this);
+            scrollToProjects();
+        });
+    });
+    
+    // Function to restore tab state from URL hash or sessionStorage
+    function restoreTabState() {
+        const hash = window.location.hash.substring(1);
+        let activeTab = hash;
+        
+        if (!activeTab) {
+            // Check sessionStorage
+            activeTab = sessionStorage.getItem('activeTab');
+        }
+        
+        if (activeTab === 'draft') {
+            const draftTab = document.getElementById('tab-draft');
+            if (draftTab) {
+                switchTab(draftTab);
+            }
+        } else {
+            // Default to published tab
+            const publishedTab = document.getElementById('tab-published');
+            if (publishedTab) {
+                switchTab(publishedTab);
+            }
+        }
+    }
+    
+    // Restore tab state on page load
+    restoreTabState();
+    
+    // Handle pagination links - maintain active tab
+    document.querySelectorAll('.page-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Get current active tab
+            const activeTab = document.querySelector('.tab-btn.active');
+            if (activeTab) {
+                const status = activeTab.dataset.status;
+                // Add the tab parameter to maintain active state
+                let href = this.getAttribute('href');
+                if (href && !href.includes(`#${status}`)) {
+                    if (href.includes('#')) {
+                        href = href.split('#')[0];
+                    }
+                    this.setAttribute('href', `${href}#${status}`);
+                }
+            }
+        });
+    });
+    
+    // Delete functionality for ALL projects
+    const deleteModal = document.getElementById('delete-modal');
+    const deleteProjectTitle = document.getElementById('delete-project-title');
+    const cancelDeleteBtn = document.getElementById('cancel-delete');
+    const confirmDeleteBtn = document.getElementById('confirm-delete');
+    const modalCloseBtn = document.querySelector('.mil-modal-close');
+    
+    let currentDeleteProjectId = null;
+    let currentDeleteProjectStatus = null;
+    
+    // Show delete modal
+    function showDeleteModal(projectId, projectTitle, projectStatus) {
+        currentDeleteProjectId = projectId;
+        currentDeleteProjectStatus = projectStatus;
+        deleteProjectTitle.textContent = projectTitle;
+        deleteModal.style.display = 'flex';
+    }
+    
+    // Hide delete modal
+    function hideDeleteModal() {
+        deleteModal.style.display = 'none';
+        currentDeleteProjectId = null;
+        currentDeleteProjectStatus = null;
+    }
+    
+    // Show success notification
+    function showSuccessNotification(message) {
+        // Remove any existing notifications
+        const existingNotifications = document.querySelectorAll('.mil-success-notification');
+        existingNotifications.forEach(notification => notification.remove());
+        
+        const notificationHTML = `
+            <div class="mil-success-notification">
+                <div class="mil-notification-content" style="color: rgb(255, 255, 255);">
+                    <div class="mil-success-icon" style="
+                        font-size: 48px;
+                        color: rgb(255, 152, 0);
+                        margin-bottom: 20px;
+                    ">
+                        ✓
+                    </div>
+                    <h3 class="mil-h3" style="
+                        color: rgb(255, 255, 255);
+                        margin-bottom: 15px;
+                        font-size: 28px;
+                    ">
+                        Success!
+                    </h3>
+                    <p class="mil-text-lg" style="
+                        color: rgba(255, 255, 255, 0.8);
+                        margin-bottom: 30px;
+                        font-size: 18px;
+                        line-height: 1.5;
+                    ">
+                        ${message}
+                    </p>
+                    <button class="mil-button mil-arrow-place" id="notification-ok" style="
+                        background-color: rgb(255, 152, 0);
+                        color: rgb(0, 0, 0);
+                        border: none;
+                        padding: 15px 30px;
+                        border-radius: 70px;
+                        font-size: 12px;
+                        font-weight: 500;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        cursor: pointer;
+                        transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
+                    ">
+                        <span>OK</span>
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', notificationHTML);
+        
+        document.getElementById('notification-ok').addEventListener('click', function() {
+            const notification = document.querySelector('.mil-success-notification');
+            if (notification) notification.remove();
+        });
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            const notification = document.querySelector('.mil-success-notification');
+            if (notification) notification.remove();
+        }, 5000);
+    }
+    
+    // Delete project function
+    async function deleteProject() {
+        if (!currentDeleteProjectId) return;
+        
+        try {
+            const response = await fetch(`/admin/api/projects/${currentDeleteProjectId}/delete/`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Remove the project card from the DOM
+                const projectCard = document.querySelector(`[data-project-id="${currentDeleteProjectId}"]`).closest('.mil-project-card');
+                if (projectCard) {
+                    projectCard.remove();
+                }
+                
+                // Update the count in the appropriate tab
+                if (currentDeleteProjectStatus === 'published') {
+                    const publishedTab = document.getElementById('tab-published');
+                    if (publishedTab) {
+                        const currentCount = parseInt(publishedTab.textContent.match(/\((\d+)\)/)[1]);
+                        publishedTab.textContent = publishedTab.textContent.replace(`(${currentCount})`, `(${currentCount - 1})`);
+                    }
+                } else if (currentDeleteProjectStatus === 'draft') {
+                    const draftTab = document.getElementById('tab-draft');
+                    if (draftTab) {
+                        const currentCount = parseInt(draftTab.textContent.match(/\((\d+)\)/)[1]);
+                        draftTab.textContent = draftTab.textContent.replace(`(${currentCount})`, `(${currentCount - 1})`);
+                    }
+                }
+                
+                hideDeleteModal();
+                
+                // Show success notification
+                showSuccessNotification('Project deleted successfully!');
+                
+                // If no more projects in the current tab, reload the page
+                const activeTabId = document.querySelector('.tab-btn.active').id;
+                const activeContentId = activeTabId === 'tab-published' ? 'published-projects' : 'draft-projects';
+                const activeProjects = document.querySelectorAll(`#${activeContentId} .mil-project-card`);
+                
+                if (activeProjects.length === 0) {
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                }
+            } else {
+                alert('Error deleting project: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error deleting project:', error);
+            alert('An error occurred while deleting the project. Please try again.');
+        }
+    }
+    
+    // Add event listeners to delete buttons for BOTH published and draft projects
+    document.querySelectorAll('.delete-project-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const projectId = this.dataset.projectId;
+            const projectTitle = this.dataset.projectTitle;
+            const projectStatus = this.dataset.projectStatus;
+            showDeleteModal(projectId, projectTitle, projectStatus);
+        });
+    });
+    
+    // Modal event listeners
+    if (cancelDeleteBtn) {
+        cancelDeleteBtn.addEventListener('click', hideDeleteModal);
+    }
+    
+    if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', hideDeleteModal);
+    }
+    
+    if (confirmDeleteBtn) {
+        confirmDeleteBtn.addEventListener('click', deleteProject);
+    }
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (event) => {
+        if (event.target === deleteModal) {
+            hideDeleteModal();
+        }
+    });
+    
+    // Helper function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+</script>
 
 {% include 'Admin/__footer.html' %}

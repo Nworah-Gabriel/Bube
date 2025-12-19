@@ -2,7 +2,7 @@
 
 // Get project ID from URL
 const params = new URLSearchParams(window.location.search);
-const projectId = params.get('id');
+const projectId = params.get('id') || document.getElementById('project-id')?.value;
 
 // DOM Elements
 const titleInput = document.getElementById('title');
@@ -12,8 +12,18 @@ const dateInput = document.getElementById('date');
 const livePreview = document.getElementById('live-preview');
 const saveDraftBtn = document.getElementById('save-draft');
 const publishBtn = document.getElementById('publish');
+const deleteBtn = document.getElementById('delete-project');
 const featuredImageInput = document.getElementById('featured-image');
 const galleryImagesInput = document.getElementById('gallery-images');
+const removeFeaturedBtn = document.getElementById('remove-featured-image');
+const removeGalleryBtn = document.getElementById('remove-gallery-image');
+
+// Modal Elements
+const deleteModal = document.getElementById('delete-modal');
+const deleteProjectTitle = document.getElementById('delete-project-title');
+const cancelDeleteBtn = document.getElementById('cancel-delete');
+const confirmDeleteBtn = document.getElementById('confirm-delete');
+const modalCloseBtn = document.querySelector('.mil-modal-close');
 
 // Initialize Quill editor
 const quill = new Quill('#editor', {
@@ -26,7 +36,8 @@ const quill = new Quill('#editor', {
 // Store images as Base64
 let featuredImageBase64 = '';
 let galleryImagesBase64 = [];
-
+let removeFeatured = false;
+let removeGallery = false;
 
 // Custom Preloader Functions
 function showPreloader(message = 'Uploading...') {
@@ -234,13 +245,13 @@ function showSuccessNotification(message, status) {
     // Add event listener to continue button
     document.getElementById('notification-continue').addEventListener('click', function() {
         hideNotification();
-        window.location.href = '/';
+        window.location.href = '/admin/';
     });
     
     // Auto-hide after 5 seconds and redirect
     setTimeout(() => {
         hideNotification();
-        window.location.href = '/';
+        window.location.href = '/admin/';
     }, 5000);
 }
 
@@ -259,11 +270,11 @@ function hideNotification() {
 // Load project data from Django template context
 function loadProjectData() {
     // Check if project data is passed via Django template
-    if (typeof window.projectData !== 'undefined') {
+    if (typeof window.projectData !== 'undefined' && window.projectData.id) {
         const p = window.projectData;
         titleInput.value = p.title || '';
         ownersInput.value = p.owners || '';
-        if (categoryInput) categoryInput.value = p.category || '';
+        if (categoryInput) categoryInput.value = p.project_category || '';
         dateInput.value = p.date || '';
         if (p.content) {
             quill.root.innerHTML = p.content;
@@ -278,6 +289,7 @@ function updatePreview() {
         <h2 style="overflow-x: auto;overflow-wrap: break-word">${titleInput.value || 'Untitled Project'}</h2>
         <p style="overflow-x: auto;overflow-wrap: break-word"><strong>Client:</strong> ${ownersInput.value || 'Not specified'}</p>
         <p style="overflow-x: auto;overflow-wrap: break-word"><strong>Date:</strong> ${dateInput.value || 'Not specified'}</p>
+        <p style="overflow-x: auto;overflow-wrap: break-word"><strong>Category:</strong> ${categoryInput ? categoryInput.value : 'Not specified'}</p>
         ${featuredImageBase64 ? `<img src="${featuredImageBase64}" style="max-width: 100%; height: auto; margin-bottom: 20px;" alt="Featured Image">` : ''}
         <div style="overflow-x: auto;overflow-wrap: break-word">${quill.root.innerHTML || '<p>No content yet...</p>'}</div>
     `;
@@ -287,6 +299,7 @@ function updatePreview() {
 titleInput.addEventListener('input', updatePreview);
 ownersInput.addEventListener('input', updatePreview);
 dateInput.addEventListener('input', updatePreview);
+if (categoryInput) categoryInput.addEventListener('change', updatePreview);
 quill.on('text-change', updatePreview);
 
 // Handle featured image upload
@@ -296,6 +309,7 @@ featuredImageInput.addEventListener('change', function(e) {
         const reader = new FileReader();
         reader.onload = function(ev) {
             featuredImageBase64 = ev.target.result;
+            removeFeatured = false;
             updatePreview();
         };
         reader.readAsDataURL(file);
@@ -312,11 +326,43 @@ galleryImagesInput.addEventListener('change', function(e) {
             const reader = new FileReader();
             reader.onload = function(ev) {
                 galleryImagesBase64.push(ev.target.result);
+                removeGallery = false;
             };
             reader.readAsDataURL(file);
         }
     });
 });
+
+// Handle remove featured image
+if (removeFeaturedBtn) {
+    removeFeaturedBtn.addEventListener('click', function() {
+        featuredImageBase64 = '';
+        removeFeatured = true;
+        featuredImageInput.value = '';
+        updatePreview();
+        
+        // Hide current image display
+        const currentImageContainer = this.closest('.current-image');
+        if (currentImageContainer) {
+            currentImageContainer.style.display = 'none';
+        }
+    });
+}
+
+// Handle remove gallery image
+if (removeGalleryBtn) {
+    removeGalleryBtn.addEventListener('click', function() {
+        galleryImagesBase64 = [];
+        removeGallery = true;
+        galleryImagesInput.value = '';
+        
+        // Hide current image display
+        const currentImageContainer = this.closest('.current-image');
+        if (currentImageContainer) {
+            currentImageContainer.style.display = 'none';
+        }
+    });
+}
 
 // Save project function
 async function saveProjectData(status) {
@@ -334,7 +380,9 @@ async function saveProjectData(status) {
             featuredImage: featuredImageBase64,
             galleryImage: galleryImagesBase64.length > 0 ? galleryImagesBase64[0] : '', // Send first image for now
             status: status,
-            projectCategory: categoryInput ? categoryInput.value : ''
+            projectCategory: categoryInput ? categoryInput.value : '',
+            removeFeatured: removeFeatured,
+            removeGallery: removeGallery
         };
 
         // Send to Django API
@@ -502,9 +550,159 @@ async function saveProjectData(status) {
     }
 }
 
-// Button event listeners
+// Delete project function
+async function deleteProject() {
+    try {
+        if (!projectId) {
+            alert('No project to delete');
+            return;
+        }
+
+        showPreloader('Deleting Project...');
+
+        const response = await fetch(`http://127.0.0.1:8000/admin/api/projects/${projectId}/delete/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        });
+
+        const result = await response.json();
+
+        hidePreloader();
+
+        if (result.success) {
+            // Show success notification
+            const successNotificationHTML = `
+                <div class="mil-success-notification" style="
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: rgba(0, 0, 0, 0.9);
+                    border: 2px solid rgb(255, 152, 0);
+                    border-radius: 10px;
+                    padding: 40px;
+                    z-index: 10000;
+                    text-align: center;
+                    min-width: 400px;
+                    max-width: 600px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                ">
+                    <div class="mil-notification-content" style="color: rgb(255, 255, 255);">
+                        <div class="mil-success-icon" style="
+                            font-size: 48px;
+                            color: rgb(255, 152, 0);
+                            margin-bottom: 20px;
+                        ">
+                            ✓
+                        </div>
+                        <h3 class="mil-h3" style="
+                            color: rgb(255, 255, 255);
+                            margin-bottom: 15px;
+                            font-size: 28px;
+                        ">
+                            Project Deleted!
+                        </h3>
+                        <p class="mil-text-lg" style="
+                            color: rgba(255, 255, 255, 0.8);
+                            margin-bottom: 30px;
+                            font-size: 18px;
+                            line-height: 1.5;
+                        ">
+                            "${titleInput.value}" has been successfully deleted.
+                        </p>
+                        <button class="mil-button mil-arrow-place" id="notification-continue" style="
+                            background-color: rgb(255, 152, 0);
+                            color: rgb(0, 0, 0);
+                            border: none;
+                            padding: 15px 30px;
+                            border-radius: 70px;
+                            font-size: 12px;
+                            font-weight: 500;
+                            text-transform: uppercase;
+                            letter-spacing: 2px;
+                            cursor: pointer;
+                            transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
+                            display: flex;
+                            align-items: center;
+                        ">
+                            <span>Return to Dashboard</span>
+                            <svg style="
+                                margin-left: 15px;
+                                border-radius: 50%;
+                                width: 40px;
+                                height: 40px;
+                                padding: 10px;
+                                background-color: rgb(0, 0, 0);
+                                transition: inherit;
+                            " viewBox="0 0 128 128">
+                                <path fill="rgb(255, 152, 0)" d="M106.1,41.9c-1.2-1.2-3.1-1.2-4.2,0c-1.2,1.2-1.2,3.1,0,4.2L116.8,61H11.2l14.9-14.9c1.2-1.2,1.2-3.1,0-4.2	c-1.2-1.2-3.1-1.2-4.2,0l-20,20c-1.2,1.2-1.2,3.1,0,4.2l20,20c0.6,0.6,1.4,0.9,2.1,0.9s1.5-0.3,2.1-0.9c1.2-1.2,1.2-3.1,0-4.2	L11.2,67h105.5l-14.9,14.9c-1.2,1.2-1.2,3.1,0,4.2c0.6,0.6,1.4,0.9,2.1,0.9s1.5-0.3,2.1-0.9l20-20c1.2-1.2,1.2-3.1,0-4.2L106.1,41.9	z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', successNotificationHTML);
+            
+            document.getElementById('notification-continue').addEventListener('click', function() {
+                hideNotification();
+                window.location.href = '/admin/';
+            });
+            
+            // Auto-redirect after 5 seconds
+            setTimeout(() => {
+                hideNotification();
+                window.location.href = '/admin/';
+            }, 5000);
+        } else {
+            alert('Error deleting project: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error deleting project:', error);
+        hidePreloader();
+        alert('An error occurred while deleting the project. Please try again.');
+    }
+}
+
+// Modal Functions
+function showDeleteModal() {
+    deleteProjectTitle.textContent = titleInput.value || 'Untitled Project';
+    deleteModal.style.display = 'flex';
+}
+
+function hideDeleteModal() {
+    deleteModal.style.display = 'none';
+}
+
+// Event Listeners
 saveDraftBtn.addEventListener('click', () => saveProjectData('draft'));
 publishBtn.addEventListener('click', () => saveProjectData('published'));
+
+if (deleteBtn) {
+    deleteBtn.addEventListener('click', showDeleteModal);
+}
+
+if (cancelDeleteBtn) {
+    cancelDeleteBtn.addEventListener('click', hideDeleteModal);
+}
+
+if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', hideDeleteModal);
+}
+
+if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener('click', deleteProject);
+}
+
+// Close modal when clicking outside
+window.addEventListener('click', (event) => {
+    if (event.target === deleteModal) {
+        hideDeleteModal();
+    }
+});
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {

@@ -412,22 +412,6 @@
         "documentation": {}
     },
     {
-        "label": "BytesIO",
-        "importPath": "io",
-        "description": "io",
-        "isExtraImport": true,
-        "detail": "io",
-        "documentation": {}
-    },
-    {
-        "label": "ContentFile",
-        "importPath": "django.core.files.base",
-        "description": "django.core.files.base",
-        "isExtraImport": true,
-        "detail": "django.core.files.base",
-        "documentation": {}
-    },
-    {
         "label": "ContentFile",
         "importPath": "django.core.files.base",
         "description": "django.core.files.base",
@@ -458,71 +442,6 @@
         "description": "django.test",
         "isExtraImport": true,
         "detail": "django.test",
-        "documentation": {}
-    },
-    {
-        "label": "django.shortcuts",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "redirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "get_object_or_404",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "HttpResponseRedirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "HttpResponse",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "get_object_or_404",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
@@ -590,52 +509,124 @@
         "documentation": {}
     },
     {
-        "label": "Admin.api_views",
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "django.shortcuts",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "Admin.api_views",
-        "description": "Admin.api_views",
-        "detail": "Admin.api_views",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "TemplateView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "TemplateView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "DetailView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "TemplateView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "DetailView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "HttpResponseRedirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
@@ -985,7 +976,7 @@
         "kind": 5,
         "importPath": "Admin.urls",
         "description": "Admin.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"admin\"),\n    path(\"create/\", CreateProject.as_view(), name=\"create-project\"),\n    path(\"certificate/list/\", CertificateList.as_view(), name=\"cert-list\"),\n    path(\"research/create/\", CreateResearch.as_view(), name=\"create-research\"),\n    path(\"research/list/\", ResearchList.as_view(), name=\"research-list\"),\n    path(\"preview/\", Preview.as_view(), name=\"preview\"),\n    path(\"certificate/upload/\", CertificateUpload.as_view(), name=\"upload-certificate\"),\n     path('api/certificates/upload/', CertificateAPIView.as_view(), name='upload_certificate_api'),\n    path('api/projects/save/', ProjectAPIView.as_view(), name='save_project_api'),",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"admin\"),\n    path(\"create/\", CreateProjectView.as_view(), name=\"create-project\"),\n    path(\"edit/<uuid:id>/\", EditProjectView.as_view(), name=\"edit-project\"),\n    path(\"certificate/list/\", CertificateList.as_view(), name=\"cert-list\"),\n    path(\"research/create/\", CreateResearch.as_view(), name=\"create-research\"),\n    path(\"research/list/\", ResearchList.as_view(), name=\"research-list\"),\n    path(\"preview/\", Preview.as_view(), name=\"preview\"),\n    path(\"certificate/upload/\", CertificateUpload.as_view(), name=\"upload-certificate\"),\n    path('api/certificates/upload/', CertificateAPIView.as_view(), name='upload_certificate_api'),",
         "detail": "Admin.urls",
         "documentation": {}
     },
@@ -994,16 +985,25 @@
         "kind": 6,
         "importPath": "Admin.views",
         "description": "Admin.views",
-        "peekOfCode": "class HomeView(TemplateView):\n    template_name = \"Admin/project-dashboard.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get page number from request\n        published_page = self.request.GET.get('published_page', 1)\n        draft_page = self.request.GET.get('draft_page', 1)\n        # Get all projects\n        published_projects = Project.objects.filter(status='published').order_by('-date')\n        draft_projects = Project.objects.filter(status='draft').order_by('-date')",
+        "peekOfCode": "class HomeView(TemplateView):\n    template_name = \"Admin/project-dashboard.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get page number from request\n        published_page = self.request.GET.get('published_page', 1)\n        draft_page = self.request.GET.get('draft_page', 1)\n        # Get all projects\n        published_projects = Project.objects.filter(status='published').order_by('-created_at')\n        draft_projects = Project.objects.filter(status='draft').order_by('-created_at')",
         "detail": "Admin.views",
         "documentation": {}
     },
     {
-        "label": "CreateProject",
+        "label": "CreateProjectView",
         "kind": 6,
         "importPath": "Admin.views",
         "description": "Admin.views",
-        "peekOfCode": "class CreateProject(TemplateView):\n    template_name = \"Admin/editor.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        project_id = self.request.GET.get(\"id\")\n        if project_id:\n            try:\n                project = Project.objects.get(id=project_id)\n                context[\"project\"] = project\n                # Pass project data as JSON for JavaScript",
+        "peekOfCode": "class CreateProjectView(TemplateView):\n    \"\"\"View for creating a new project\"\"\"\n    template_name = \"Admin/editor.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # For create view, no project data needed\n        context[\"project\"] = None\n        return context\nclass EditProjectView(TemplateView):\n    \"\"\"View for editing an existing project\"\"\"",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "EditProjectView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class EditProjectView(TemplateView):\n    \"\"\"View for editing an existing project\"\"\"\n    template_name = \"Admin/editor.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        project_id = self.kwargs.get('id')\n        if project_id:\n            try:\n                project = Project.objects.get(id=project_id)\n                context[\"project\"] = project",
         "detail": "Admin.views",
         "documentation": {}
     },
@@ -1012,7 +1012,7 @@
         "kind": 6,
         "importPath": "Admin.views",
         "description": "Admin.views",
-        "peekOfCode": "class ProjectAPIView(View):\n    \"\"\"API view for handling project CRUD operations\"\"\"\n    def post(self, request, *args, **kwargs):\n        try:\n            data = json.loads(request.body)\n            project_id = data.get('id')\n            # Get or create project\n            if project_id and project_id != 'null':\n                try:\n                    project = Project.objects.get(id=project_id)",
+        "peekOfCode": "class ProjectAPIView(View):\n    \"\"\"API view for handling project CRUD operations\"\"\"\n    def post(self, request, *args, **kwargs):\n        \"\"\"Handle project creation and updates\"\"\"\n        try:\n            data = json.loads(request.body)\n            project_id = data.get('id')\n            # Get or create project\n            if project_id and project_id != 'null':\n                try:",
         "detail": "Admin.views",
         "documentation": {}
     },
@@ -1093,7 +1093,7 @@
         "kind": 6,
         "importPath": "Website.views",
         "description": "Website.views",
-        "peekOfCode": "class HomeView(TemplateView):\n    template_name = \"Website/index.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests\n        return super().get(request, *args, **kwargs)\n    def post(self, request, ref_email, ref_username): ",
+        "peekOfCode": "class HomeView(TemplateView):\n    template_name = \"Website/index.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        projects = Project.objects.filter(status='published').order_by('-created_at')[:4]\n        context['projects'] = projects\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests",
         "detail": "Website.views",
         "documentation": {}
     },
@@ -1210,7 +1210,7 @@
         "kind": 2,
         "importPath": "Website.views",
         "description": "Website.views",
-        "peekOfCode": "def custom_500(request, exception=None):\n    return render(request, 'Website/500.html', status=500)\ndef custom_403(request, exception=None):\n    return render(request, 'Website/401.html', status=403)\nclass HomeView(TemplateView):\n    template_name = \"Website/index.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context",
+        "peekOfCode": "def custom_500(request, exception=None):\n    return render(request, 'Website/500.html', status=500)\ndef custom_403(request, exception=None):\n    return render(request, 'Website/401.html', status=403)\nclass HomeView(TemplateView):\n    template_name = \"Website/index.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        projects = Project.objects.filter(status='published').order_by('-created_at')[:4]",
         "detail": "Website.views",
         "documentation": {}
     },
@@ -1219,7 +1219,7 @@
         "kind": 2,
         "importPath": "Website.views",
         "description": "Website.views",
-        "peekOfCode": "def custom_403(request, exception=None):\n    return render(request, 'Website/401.html', status=403)\nclass HomeView(TemplateView):\n    template_name = \"Website/index.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        return context\n    def get(self, request, *args, **kwargs):\n        # Additional logic for handling GET requests",
+        "peekOfCode": "def custom_403(request, exception=None):\n    return render(request, 'Website/401.html', status=403)\nclass HomeView(TemplateView):\n    template_name = \"Website/index.html\"\n    new_user = \"\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        projects = Project.objects.filter(status='published').order_by('-created_at')[:4]\n        context['projects'] = projects\n        return context",
         "detail": "Website.views",
         "documentation": {}
     },
@@ -1237,7 +1237,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "BASE_DIR =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = os.getenv(\"DJANGO_SECRETKEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = False\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [",
+        "peekOfCode": "BASE_DIR =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = os.getenv(\"DJANGO_SECRETKEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1246,7 +1246,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "SECRET_KEY = os.getenv(\"DJANGO_SECRETKEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = False\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",",
+        "peekOfCode": "SECRET_KEY = os.getenv(\"DJANGO_SECRETKEY\")\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1255,7 +1255,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "DEBUG = False\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",\n    \"django.contrib.messages\",\n    \"django.contrib.staticfiles\",",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = [\"*\"]\n# Application definition\nDEFAULT_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",\n    \"django.contrib.messages\",\n    \"django.contrib.staticfiles\",",
         "detail": "core.settings",
         "documentation": {}
     },
