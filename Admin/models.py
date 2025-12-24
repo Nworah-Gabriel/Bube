@@ -13,6 +13,7 @@ import base64
 from io import BytesIO
 from django.core.files.base import ContentFile
 import cloudinary.uploader
+from datetime import datetime
 
 # Create your models here.
 
@@ -86,7 +87,7 @@ class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     title = models.CharField(max_length=255)
     owners = models.CharField(max_length=500, blank=True)
-    date = models.DateField()
+    date = models.DateField(default=datetime.now())
     content = models.TextField()
     project_category = models.TextField(max_length=300, choices=CATEGORY_CHOICES, default="Design Engineering")
     featured_image = models.URLField(blank=True, null=True)

@@ -42,13 +42,13 @@
               {% if cert.certificate_image %}
               <img src="{{ cert.certificate_image }}" alt="{{ cert.title|default:'Certificate' }}">
               {% else %}
-              <img src="{% static 'img/certificates/default.jpg' %}" alt="Certificate">
+              <img src="{% static 'Website/img/certificates/default.jpg' %}" alt="Certificate">
               {% endif %}
               <a data-fancybox="gallery{{ forloop.counter }}" 
                  data-no-swup 
                  href="{{ cert.certificate_image|default:'#' }}" 
                  class="mil-zoom-btn">
-                <img src="{% static 'img/icons/zoom.svg' %}" alt="zoom">
+                <img src="{% static 'Website/img/icons/zoom.svg' %}" alt="zoom">
               </a>
             </div>
             

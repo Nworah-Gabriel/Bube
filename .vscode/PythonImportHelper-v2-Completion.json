@@ -82,6 +82,14 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -95,6 +103,39 @@
         "description": "django.db",
         "isExtraImport": true,
         "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -377,14 +418,6 @@
         "description": "django.utils",
         "isExtraImport": true,
         "detail": "django.utils",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -918,6 +951,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "Admin.migrations.0004_alter_project_date",
+        "description": "Admin.migrations.0004_alter_project_date",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('Admin', '0003_certificate'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='project',\n            name='date',\n            field=models.DateField(default=datetime.datetime(2025, 12, 24, 12, 33, 46, 107212)),\n        ),",
+        "detail": "Admin.migrations.0004_alter_project_date",
+        "documentation": {}
+    },
+    {
         "label": "create_project_api",
         "kind": 2,
         "importPath": "Admin.api_views",
@@ -1426,7 +1468,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nSTATIC_ROOT = os.path.join(BASE_DIR, 'static')\nSTATICFILE_DIR = [\n    os.path.join(BASE_DIR, \"Admin/static\"),\n    os.path.join(BASE_DIR, \"Website/static\")\n    ]\nSTATIC_URL = \"/static/\"\nMEDIA_URL = \"/media/\"\nDEFAULT_FILE_STORAGE = \"cloudinary_storage.storage.MediaCloudinaryStorage\"\nSTATICFILES_STORAGE = \"django.contrib.staticfiles.storage.StaticFilesStorage\"",
+        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nSTATIC_ROOT = os.path.join(BASE_DIR, 'static')\nSTATICFILE_DIR = [\n    os.path.join(BASE_DIR, \"Admin/static\"),\n    os.path.join(BASE_DIR, \"Website/static\"),\n    ]\nSTATIC_URL = \"/static/\"\nMEDIA_URL = \"/media/\"\nDEFAULT_FILE_STORAGE = \"cloudinary_storage.storage.MediaCloudinaryStorage\"\nSTATICFILES_STORAGE = \"django.contrib.staticfiles.storage.StaticFilesStorage\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1435,7 +1477,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "STATIC_ROOT = os.path.join(BASE_DIR, 'static')\nSTATICFILE_DIR = [\n    os.path.join(BASE_DIR, \"Admin/static\"),\n    os.path.join(BASE_DIR, \"Website/static\")\n    ]\nSTATIC_URL = \"/static/\"\nMEDIA_URL = \"/media/\"\nDEFAULT_FILE_STORAGE = \"cloudinary_storage.storage.MediaCloudinaryStorage\"\nSTATICFILES_STORAGE = \"django.contrib.staticfiles.storage.StaticFilesStorage\"\n# Default primary key field type",
+        "peekOfCode": "STATIC_ROOT = os.path.join(BASE_DIR, 'static')\nSTATICFILE_DIR = [\n    os.path.join(BASE_DIR, \"Admin/static\"),\n    os.path.join(BASE_DIR, \"Website/static\"),\n    ]\nSTATIC_URL = \"/static/\"\nMEDIA_URL = \"/media/\"\nDEFAULT_FILE_STORAGE = \"cloudinary_storage.storage.MediaCloudinaryStorage\"\nSTATICFILES_STORAGE = \"django.contrib.staticfiles.storage.StaticFilesStorage\"\n# Default primary key field type",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1444,7 +1486,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "STATICFILE_DIR = [\n    os.path.join(BASE_DIR, \"Admin/static\"),\n    os.path.join(BASE_DIR, \"Website/static\")\n    ]\nSTATIC_URL = \"/static/\"\nMEDIA_URL = \"/media/\"\nDEFAULT_FILE_STORAGE = \"cloudinary_storage.storage.MediaCloudinaryStorage\"\nSTATICFILES_STORAGE = \"django.contrib.staticfiles.storage.StaticFilesStorage\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field",
+        "peekOfCode": "STATICFILE_DIR = [\n    os.path.join(BASE_DIR, \"Admin/static\"),\n    os.path.join(BASE_DIR, \"Website/static\"),\n    ]\nSTATIC_URL = \"/static/\"\nMEDIA_URL = \"/media/\"\nDEFAULT_FILE_STORAGE = \"cloudinary_storage.storage.MediaCloudinaryStorage\"\nSTATICFILES_STORAGE = \"django.contrib.staticfiles.storage.StaticFilesStorage\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field",
         "detail": "core.settings",
         "documentation": {}
     },
