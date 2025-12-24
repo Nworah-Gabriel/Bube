@@ -159,3 +159,115 @@ class Certificate(models.Model):
         except Exception as e:
             print(f"Error uploading certificate: {e}")
         return None
+    
+class Research(models.Model):
+    TYPE_CHOICES = [
+        ("article", "Research Article"),
+        ("paper", "Research Paper"),
+        ("publication", "Publication"),
+        ("conference", "Conference Paper"),
+        ("thesis", "Thesis/Dissertation"),
+    ]
+    
+    STATUS_CHOICES = [
+        ("draft", "Draft"),
+        ("published", "Published"),
+        ("archived", "Archived"),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    title = models.CharField(max_length=500)
+    authors = models.CharField(max_length=500, blank=True)
+    abstract = models.TextField(blank=True)
+    full_text = models.TextField(blank=True)
+    research_type = models.CharField(max_length=20, choices=TYPE_CHOICES, default="article")
+    journal_name = models.CharField(max_length=255, blank=True)
+    conference_name = models.CharField(max_length=255, blank=True)
+    publisher = models.CharField(max_length=255, blank=True)
+    doi = models.CharField(max_length=100, blank=True, verbose_name="DOI")
+    publication_date = models.DateField(default=datetime.now())
+    volume = models.CharField(max_length=50, blank=True)
+    issue = models.CharField(max_length=50, blank=True)
+    pages = models.CharField(max_length=50, blank=True)
+    url = models.URLField(blank=True, verbose_name="Research URL")
+    keywords = models.TextField(blank=True, help_text="Comma-separated keywords")
+    
+    # Images
+    thumbnail_image = models.URLField(blank=True, null=True)
+    featured_image = models.URLField(blank=True, null=True)
+    
+    # Files (if you want to store PDFs)
+    pdf_file = models.URLField(blank=True, null=True, verbose_name="PDF File URL")
+    
+    # Status
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
+    is_featured = models.BooleanField(default=False)
+    views_count = models.IntegerField(default=0)
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Research"
+        ordering = ['-publication_date', '-created_at']
+
+    def __str__(self):
+        return f"{self.title} ({self.get_research_type_display()})"
+    
+    def save(self, *args, **kwargs):
+        if self.status == "published" and not self.published_at:
+            self.published_at = datetime.now()
+        super().save(*args, **kwargs)
+    
+    def get_keywords_list(self):
+        """Return keywords as a list"""
+        if self.keywords:
+            return [k.strip() for k in self.keywords.split(',')]
+        return []
+    
+    @classmethod
+    def upload_base64_image(cls, base64_string, folder="research/"):
+        """Upload base64 image to Cloudinary and return URL"""
+        try:
+            if base64_string.startswith("data:image"):
+                # Extract the base64 data
+                format, imgstr = base64_string.split(";base64,")
+                ext = format.split("/")[-1]
+
+                # Decode base64
+                data = base64.b64decode(imgstr)
+
+                # Upload to Cloudinary
+                upload_result = cloudinary.uploader.upload(
+                    ContentFile(data, name=f"research.{ext}"),
+                    folder=folder,
+                    resource_type="image",
+                )
+                return upload_result["secure_url"]
+        except Exception as e:
+            print(f"Error uploading research image: {e}")
+        return None
+    
+    @classmethod
+    def upload_pdf(cls, base64_string, folder="research/pdfs/"):
+        """Upload base64 PDF to Cloudinary and return URL"""
+        try:
+            if base64_string.startswith("data:application/pdf"):
+                # Extract the base64 data
+                format, pdfstr = base64_string.split(";base64,")
+                
+                # Decode base64
+                data = base64.b64decode(pdfstr)
+
+                # Upload to Cloudinary
+                upload_result = cloudinary.uploader.upload(
+                    ContentFile(data, name=f"research.pdf"),
+                    folder=folder,
+                    resource_type="raw",
+                )
+                return upload_result["secure_url"]
+        except Exception as e:
+            print(f"Error uploading PDF: {e}")
+        return None

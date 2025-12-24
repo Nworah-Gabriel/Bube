@@ -18,6 +18,8 @@ from .views import (
     DesignEngineeringDetail,
     )
 
+from Admin.views import ResearchListView
+
 
 
 
@@ -34,8 +36,8 @@ urlpatterns = [
     path("data-analysis/<uuid:id>/", DataAnalysisDetail.as_view(), name="data-analysis-detail"),
     path("data-analysis", DataAnalysis.as_view(), name="data-analysis"),
     path("design-engineering", DesignEngineering.as_view(), name="design-engineering"),
-     path("design-engineering-detail/<uuid:id>", DesignEngineeringDetail.as_view(), name="design-engineering-detail"),
-    
+    path("design-engineering-detail/<uuid:id>", DesignEngineeringDetail.as_view(), name="design-engineering-detail"),
+    path('research/', ResearchListView.as_view(), name='research-list'),
 ]
 
 

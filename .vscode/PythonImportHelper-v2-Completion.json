@@ -98,6 +98,38 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -124,6 +156,14 @@
     },
     {
         "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
         "isExtraImport": true,
@@ -550,6 +590,14 @@
         "documentation": {}
     },
     {
+        "label": "ListView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
         "label": "TemplateView",
         "importPath": "django.views.generic",
         "description": "django.views.generic",
@@ -700,6 +748,14 @@
         "description": "django.views",
         "isExtraImport": true,
         "detail": "django.views",
+        "documentation": {}
+    },
+    {
+        "label": "ResearchListView",
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "isExtraImport": true,
+        "detail": "Admin.views",
         "documentation": {}
     },
     {
@@ -960,6 +1016,24 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "Admin.migrations.0005_research_alter_project_date",
+        "description": "Admin.migrations.0005_research_alter_project_date",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('Admin', '0004_alter_project_date'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Research',\n            fields=[\n                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),\n                ('title', models.CharField(max_length=500)),",
+        "detail": "Admin.migrations.0005_research_alter_project_date",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "Admin.migrations.0006_alter_project_date_alter_research_publication_date",
+        "description": "Admin.migrations.0006_alter_project_date_alter_research_publication_date",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('Admin', '0005_research_alter_project_date'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='project',\n            name='date',\n            field=models.DateField(default=datetime.datetime(2025, 12, 24, 13, 20, 27, 395652)),\n        ),",
+        "detail": "Admin.migrations.0006_alter_project_date_alter_research_publication_date",
+        "documentation": {}
+    },
+    {
         "label": "create_project_api",
         "kind": 2,
         "importPath": "Admin.api_views",
@@ -1014,12 +1088,93 @@
         "documentation": {}
     },
     {
+        "label": "Research",
+        "kind": 6,
+        "importPath": "Admin.models",
+        "description": "Admin.models",
+        "peekOfCode": "class Research(models.Model):\n    TYPE_CHOICES = [\n        (\"article\", \"Research Article\"),\n        (\"paper\", \"Research Paper\"),\n        (\"publication\", \"Publication\"),\n        (\"conference\", \"Conference Paper\"),\n        (\"thesis\", \"Thesis/Dissertation\"),\n    ]\n    STATUS_CHOICES = [\n        (\"draft\", \"Draft\"),",
+        "detail": "Admin.models",
+        "documentation": {}
+    },
+    {
         "label": "urlpatterns",
         "kind": 5,
         "importPath": "Admin.urls",
         "description": "Admin.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"admin\"),\n    path(\"create/\", CreateProjectView.as_view(), name=\"create-project\"),\n    path(\"edit/<uuid:id>/\", EditProjectView.as_view(), name=\"edit-project\"),\n    path(\"certificate/list/\", CertificateList.as_view(), name=\"cert-list\"),\n    path(\"research/create/\", CreateResearch.as_view(), name=\"create-research\"),\n    path(\"research/list/\", ResearchList.as_view(), name=\"research-list\"),\n    path(\"preview/\", Preview.as_view(), name=\"preview\"),\n    path(\"certificate/upload/\", CertificateUpload.as_view(), name=\"upload-certificate\"),\n    path('api/certificates/upload/', CertificateAPIView.as_view(), name='upload_certificate_api'),",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", HomeView.as_view(), name=\"admin\"),\n    path(\"\", HomeView.as_view(), name=\"home\"),\n    path(\"create/\", CreateProjectView.as_view(), name=\"create-project\"),\n    path(\"edit/<uuid:id>/\", EditProjectView.as_view(), name=\"edit-project\"),\n    path(\"certificate/list/\", CertificateList.as_view(), name=\"cert-list\"),\n    path(\"preview/\", Preview.as_view(), name=\"preview\"),\n    path(\"certificate/upload/\", CertificateUpload.as_view(), name=\"upload-certificate\"),\n    path('api/certificates/upload/', CertificateAPIView.as_view(), name='upload_certificate_api'),\n    # Project API endpoints",
         "detail": "Admin.urls",
+        "documentation": {}
+    },
+    {
+        "label": "ResearchListView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class ResearchListView(ListView):\n    \"\"\"View for listing all research articles\"\"\"\n    model = Research\n    template_name = \"Website/research.html\"\n    context_object_name = 'research_list'\n    paginate_by = 10\n    def get_queryset(self):\n        return Research.objects.filter(status='published').order_by('-publication_date')\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "ResearchCreateView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class ResearchCreateView(TemplateView):\n    \"\"\"View for creating new research\"\"\"\n    template_name = \"Admin/research-create.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        context['research'] = None\n        context['research_types'] = Research.TYPE_CHOICES\n        return context\nclass ResearchEditView(TemplateView):\n    \"\"\"View for editing existing research\"\"\"",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "ResearchEditView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class ResearchEditView(TemplateView):\n    \"\"\"View for editing existing research\"\"\"\n    template_name = \"Admin/research-create.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        research_id = self.kwargs.get('id')\n        if research_id:\n            try:\n                research = Research.objects.get(id=research_id)\n                context['research'] = research",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "ResearchListViewAdmin",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class ResearchListViewAdmin(TemplateView):\n    \"\"\"Admin view for listing all research\"\"\"\n    template_name = \"Admin/research-list.html\"\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Get filter parameters\n        status_filter = self.request.GET.get('status', '')\n        type_filter = self.request.GET.get('type', '')\n        search_query = self.request.GET.get('search', '')\n        sort_by = self.request.GET.get('sort', '-publication_date')",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "CreateUpdateResearchView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class CreateUpdateResearchView(TemplateView):\n    \"\"\"API view for creating/updating research\"\"\"\n    def post(self, request, *args, **kwargs):\n        try:\n            data = json.loads(request.body)\n            research_id = data.get('id')\n            # Check if updating existing research\n            if research_id:\n                try:\n                    research = Research.objects.get(id=research_id)",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "DeleteResearchView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class DeleteResearchView(TemplateView):\n    \"\"\"API view for deleting research\"\"\"\n    def post(self, request, *args, **kwargs):\n        try:\n            data = json.loads(request.body)\n            research_id = data.get('id')\n            if not research_id:\n                return JsonResponse({\n                    'success': False,\n                    'error': 'Research ID is required'",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "ToggleResearchStatusView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class ToggleResearchStatusView(TemplateView):\n    \"\"\"API view for toggling research status\"\"\"\n    def post(self, request, *args, **kwargs):\n        try:\n            data = json.loads(request.body)\n            research_id = data.get('id')\n            new_status = data.get('status')\n            if not research_id or not new_status:\n                return JsonResponse({\n                    'success': False,",
+        "detail": "Admin.views",
+        "documentation": {}
+    },
+    {
+        "label": "ToggleFeaturedStatusView",
+        "kind": 6,
+        "importPath": "Admin.views",
+        "description": "Admin.views",
+        "peekOfCode": "class ToggleFeaturedStatusView(TemplateView):\n    \"\"\"API view for toggling featured status\"\"\"\n    def post(self, request, *args, **kwargs):\n        try:\n            data = json.loads(request.body)\n            research_id = data.get('id')\n            if not research_id:\n                return JsonResponse({\n                    'success': False,\n                    'error': 'Research ID is required'",
+        "detail": "Admin.views",
         "documentation": {}
     },
     {

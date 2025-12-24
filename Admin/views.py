@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.contrib.auth.models import User as theUSer
 
 # from .forms import UserForm
@@ -9,9 +9,379 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import Project, Certificate
+from .models import Research,Project, Certificate
 import cloudinary.uploader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from datetime import datetime
+
+# ============== RESEARCH VIEWS ==============
+
+class ResearchListView(ListView):
+    """View for listing all research articles"""
+    model = Research
+    template_name = "Website/research.html"
+    context_object_name = 'research_list'
+    paginate_by = 10
+    
+    def get_queryset(self):
+        return Research.objects.filter(status='published').order_by('-publication_date')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Get featured research
+        featured_research = Research.objects.filter(
+            status='published', 
+            is_featured=True
+        ).order_by('-publication_date')[:3]
+        
+        context['featured_research'] = featured_research
+        
+        # Group by type for filtering
+        research_types = Research.TYPE_CHOICES
+        context['research_types'] = research_types
+        
+        # Get filter parameters
+        research_type = self.request.GET.get('type', '')
+        year = self.request.GET.get('year', '')
+        
+        if research_type:
+            context['current_type'] = research_type
+        if year:
+            context['current_year'] = year
+            
+        return context
+
+class ResearchCreateView(TemplateView):
+    """View for creating new research"""
+    template_name = "Admin/research-create.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['research'] = None
+        context['research_types'] = Research.TYPE_CHOICES
+        return context
+
+class ResearchEditView(TemplateView):
+    """View for editing existing research"""
+    template_name = "Admin/research-create.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        research_id = self.kwargs.get('id')
+        
+        if research_id:
+            try:
+                research = Research.objects.get(id=research_id)
+                context['research'] = research
+            except Research.DoesNotExist:
+                context['research'] = None
+        
+        context['research_types'] = Research.TYPE_CHOICES
+        return context
+
+class ResearchListViewAdmin(TemplateView):
+    """Admin view for listing all research"""
+    template_name = "Admin/research-list.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Get filter parameters
+        status_filter = self.request.GET.get('status', '')
+        type_filter = self.request.GET.get('type', '')
+        search_query = self.request.GET.get('search', '')
+        sort_by = self.request.GET.get('sort', '-publication_date')
+        
+        # Get stats
+        total_count = Research.objects.count()
+        published_count = Research.objects.filter(status='published').count()
+        draft_count = Research.objects.filter(status='draft').count()
+        archived_count = Research.objects.filter(status='archived').count()
+        featured_count = Research.objects.filter(is_featured=True).count()
+        
+        # Get recent research for menu
+        recent_research = Research.objects.all().order_by('-created_at')[:5]
+        
+        # Base querysets
+        published_research = Research.objects.filter(status='published')
+        draft_research = Research.objects.filter(status='draft')
+        archived_research = Research.objects.filter(status='archived')
+        
+        # Apply search
+        if search_query:
+            published_research = published_research.filter(
+                models.Q(title__icontains=search_query) |
+                models.Q(abstract__icontains=search_query) |
+                models.Q(authors__icontains=search_query) |
+                models.Q(keywords__icontains=search_query)
+            )
+            draft_research = draft_research.filter(
+                models.Q(title__icontains=search_query) |
+                models.Q(abstract__icontains=search_query) |
+                models.Q(authors__icontains=search_query) |
+                models.Q(keywords__icontains=search_query)
+            )
+            archived_research = archived_research.filter(
+                models.Q(title__icontains=search_query) |
+                models.Q(abstract__icontains=search_query) |
+                models.Q(authors__icontains=search_query) |
+                models.Q(keywords__icontains=search_query)
+            )
+        
+        # Apply type filter
+        if type_filter:
+            published_research = published_research.filter(research_type=type_filter)
+            draft_research = draft_research.filter(research_type=type_filter)
+            archived_research = archived_research.filter(research_type=type_filter)
+        
+        # Apply sorting
+        published_research = published_research.order_by(sort_by)
+        draft_research = draft_research.order_by(sort_by)
+        archived_research = archived_research.order_by(sort_by)
+        
+        # Paginate
+        published_page = self.request.GET.get('published_page', 1)
+        draft_page = self.request.GET.get('draft_page', 1)
+        archived_page = self.request.GET.get('archived_page', 1)
+        
+        published_paginator = Paginator(published_research, 10)
+        draft_paginator = Paginator(draft_research, 10)
+        archived_paginator = Paginator(archived_research, 10)
+        
+        try:
+            published_research_page = published_paginator.page(published_page)
+        except (PageNotAnInteger, EmptyPage):
+            published_research_page = published_paginator.page(1)
+        
+        try:
+            draft_research_page = draft_paginator.page(draft_page)
+        except (PageNotAnInteger, EmptyPage):
+            draft_research_page = draft_paginator.page(1)
+        
+        try:
+            archived_research_page = archived_paginator.page(archived_page)
+        except (PageNotAnInteger, EmptyPage):
+            archived_research_page = archived_paginator.page(1)
+        
+        context.update({
+            'published_research': published_research_page,
+            'draft_research': draft_research_page,
+            'archived_research': archived_research_page,
+            'published_paginator': published_paginator,
+            'draft_paginator': draft_paginator,
+            'archived_paginator': archived_paginator,
+            'research_types': Research.TYPE_CHOICES,
+            'current_status': status_filter,
+            'current_type': type_filter,
+            'current_sort': sort_by,
+            'current_search': search_query,
+            'total_count': total_count,
+            'published_count': published_count,
+            'draft_count': draft_count,
+            'archived_count': archived_count,
+            'featured_count': featured_count,
+            'recent_research': recent_research,
+        })
+        
+        return context
+# ============== RESEARCH API VIEWS ==============
+
+@method_decorator(csrf_exempt, name='dispatch')
+class CreateUpdateResearchView(TemplateView):
+    """API view for creating/updating research"""
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            research_id = data.get('id')
+            
+            # Check if updating existing research
+            if research_id:
+                try:
+                    research = Research.objects.get(id=research_id)
+                except Research.DoesNotExist:
+                    return JsonResponse({
+                        'success': False,
+                        'error': 'Research not found'
+                    }, status=404)
+            else:
+                research = Research()
+            
+            # Update fields
+            research.title = data.get('title', '')
+            research.authors = data.get('authors', '')
+            research.abstract = data.get('abstract', '')
+            research.full_text = data.get('full_text', '')
+            research.research_type = data.get('research_type', 'article')
+            research.journal_name = data.get('journal_name', '')
+            research.conference_name = data.get('conference_name', '')
+            research.publisher = data.get('publisher', '')
+            research.doi = data.get('doi', '')
+            
+            # Handle date
+            pub_date = data.get('publication_date')
+            if pub_date:
+                research.publication_date = datetime.strptime(pub_date, '%Y-%m-%d')
+            
+            research.volume = data.get('volume', '')
+            research.issue = data.get('issue', '')
+            research.pages = data.get('pages', '')
+            research.url = data.get('url', '')
+            research.keywords = data.get('keywords', '')
+            research.status = data.get('status', 'draft')
+            research.is_featured = data.get('is_featured', False)
+            
+            # Handle image uploads
+            thumbnail_image = data.get('thumbnail_image')
+            if thumbnail_image and thumbnail_image.startswith('data:image'):
+                thumbnail_url = Research.upload_base64_image(thumbnail_image)
+                if thumbnail_url:
+                    research.thumbnail_image = thumbnail_url
+            
+            featured_image = data.get('featured_image')
+            if featured_image and featured_image.startswith('data:image'):
+                featured_url = Research.upload_base64_image(featured_image, folder="research/featured/")
+                if featured_url:
+                    research.featured_image = featured_url
+            
+            # Handle PDF upload
+            pdf_file = data.get('pdf_file')
+            if pdf_file and pdf_file.startswith('data:application/pdf'):
+                pdf_url = Research.upload_pdf(pdf_file)
+                if pdf_url:
+                    research.pdf_file = pdf_url
+            
+            research.save()
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Research saved successfully',
+                'research_id': str(research.id)
+            })
+            
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=400)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class DeleteResearchView(TemplateView):
+    """API view for deleting research"""
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            research_id = data.get('id')
+            
+            if not research_id:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Research ID is required'
+                }, status=400)
+            
+            try:
+                research = Research.objects.get(id=research_id)
+                research.delete()
+                
+                return JsonResponse({
+                    'success': True,
+                    'message': 'Research deleted successfully'
+                })
+                
+            except Research.DoesNotExist:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Research not found'
+                }, status=404)
+                
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=400)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ToggleResearchStatusView(TemplateView):
+    """API view for toggling research status"""
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            research_id = data.get('id')
+            new_status = data.get('status')
+            
+            if not research_id or not new_status:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Research ID and status are required'
+                }, status=400)
+            
+            try:
+                research = Research.objects.get(id=research_id)
+                research.status = new_status
+                
+                if new_status == 'published' and not research.published_at:
+                    research.published_at = datetime.now()
+                
+                research.save()
+                
+                return JsonResponse({
+                    'success': True,
+                    'message': f'Research status updated to {new_status}',
+                    'new_status': new_status
+                })
+                
+            except Research.DoesNotExist:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Research not found'
+                }, status=404)
+                
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=400)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ToggleFeaturedStatusView(TemplateView):
+    """API view for toggling featured status"""
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            research_id = data.get('id')
+            
+            if not research_id:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Research ID is required'
+                }, status=400)
+            
+            try:
+                research = Research.objects.get(id=research_id)
+                research.is_featured = not research.is_featured
+                research.save()
+                
+                return JsonResponse({
+                    'success': True,
+                    'message': f'Featured status toggled to {research.is_featured}',
+                    'is_featured': research.is_featured
+                })
+                
+            except Research.DoesNotExist:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Research not found'
+                }, status=404)
+                
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=400)
 
 class HomeView(TemplateView):
     template_name = "Admin/project-dashboard.html"

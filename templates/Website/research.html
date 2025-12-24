@@ -1,160 +1,459 @@
 {% load static %} {% include 'Website/__header.html' %}
 
-                <!-- banner -->
-                <div class="mil-inner-banner mil-p-0-30">
-                    <div class="mil-banner-content mil-up">
-                        <div class="mil-animation-frame">
-                            <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
-                        </div>
-                        <div class="container">
-                            <ul class="mil-breadcrumbs mil-mb-60">
-                                <li><a href="index.html">Homepage</a></li>
-                                <li><a href="blog.html">Research</a></li>
-                            </ul>
-                           
-                            
-                        </div>
-                    </div>
+          <!-- banner -->
+          <div class="mil-inner-banner mil-p-0-30">
+            <div class="mil-banner-content mil-up">
+              <div class="mil-animation-frame">
+                <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+              </div>
+              <div class="container">
+                <ul class="mil-breadcrumbs mil-mb-60">
+                  <li><a href="{% url '' %}">Homepage</a></li>
+                  <li><a href="{% url 'research-list' %}">Research</a></li>
+                </ul>
+            </div>
+          </div>
+          <!-- banner end -->
+
+          <!-- research filter -->
+          <section>
+            <div class="container">
+              <div class="row align-items-center">
+                <div class="col-lg-4">
+                  <h3 class="mil-up">Research Works</h3>
+                  <p class="mil-text-sm mil-light-soft">{{ research_list.paginator.count }} publications</p>
                 </div>
-                <!-- banner end -->
+                
+              </div>
+            </div>
+          </section>
+          <!-- research filter end -->
 
-
-                <!-- blog -->
-                <section>
-                    <div class="container mil-p-120-60">
-                        <div class="row align-items-center mil-mb-30">
-                            <div class="col-lg-4 mil-mb-30">
-                                <h3 class="mil-up">Research Works</h3>
-                            </div>
-                            <div class="col-lg-8 mil-mb-30">
-                                <div class="mil-adaptive-right mil-up">
-
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-
-                                <a href="https://www.researchgate.net/publication/392770823_Enhancing_predictive_maintenance_in_lean_manufacturing_for_continuous_process_improvement_using_digital_twin_technology" class="mil-blog-card mil-blog-card-hori mil-mb-60 mil-more"
-   target="_blank"
-   rel="noopener noreferrer"
-   data-no-swup>
-                                    <div class="mil-cover-frame mil-up">
-                                        <img src="{% static 'Website/img/blog/1.jpg' %}" alt="cover">
-                                    </div>
-                                    <div class="mil-post-descr">
-                                        <div class="mil-labels mil-up mil-mb-30">
-                                            <div class="mil-label mil-upper mil-accent">ARTICLE</div>
-                                            <div class="mil-label mil-upper">June 2025</div>
-                                        </div>
-                                        <h4 class="mil-up mil-mb-30">Enhancing predictive maintenance in lean manufacturing for continuous process improvement using digital twin technology</h4>
-                                        <p class="mil-post-text mil-up mil-mb-30">The latest advancement in digital technologies has greatly revolutionized modern manufacturing processes, particularly through the adoption of Lean Manufacturing initiatives aimed at minimizing wastage and enhancing operational efficiency</p>
-                                        <div class="mil-link mil-dark mil-arrow-place mil-up">
-                                            <span>Read more</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                            </div>
-                            <div class="col-lg-12">
-
-                                <a href="https://www.researchgate.net/publication/389296576_ARTIFICIAL_INTELLIGENCE_IN_ADVANCED_PROCESS_OPTIMIZATION_AND_SMART_MANUFACTURING_SYSTEMS" class="mil-blog-card mil-blog-card-hori mil-mb-60 mil-more"
-   target="_blank"
-   rel="noopener noreferrer"
-   data-no-swup>
-                                    <div class="mil-cover-frame mil-up">
-                                        <img src="{% static 'Website/img/blog/2.jpg' %}" alt="cover">
-                                    </div>
-                                    <div class="mil-post-descr">
-                                        <div class="mil-labels mil-up mil-mb-30">
-                                            <div class="mil-label mil-upper mil-accent">ARTICLE</div>
-                                            <div class="mil-label mil-upper">November 2024</div>
-                                        </div>
-                                        <h4 class="mil-up mil-mb-30">Artificial Intelligence in Advanced Process Optimization and Smart Manufacturing Systems</h4>
-                                        <p class="mil-post-text mil-up mil-mb-30">Industrial  systems  engineering  is  undergoing  a significant transformation  driven  by  the advent of intelligent technologies  that  enable  smarter,  more  efficient,  and  sustainable  operations. </p>
-                                        <div class="mil-link mil-dark mil-arrow-place mil-up">
-                                            <span>Read more</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                            </div>
-                            <div class="col-lg-12">
-
-                                <a href="https://www.researchgate.net/publication/397255265_Anticorrosion_Effect_of_Pineapple_Peel_Extract_on_Mild_Steel_in_Hydrogen_Sulfide_Environment_Characterization_Optimization_and_Statistical_Analysis_via_Response_Surface_Methodology" class="mil-blog-card mil-blog-card-hori mil-mb-60 mil-more"
-   target="_blank"
-   rel="noopener noreferrer"
-   data-no-swup>
-                                    <div class="mil-cover-frame mil-up">
-                                        <img src="{% static 'Website/img/blog/3.jpg' %}" alt="cover">
-                                    </div>
-                                    <div class="mil-post-descr">
-                                        <div class="mil-labels mil-up mil-mb-30">
-                                            <div class="mil-label mil-upper mil-accent">ARTICLE</div>
-                                            <div class="mil-label mil-upper">November 2025</div>
-                                        </div>
-                                        <h4 class="mil-up mil-mb-30">Anticorrosion Effect of Pineapple Peel Extract on Mild Steel in Hydrogen Sulfide Environment: Characterization, Optimization and Statistical Analysis via Response Surface Methodology</h4>
-                                        <p class="mil-post-text mil-up mil-mb-30">High volume of solid waste generated from pineapple peel has necessitated the need for its transformation into useful materials to curb rising environmental pollution and achieve zero waste.</p>
-                                        <div class="mil-link mil-dark mil-arrow-place mil-up">
-                                            <span>Read more</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                            </div>
-
-
-                            <div class="col-lg-12">
-
-                                <a href="https://www.researchgate.net/publication/392585438_Enhancing_the_Corrosion_Protection_of_Mild_Steel_using_Nickel-Voltage-_Controlled_Electrodeposition" class="mil-blog-card mil-blog-card-hori mil-mb-60 mil-more"
-   target="_blank"
-   rel="noopener noreferrer"
-   data-no-swup>
-                                    <div class="mil-cover-frame mil-up">
-                                        <img src="{% static 'Website/img/blog/4.jpg' %}" alt="cover">
-                                    </div>
-                                    <div class="mil-post-descr">
-                                        <div class="mil-labels mil-up mil-mb-30">
-                                            <div class="mil-label mil-upper mil-accent">ARTICLE</div>
-                                            <div class="mil-label mil-upper">June 2025</div>
-                                        </div>
-                                        <h4 class="mil-up mil-mb-30">Enhancing the Corrosion Protection of Mild Steel using Nickel-Voltage- Controlled Electrodeposition</h4>
-                                        <p class="mil-post-text mil-up mil-mb-30">Tailoring the electrodeposition parameters to yield high performance coating for corrosion control in mild steel is important for its sustainability as an effective corrosion mitigation measure.</p>
-                                        <div class="mil-link mil-dark mil-arrow-place mil-up">
-                                            <span>Read more</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                            </div>
-
-                            <div class="col-lg-12">
-
-                                <a href="https://www.researchgate.net/publication/396505242_Process-Composition_Design_of_Hypoeutectic_Aluminum-Silicon_Alloy_for_High_Performance_Wear_Resistance_Application" class="mil-blog-card mil-blog-card-hori mil-mb-60 mil-more"
-   target="_blank"
-   rel="noopener noreferrer"
-   data-no-swup>
-                                    <div class="mil-cover-frame mil-up">
-                                        <img src="{% static 'Website/img/blog/5.jpg' %}" alt="cover">
-                                    </div>
-                                    <div class="mil-post-descr">
-                                        <div class="mil-labels mil-up mil-mb-30">
-                                            <div class="mil-label mil-upper mil-accent">ARTICLE</div>
-                                            <div class="mil-label mil-upper">October 2025</div>
-                                        </div>
-                                        <h4 class="mil-up mil-mb-30">Process-Composition Design of Hypoeutectic Aluminum-Silicon Alloy for High Performance Wear Resistance Application</h4>
-                                        <p class="mil-post-text mil-up mil-mb-30">This study investigates the process-composition design of hypoeutectic aluminium-silicon alloys aimed at improving the wear behaviour of the alloy for tribological application.</p>
-                                        <div class="mil-link mil-dark mil-arrow-place mil-up">
-                                            <span>Read more</span>
-                                        </div>
-                                    </div>
-                                </a>
-
-                            </div>
-                            
-                        </div>
+          <!-- research list -->
+          <section>
+            <div class="container mil-p-120-60 mil-pt-0">
+              <div class="row">
+                <div class="col-lg-12">
+                  {% for research in research_list %}
+                  <a href="{{ research.url|default:'#' }}" 
+                     class="mil-blog-card mil-blog-card-hori mil-mb-60 mil-more"
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     data-no-swup>
+                    <div class="mil-cover-frame mil-up">
+                      {% if research.thumbnail_image %}
+                        <img src="{{ research.thumbnail_image }}" alt="{{ research.title }}">
+                      {% else %}
+                        <img src="{% static 'Website/img/blog/default-research.jpg' %}" alt="Research Cover">
+                      {% endif %}
+                      {% if research.is_featured %}
+                        <div class="featured-badge">FEATURED</div>
+                      {% endif %}
                     </div>
-                </section>
-                <!-- blog end -->
+                    <div class="mil-post-descr">
+                      <div class="mil-labels mil-up mil-mb-30">
+                        <div class="mil-label mil-upper mil-accent">{{ research.get_research_type_display|upper }}</div>
+                        <div class="mil-label mil-upper">{{ research.publication_date|date:"F Y" }}</div>
+                        {% if research.doi %}
+                          <div class="mil-label mil-upper">DOI: {{ research.doi|truncatechars:15 }}</div>
+                        {% endif %}
+                      </div>
+                      <h4 class="mil-up mil-mb-30">{{ research.title }}</h4>
+                      
+                      {% if research.authors %}
+                        <p class="mil-post-authors mil-up mil-mb-15">
+                          <i class="fa fa-users"></i> {{ research.authors }}
+                        </p>
+                      {% endif %}
+                      
+                      {% if research.journal_name %}
+                        <p class="mil-post-journal mil-up mil-mb-15">
+                          <i class="fa fa-book"></i> {{ research.journal_name }}
+                          {% if research.volume %}Vol. {{ research.volume }}{% endif %}
+                          {% if research.issue %}({{ research.issue }}){% endif %}
+                          {% if research.pages %}pp. {{ research.pages }}{% endif %}
+                        </p>
+                      {% endif %}
+                      
+                      <p class="mil-post-text mil-up mil-mb-30">
+                        {{ research.abstract|truncatechars:300 }}
+                      </p>
+                      
+                      {% if research.keywords %}
+                        <div class="mil-keywords mil-up mil-mb-30">
+                          {% for keyword in research.get_keywords_list|slice:":5" %}
+                            <span class="mil-keyword">{{ keyword }}</span>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                      
+                      <div class="mil-link mil-dark mil-arrow-place mil-up">
+                        <span>Read More</span>
+                      </div>
+                    </div>
+                  </a>
+                  {% empty %}
+                  <div class="mil-empty-state mil-mb-60">
+                    <div class="mil-empty-icon">
+                      <i class="fa fa-file-text-o"></i>
+                    </div>
+                    <h4 class="mil-up mil-mb-30">No Research Publications Found</h4>
+                    <p class="mil-up mil-mb-30">Check back later for new research articles and publications.</p>
+                    <a href="{% url 'research-list' %}" class="mil-button mil-arrow-place mil-up">
+                      <span>View All Research</span>
+                    </a>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              
+              <!-- Pagination -->
+              {% if research_list.has_other_pages %}
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="mil-pagination mil-up">
+                    <ul class="mil-pagination-list">
+                      {% if research_list.has_previous %}
+                      <li>
+                        <a href="?page={{ research_list.previous_page_number }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_year %}&year={{ current_year }}{% endif %}" 
+                           class="mil-pagination-prev">
+                          <i class="fa fa-chevron-left"></i>
+                        </a>
+                      </li>
+                      {% endif %}
+                      
+                      {% for i in research_list.paginator.page_range %}
+                        {% if research_list.number == i %}
+                          <li class="mil-active"><a href="#">{{ i }}</a></li>
+                        {% elif i > research_list.number|add:'-3' and i < research_list.number|add:'3' %}
+                          <li>
+                            <a href="?page={{ i }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_year %}&year={{ current_year }}{% endif %}">
+                              {{ i }}
+                            </a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                      
+                      {% if research_list.has_next %}
+                      <li>
+                        <a href="?page={{ research_list.next_page_number }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_year %}&year={{ current_year }}{% endif %}" 
+                           class="mil-pagination-next">
+                          <i class="fa fa-chevron-right"></i>
+                        </a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </section>
+          <!-- research list end -->
+
+          <!-- featured research -->
+          {% if featured_research %}
+          <section class="mil-dark-bg">
+            <div class="mi-invert-fix">
+              <div class="container mil-p-120-60">
+                <div class="row mil-mb-90">
+                  <div class="col-lg-10">
+                    <span class="mil-suptitle mil-light-soft mil-suptitle-right mil-up">
+                      Highlighted Publications
+                    </span>
+                  </div>
+                  <div class="mil-complex-text justify-content-center mil-up">
+                    <h2 class="mil-h1 mil-muted mil-center">
+                      Featured <span class="mil-thin">Research</span>
+                    </h2>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  {% for research in featured_research|slice:":3" %}
+                  <div class="col-md-6 col-lg-4 mil-mb-60">
+                    <div class="mil-card mil-up">
+                      <div class="mil-card-image">
+                        {% if research.thumbnail_image %}
+                          <img src="{{ research.thumbnail_image }}" alt="{{ research.title }}">
+                        {% else %}
+                          <img src="{% static 'Website/img/blog/default-research.jpg' %}" alt="Research Cover">
+                        {% endif %}
+                        <div class="mil-card-label">{{ research.get_research_type_display }}</div>
+                      </div>
+                      <div class="mil-card-content">
+                        <div class="mil-card-date mil-light-soft">{{ research.publication_date|date:"F d, Y" }}</div>
+                        <h5 class="mil-muted mil-mb-15">{{ research.title|truncatechars:80 }}</h5>
+                        <p class="mil-light-soft mil-mb-20">{{ research.abstract|truncatechars:120 }}</p>
+                        <a href="{{ research.url|default:'#' }}" 
+                           class="mil-link mil-accent mil-arrow-place"
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                          <span>Read More</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </section>
+          {% endif %}
+          <!-- featured research end -->
+
 {% include 'Website/__footer.html' %}
+
+    <style>
+      /* Research specific styles */
+      .research-filters {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      
+      .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .filter-group label {
+        color: #666;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      
+      .filter-select {
+        padding: 8px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: white;
+        color: #333;
+        font-size: 14px;
+        min-width: 150px;
+      }
+      
+      .mil-post-authors {
+        font-size: 14px;
+        color: #666;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .mil-post-authors i {
+        font-size: 12px;
+      }
+      
+      .mil-post-journal {
+        font-size: 13px;
+        color: #888;
+        font-style: italic;
+      }
+      
+      .mil-keywords {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      
+      .mil-keyword {
+        background: #f0f0f0;
+        color: #666;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 500;
+      }
+      
+      .featured-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: #4a6cf7;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      
+      .mil-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        height: 100%;
+      }
+      
+      .mil-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .mil-card-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+      }
+      
+      .mil-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      .mil-card:hover .mil-card-image img {
+        transform: scale(1.05);
+      }
+      
+      .mil-card-label {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: rgba(74, 108, 247, 0.9);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      
+      .mil-card-content {
+        padding: 25px;
+      }
+      
+      .mil-card-date {
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+      
+      .mil-empty-state {
+        text-align: center;
+        padding: 60px 20px;
+      }
+      
+      .mil-empty-icon {
+        font-size: 60px;
+        color: #ddd;
+        margin-bottom: 20px;
+      }
+      
+      /* Pagination */
+      .mil-pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+      
+      .mil-pagination-list {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: 5px;
+      }
+      
+      .mil-pagination-list li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #333;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      
+      .mil-pagination-list li.mil-active a,
+      .mil-pagination-list li a:hover {
+        background: #4a6cf7;
+        border-color: #4a6cf7;
+        color: white;
+      }
+      
+      .mil-pagination-prev,
+      .mil-pagination-next {
+        width: 40px;
+        height: 40px;
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Filter functionality
+        const researchTypeFilter = document.getElementById('researchTypeFilter');
+        const yearFilter = document.getElementById('yearFilter');
+        
+        function applyFilters() {
+          const type = researchTypeFilter.value;
+          const year = yearFilter.value;
+          let url = '{% url "research-list" %}?';
+          
+          if (type) url += `type=${type}&`;
+          if (year) url += `year=${year}`;
+          
+          // Remove trailing & or ? if no params
+          if (url.endsWith('&') || url.endsWith('?')) {
+            url = url.slice(0, -1);
+          }
+          
+          window.location.href = url;
+        }
+        
+        if (researchTypeFilter) {
+          researchTypeFilter.addEventListener('change', applyFilters);
+        }
+        
+        if (yearFilter) {
+          yearFilter.addEventListener('change', applyFilters);
+        }
+        
+        // Update view count when clicking on research cards
+        document.querySelectorAll('.mil-blog-card-hori').forEach(card => {
+          card.addEventListener('click', function(e) {
+            // Don't interfere with external links
+            if (this.getAttribute('href').startsWith('http')) {
+              return;
+            }
+            
+            const researchId = this.getAttribute('data-research-id');
+            if (researchId) {
+              // Send view count update to server
+              fetch(`/api/research/${researchId}/view/`, {
+                method: 'POST',
+                headers: {
+                  'X-CSRFToken': getCookie('csrftoken')
+                }
+              }).catch(error => console.error('Error updating view count:', error));
+            }
+          });
+        });
+        
+        // Helper function to get CSRF token
+        function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+      });
+    </script>
+</body>
+</html>

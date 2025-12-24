@@ -1,51 +1,1208 @@
-{% load static %} {% include 'Admin/__header.html' %}
+{% load static %}
+{% include 'Admin/__header.html' %}
 
-        <!-- banner -->
-        <div class="mil-inner-banner">
-          <div class="mil-banner-content mil-up">
-            <div class="mil-animation-frame">
-              <div
-                class="mil-animation mil-position-4 mil-dark mil-scale"
-                data-value-1="6"
-                data-value-2="1.4"
-              ></div>
+<!-- Loader Overlay -->
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Processing your request...</div>
+        <div class="loading-details" id="loadingDetails"></div>
+        <div class="loading-progress">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
             </div>
-            <div class="container">
-              <ul class="mil-breadcrumbs mil-mb-60">
-                <li><a href="project-dashboard.html">Admin</a></li>
-                <li><a href="">Create Research</a></li>
-              </ul>
-              <div class="new-project-btn">
-                <h1 class="mil-mb-60">Create Research</h1>
-              </div>
-              <!-- <a
-                  href="#project"
-                  class="mil-link mil-dark mil-arrow-place mil-down-arrow"
-                >
-                  <span>Read more</span>
-                </a> -->
-
-              <form id="admResForm" class="adm-res-form">
-                <label>Thumbnail Image</label>
-                <input type="file" id="admResImage" />
-
-                <label>Title</label>
-                <input type="text" id="admResTitle" />
-
-                <label>Description</label>
-                <textarea id="admResDescription"></textarea>
-
-                <label>Date</label>
-                <input type="date" id="admResDate" />
-
-                <button type="button" id="admResSubmit">Create</button>
-              </form>
-            </div>
-          </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <!-- banner end -->
+    </div>
+</div>
 
-        {% include 'Admin/__footer.html' %}
+<!-- banner -->
+<div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+        <div class="mil-animation-frame">
+            <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+        </div>
+        <div class="container">
+            <ul class="mil-breadcrumbs mil-mb-30">
+                <li><a href="{% url 'home' %}">Admin</a></li>
+                <li><a href="{% url 'research-list-admin' %}">Research</a></li>
+                <li><a href="#">
+                    {% if research %}Edit Research{% else %}Create Research{% endif %}
+                </a></li>
+            </ul>
+            
+            <div class="new-project-btn mil-mb-30">
+                <h1>{% if research %}Edit Research{% else %}Create New Research{% endif %}</h1>
+                {% if research %}
+                    <div class="research-status-badge">
+                        Status: <span class="status-{{ research.status }}">{{ research.get_status_display }}</span>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="research-form-container">
+                <form id="researchForm" class="research-form">
+                    {% csrf_token %}
+                    {% if research %}
+                        <input type="hidden" id="researchId" value="{{ research.id }}">
+                    {% endif %}
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Basic Information</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="researchTitle">Research Title *</label>
+                                <input type="text" id="researchTitle" 
+                                       value="{% if research %}{{ research.title }}{% endif %}" 
+                                       placeholder="Enter research title" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="researchType">Research Type *</label>
+                                <select id="researchType" required>
+                                    <option value="">Select type</option>
+                                    {% for type_code, type_name in research_types %}
+                                        <option value="{{ type_code }}" 
+                                                {% if research and research.research_type == type_code %}selected{% endif %}>
+                                            {{ type_name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="researchAuthors">Authors</label>
+                            <input type="text" id="researchAuthors" 
+                                   value="{% if research %}{{ research.authors }}{% endif %}" 
+                                   placeholder="Enter author names (comma separated)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="researchAbstract">Abstract *</label>
+                            <textarea id="researchAbstract" rows="4" required
+                                      placeholder="Enter research abstract">{% if research %}{{ research.abstract }}{% endif %}</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="researchFullText">Full Text/Description</label>
+                            <textarea id="researchFullText" rows="8"
+                                      placeholder="Enter full research text (optional)">{% if research %}{{ research.full_text }}{% endif %}</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Publication Details</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="publicationDate">Publication Date *</label>
+                                <input type="date" id="publicationDate" 
+                                       value="{% if research %}{{ research.publication_date|date:'Y-m-d' }}{% else %}{{ current_date|date:'Y-m-d' }}{% endif %}" 
+                                       required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="journalName">Journal/Conference Name</label>
+                                <input type="text" id="journalName" 
+                                       value="{% if research %}{{ research.journal_name }}{% endif %}" 
+                                       placeholder="e.g., Journal of Manufacturing Science">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="publisher">Publisher</label>
+                                <input type="text" id="publisher" 
+                                       value="{% if research %}{{ research.publisher }}{% endif %}" 
+                                       placeholder="e.g., Elsevier, IEEE">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="researchDOI">DOI (Digital Object Identifier)</label>
+                                <input type="text" id="researchDOI" 
+                                       value="{% if research %}{{ research.doi }}{% endif %}" 
+                                       placeholder="e.g., 10.1016/j.jmst.2023.05.001">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="volume">Volume</label>
+                                <input type="text" id="volume" 
+                                       value="{% if research %}{{ research.volume }}{% endif %}" 
+                                       placeholder="Volume number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="issue">Issue</label>
+                                <input type="text" id="issue" 
+                                       value="{% if research %}{{ research.issue }}{% endif %}" 
+                                       placeholder="Issue number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pages">Pages</label>
+                                <input type="text" id="pages" 
+                                       value="{% if research %}{{ research.pages }}{% endif %}" 
+                                       placeholder="e.g., 123-135">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="researchURL">External URL</label>
+                            <input type="url" id="researchURL" 
+                                   value="{% if research %}{{ research.url }}{% endif %}" 
+                                   placeholder="https://www.researchgate.net/publication/...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Media & Files</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="thumbnailImage">Thumbnail Image *</label>
+                                <div class="image-upload-container">
+                                    <div class="image-preview" id="thumbnailPreview">
+                                        {% if research and research.thumbnail_image %}
+                                            <img src="{{ research.thumbnail_image }}" alt="Thumbnail Preview">
+                                            <button type="button" class="remove-image" data-target="thumbnailImage">×</button>
+                                        {% else %}
+                                            <div class="upload-placeholder">
+                                                <i class="fa fa-image"></i>
+                                                <span>Click to upload thumbnail</span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <input type="file" id="thumbnailImage" accept="image/*" hidden>
+                                    <input type="hidden" id="thumbnailImageBase64">
+                                    <small class="form-help">Recommended: 600x400 pixels, JPEG or PNG</small>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="featuredImage">Featured Image (Optional)</label>
+                                <div class="image-upload-container">
+                                    <div class="image-preview" id="featuredPreview">
+                                        {% if research and research.featured_image %}
+                                            <img src="{{ research.featured_image }}" alt="Featured Preview">
+                                            <button type="button" class="remove-image" data-target="featuredImage">×</button>
+                                        {% else %}
+                                            <div class="upload-placeholder">
+                                                <i class="fa fa-image"></i>
+                                                <span>Click to upload featured image</span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <input type="file" id="featuredImage" accept="image/*" hidden>
+                                    <input type="hidden" id="featuredImageBase64">
+                                    <small class="form-help">Recommended: 1200x800 pixels</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pdfFile">PDF File (Optional)</label>
+                            <div class="file-upload-container">
+                                <div class="file-preview" id="pdfPreview">
+                                    {% if research and research.pdf_file %}
+                                        <div class="file-info">
+                                            <i class="fa fa-file-pdf-o"></i>
+                                            <span>PDF Uploaded</span>
+                                            <button type="button" class="remove-file" data-target="pdfFile">×</button>
+                                        </div>
+                                    {% else %}
+                                        <div class="upload-placeholder">
+                                            <i class="fa fa-upload"></i>
+                                            <span>Click to upload PDF</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <input type="file" id="pdfFile" accept=".pdf" hidden>
+                                <input type="hidden" id="pdfFileBase64">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Additional Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="researchKeywords">Keywords</label>
+                            <textarea id="researchKeywords" rows="2"
+                                      placeholder="Enter keywords separated by commas">{% if research %}{{ research.keywords }}{% endif %}</textarea>
+                            <small class="form-help">e.g., Lean Manufacturing, Digital Twin, Industry 4.0, Process Optimization</small>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="researchStatus">Status</label>
+                                <select id="researchStatus">
+                                    <option value="draft" {% if research and research.status == 'draft' %}selected{% endif %}>Draft</option>
+                                    <option value="published" {% if research and research.status == 'published' %}selected{% endif %}>Published</option>
+                                    <option value="archived" {% if research and research.status == 'archived' %}selected{% endif %}>Archived</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="isFeatured" {% if research and research.is_featured %}checked{% endif %}>
+                                    <span>Featured Research</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="saveDraftBtn" class="btn-secondary">
+                            <span class="btn-text">Save as Draft</span>
+                            <span class="btn-loader" style="display: none;">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </span>
+                        </button>
+                        <button type="button" id="publishBtn" class="btn-primary">
+                            <span class="btn-text">{% if research %}Update Research{% else %}Publish Research{% endif %}</span>
+                            <span class="btn-loader" style="display: none;">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </span>
+                        </button>
+                        
+                        
+                    </div>
+                    
+                    <div id="formMessage" class="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br>
+</div>
+<!-- banner end -->
+
+<style>
+/* Loader Styles */
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+}
+
+.loading-content {
+    text-align: center;
+    max-width: 400px;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.3s ease;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4a6cf7;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+.loading-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.loading-details {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    min-height: 20px;
+}
+
+.loading-progress {
+    width: 100%;
+    height: 4px;
+    background: #f0f0f0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4a6cf7, #3a5ce5);
+    border-radius: 2px;
+    width: 0%;
+    animation: progressPulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes progressPulse {
+    0%, 100% { width: 30%; }
+    50% { width: 70%; }
+}
+
+/* Responsive Form Styles */
+.research-form-container {
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.form-section {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.form-section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group input[type="date"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: all 0.3s;
+    background: #fafafa;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #4a6cf7;
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+}
+
+.form-help {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-size: 12px;
+}
+
+.image-upload-container,
+.file-upload-container {
+    margin-top: 8px;
+}
+
+.image-preview,
+.file-preview {
+    width: 100%;
+    max-width: 200px;
+    height: 150px;
+    border: 2px dashed #ddd;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.image-preview:hover,
+.file-preview:hover {
+    border-color: #4a6cf7;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #999;
+    padding: 20px;
+    text-align: center;
+}
+
+.upload-placeholder i {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.remove-image,
+.remove-file {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: center;
+    transition: background 0.3s;
+    z-index: 2;
+}
+
+.remove-image:hover,
+.remove-file:hover {
+    background: #cc0000;
+    transform: scale(1.1);
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap: 10px;
+    height: 100%;
+}
+
+.file-info i {
+    font-size: 28px;
+    color: #ff4444;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    padding: 5px 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-outline,
+.btn-danger {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4a6cf7, #3a5ce5);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #4a6cf7;
+    color: #4a6cf7;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+}
+
+.btn-primary:hover { 
+    background: linear-gradient(135deg, #3a5ce5, #2a4cd3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+}
+.btn-secondary:hover { 
+    background: linear-gradient(135deg, #5a6268, #495157);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+}
+.btn-outline:hover { 
+    background: #4a6cf7; 
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.2);
+}
+.btn-danger:hover { 
+    background: linear-gradient(135deg, #c82333, #b21f2d);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+.btn-text {
+    transition: opacity 0.3s;
+}
+
+.btn-loader {
+    display: none;
+}
+
+.form-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    display: none;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+}
+
+.form-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+}
+
+.research-status-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+
+.status-draft { background: #ffc107; color: #000; }
+.status-published { background: #28a745; color: white; }
+.status-archived { background: #6c757d; color: white; }
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .research-form-container {
+        padding: 25px;
+    }
+    
+    .form-row {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .research-form-container {
+        padding: 20px;
+        margin: 0 10px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-row .form-group {
+        width: 100%;
+    }
+    
+    .image-preview,
+    .file-preview {
+        max-width: 100%;
+        height: 180px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-outline,
+    .btn-danger {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .loading-content {
+        width: 90%;
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .research-form-container {
+        padding: 15px;
+        margin: 0 5px;
+    }
+    
+    .form-section-title {
+        font-size: 16px;
+    }
+    
+    .form-group input[type="text"],
+    .form-group input[type="url"],
+    .form-group input[type="date"],
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .upload-placeholder span {
+        font-size: 13px;
+    }
+    
+    .new-project-btn {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .research-status-badge {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+
+/* Button Loading State */
+.btn-loading .btn-text {
+    opacity: 0.5;
+}
+
+.btn-loading .btn-loader {
+    display: inline-block;
+}
+
+/* Success Animation */
+@keyframes successCheck {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.success-check {
+    color: #28a745;
+    animation: successCheck 0.5s ease;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Loading state management
+    let isLoading = false;
+    
+    // Image upload functionality
+    const thumbnailPreview = document.getElementById('thumbnailPreview');
+    const thumbnailInput = document.getElementById('thumbnailImage');
+    const thumbnailBase64 = document.getElementById('thumbnailImageBase64');
+    
+    const featuredPreview = document.getElementById('featuredPreview');
+    const featuredInput = document.getElementById('featuredImage');
+    const featuredBase64 = document.getElementById('featuredImageBase64');
+    
+    const pdfPreview = document.getElementById('pdfPreview');
+    const pdfInput = document.getElementById('pdfFile');
+    const pdfBase64 = document.getElementById('pdfFileBase64');
+    
+    // Handle thumbnail image upload
+    thumbnailPreview.addEventListener('click', () => thumbnailInput.click());
+    thumbnailInput.addEventListener('change', handleImageUpload.bind(null, thumbnailInput, thumbnailPreview, thumbnailBase64));
+    
+    // Handle featured image upload
+    featuredPreview.addEventListener('click', () => featuredInput.click());
+    featuredInput.addEventListener('change', handleImageUpload.bind(null, featuredInput, featuredPreview, featuredBase64));
+    
+    // Handle PDF upload
+    pdfPreview.addEventListener('click', () => pdfInput.click());
+    pdfInput.addEventListener('change', handleFileUpload.bind(null, pdfInput, pdfPreview, pdfBase64));
+    
+    // Remove image handlers
+    document.querySelectorAll('.remove-image, .remove-file').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const target = this.getAttribute('data-target');
+            const previewId = target === 'thumbnailImage' ? 'thumbnailPreview' : 
+                             target === 'featuredImage' ? 'featuredPreview' : 'pdfPreview';
+            const base64Id = target === 'thumbnailImage' ? 'thumbnailImageBase64' :
+                           target === 'featuredImage' ? 'featuredImageBase64' : 'pdfFileBase64';
+            
+            clearUpload(previewId, base64Id, target);
+        });
+    });
+    
+    // Form submission handlers
+    document.getElementById('saveDraftBtn').addEventListener('click', () => submitForm('draft', 'Saving as draft...'));
+    document.getElementById('publishBtn').addEventListener('click', () => submitForm('published', 'Publishing research...'));
+    
+    // Preview button
+    document.getElementById('previewBtn').addEventListener('click', previewResearch);
+    
+    // Delete button
+    const deleteBtn = document.getElementById('deleteBtn');
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', () => deleteResearch('Deleting research...'));
+    }
+    
+    // Helper functions
+    function handleImageUpload(input, preview, base64Input) {
+        const file = input.files[0];
+        if (!file) return;
+        
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            showMessage('Image size should be less than 5MB', 'error');
+            return;
+        }
+        
+        showLoading('Uploading image...');
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                // Create canvas for compression
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Calculate dimensions
+                let width = img.width;
+                let height = img.height;
+                const maxWidth = 1200;
+                const maxHeight = 800;
+                
+                if (width > maxWidth || height > maxHeight) {
+                    if (width > height) {
+                        height = Math.round(height * maxWidth / width);
+                        width = maxWidth;
+                    } else {
+                        width = Math.round(width * maxHeight / height);
+                        height = maxHeight;
+                    }
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // Compress to JPEG with 80% quality
+                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                
+                preview.innerHTML = `
+                    <img src="${compressedDataUrl}" alt="Preview">
+                    <button type="button" class="remove-image" data-target="${input.id}">×</button>
+                `;
+                base64Input.value = compressedDataUrl;
+                
+                // Reattach remove button event
+                preview.querySelector('.remove-image').addEventListener('click', function() {
+                    clearUpload(preview.id, base64Input.id, input.id);
+                });
+                
+                hideLoading();
+                showMessage('Image uploaded successfully!', 'success');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    function handleFileUpload(input, preview, base64Input) {
+        const file = input.files[0];
+        if (!file) return;
+        
+        // Validate file type
+        if (!file.type.includes('pdf')) {
+            showMessage('Please upload a PDF file', 'error');
+            return;
+        }
+        
+        // Validate file size (max 10MB)
+        if (file.size > 10 * 1024 * 1024) {
+            showMessage('PDF size should be less than 10MB', 'error');
+            return;
+        }
+        
+        showLoading('Uploading PDF...');
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.innerHTML = `
+                <div class="file-info">
+                    <i class="fa fa-file-pdf-o"></i>
+                    <span>${file.name} (${formatFileSize(file.size)})</span>
+                    <button type="button" class="remove-file" data-target="${input.id}">×</button>
+                </div>
+            `;
+            base64Input.value = e.target.result;
+            
+            // Reattach remove button event
+            preview.querySelector('.remove-file').addEventListener('click', function() {
+                clearUpload(preview.id, base64Input.id, input.id);
+            });
+            
+            hideLoading();
+            showMessage('PDF uploaded successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    function clearUpload(previewId, base64Id, inputId) {
+        const preview = document.getElementById(previewId);
+        const base64Input = document.getElementById(base64Id);
+        const fileInput = document.getElementById(inputId);
+        
+        if (previewId.includes('Preview')) {
+            const icon = previewId.includes('pdf') ? 'upload' : 'image';
+            const text = previewId.includes('pdf') ? 'PDF' : 'image';
+            preview.innerHTML = `
+                <div class="upload-placeholder">
+                    <i class="fa fa-${icon}"></i>
+                    <span>Click to upload ${text}</span>
+                </div>
+            `;
+        }
+        
+        base64Input.value = '';
+        fileInput.value = '';
+        
+        // Reattach click event
+        preview.addEventListener('click', () => fileInput.click());
+    }
+    
+    function showLoading(message = 'Processing...', details = '') {
+        isLoading = true;
+        const overlay = document.getElementById('loadingOverlay');
+        const loadingText = overlay.querySelector('.loading-text');
+        const loadingDetails = overlay.querySelector('.loading-details');
+        
+        loadingText.textContent = message;
+        loadingDetails.textContent = details;
+        overlay.style.display = 'flex';
+        
+        // Disable all buttons
+        document.querySelectorAll('button').forEach(btn => {
+            if (!btn.id.includes('preview')) {
+                btn.disabled = true;
+                btn.classList.add('btn-loading');
+            }
+        });
+    }
+    
+    function hideLoading() {
+        isLoading = false;
+        const overlay = document.getElementById('loadingOverlay');
+        overlay.style.display = 'none';
+        
+        // Enable all buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove('btn-loading');
+        });
+    }
+    
+    function updateLoadingDetails(text) {
+        const loadingDetails = document.getElementById('loadingDetails');
+        loadingDetails.textContent = text;
+    }
+    
+    function submitForm(status, loadingMessage) {
+        if (isLoading) return;
+        
+        const formData = {
+            id: document.getElementById('researchId')?.value || '',
+            title: document.getElementById('researchTitle').value,
+            authors: document.getElementById('researchAuthors').value,
+            abstract: document.getElementById('researchAbstract').value,
+            full_text: document.getElementById('researchFullText').value,
+            research_type: document.getElementById('researchType').value,
+            journal_name: document.getElementById('journalName').value,
+            publisher: document.getElementById('publisher').value,
+            doi: document.getElementById('researchDOI').value,
+            publication_date: document.getElementById('publicationDate').value,
+            volume: document.getElementById('volume').value,
+            issue: document.getElementById('issue').value,
+            pages: document.getElementById('pages').value,
+            url: document.getElementById('researchURL').value,
+            keywords: document.getElementById('researchKeywords').value,
+            thumbnail_image: document.getElementById('thumbnailImageBase64').value,
+            featured_image: document.getElementById('featuredImageBase64').value,
+            pdf_file: document.getElementById('pdfFileBase64').value,
+            status: status,
+            is_featured: document.getElementById('isFeatured').checked
+        };
+        
+        // Validate required fields
+        if (!formData.title || !formData.abstract || !formData.publication_date || !formData.research_type) {
+            showMessage('Please fill in all required fields', 'error');
+            return;
+        }
+        
+        // Validate thumbnail if it's a new research
+        if (!formData.id && !formData.thumbnail_image && !('{{ research.thumbnail_image }}' !== '')) {
+            showMessage('Please upload a thumbnail image', 'error');
+            return;
+        }
+        
+        showLoading(loadingMessage, 'Validating data...');
+        
+        // Simulate progress updates
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+            progress += 10;
+            updateLoadingDetails(`Processing... ${progress}%`);
+            if (progress >= 90) clearInterval(progressInterval);
+        }, 300);
+        
+        // Send to server
+        fetch('{% url "research-save" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            clearInterval(progressInterval);
+            updateLoadingDetails('Finalizing...');
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                updateLoadingDetails('Success! Redirecting...');
+                
+                // Show success message in form
+                setTimeout(() => {
+                    hideLoading();
+                    showMessage(data.message, 'success');
+                    
+                    if (data.research_id && !formData.id) {
+                        // Update the form with new ID for future edits
+                        if (!document.getElementById('researchId')) {
+                            const hiddenInput = document.createElement('input');
+                            hiddenInput.type = 'hidden';
+                            hiddenInput.id = 'researchId';
+                            hiddenInput.value = data.research_id;
+                            document.getElementById('researchForm').appendChild(hiddenInput);
+                        }
+                        document.getElementById('researchId').value = data.research_id;
+                        
+                        // Update buttons
+                        document.getElementById('publishBtn').innerHTML = `
+                            <span class="btn-text">Update Research</span>
+                            <span class="btn-loader" style="display: none;">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </span>
+                        `;
+                        if (document.getElementById('deleteBtn')) {
+                            document.getElementById('deleteBtn').style.display = 'inline-block';
+                        }
+                    }
+                    
+                    // If published, redirect after delay
+                    if (status === 'published') {
+                        setTimeout(() => {
+                            window.location.href = '{% url "research-list-admin" %}';
+                        }, 2000);
+                    }
+                }, 1000);
+            } else {
+                hideLoading();
+                showMessage(data.error || 'Error saving research', 'error');
+            }
+        })
+        .catch(error => {
+            hideLoading();
+            showMessage('Network error: ' + error.message, 'error');
+        });
+    }
+    
+    function previewResearch() {
+        // Collect form data
+        const formData = {
+            title: document.getElementById('researchTitle').value,
+            abstract: document.getElementById('researchAbstract').value,
+            // ... collect other data
+        };
+        
+        // Store in sessionStorage for preview page
+        sessionStorage.setItem('researchPreview', JSON.stringify(formData));
+        
+        // Open preview in new tab
+        window.open('/research/preview/', '_blank');
+    }
+    
+    function deleteResearch(loadingMessage) {
+        if (!confirm('Are you sure you want to delete this research? This action cannot be undone.')) {
+            return;
+        }
+        
+        const researchId = document.getElementById('researchId').value;
+        
+        showLoading(loadingMessage, 'Preparing to delete...');
+        
+        fetch('{% url "research-delete" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({ id: researchId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateLoadingDetails('Deleted successfully! Redirecting...');
+                setTimeout(() => {
+                    hideLoading();
+                    showMessage(data.message, 'success');
+                    setTimeout(() => {
+                        window.location.href = '{% url "research-list-admin" %}';
+                    }, 1500);
+                }, 1000);
+            } else {
+                hideLoading();
+                showMessage(data.error || 'Error deleting research', 'error');
+            }
+        })
+        .catch(error => {
+            hideLoading();
+            showMessage('Network error: ' + error.message, 'error');
+        });
+    }
+    
+    function showMessage(text, type) {
+        const messageDiv = document.getElementById('formMessage');
+        messageDiv.textContent = text;
+        messageDiv.className = `form-message ${type}`;
+        messageDiv.style.display = 'block';
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 5000);
+    }
+    
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    // Add input validation
+    const requiredFields = ['researchTitle', 'researchAbstract', 'publicationDate', 'researchType'];
+    requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    this.style.borderColor = '#dc3545';
+                    this.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.1)';
+                } else {
+                    this.style.borderColor = '#ddd';
+                    this.style.boxShadow = 'none';
+                }
+            });
+        }
+    });
+});
+</script>
+
+{% include 'Admin/__footer.html' %}
